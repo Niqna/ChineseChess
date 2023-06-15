@@ -35,6 +35,7 @@ Window {
         Setting{}
     }
 
+
 //    MediaPlayer{
 //        id:bgm
 //        source: "qrc:/music/bg4.mp3"

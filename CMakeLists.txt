@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.26)
+cmake_minimum_required(VERSION 3.14)
 
 project(ChineseChess VERSION 0.1 LANGUAGES CXX)
 
@@ -28,7 +28,7 @@ qt_add_qml_module(appChineseChess
         Online.qml
         Mainpage.qml
         Setting.qml
-        Game.qml
+        Local.qml
 )
 
 target_compile_features(appChineseChess PRIVATE cxx_std_20)
@@ -52,87 +52,3 @@ install(TARGETS appChineseChess
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#qt_add_executable(Message)  //Creates and finalizes an application target of a platform-specific type.
-#This command performs the following tasks:
-#    1. Create a CMake target of the appropriate type for the target platform.
-#    2. Link the target to the Qt::Core library.
-#    3. Handle finalization of the CMake target.
-
-
-
-# qt_standard_project_setup()     #set(CMAKE_AUTOUIC ON)  set(CMAKE_AUTOMOC ON)
-
-# @if %{HasTranslation}
-# find_package(Qt6 REQUIRED COMPONENTS Core Quick LinguistTools)
-# @else
-# find_package(Qt6 REQUIRED COMPONENTS Core Quick)
-# @endif
-
-# target_sources(appMessage
-#     PRIVATE
-#         main.cpp
-#         qml.qrc
-#     @if %{HasTranslation}
-#         %{TsFileName}
-#     @endif
-#
-#     PUBLIC
-#
-# )
-
-# qt_import_qml_plugins(Message)
