@@ -1,4 +1,5 @@
 import QtQuick 2.15
+import QtQuick.Controls 2.2
 
 Item {
     width: 480
@@ -36,4 +37,19 @@ Item {
         y:400
         source: "qrc:/image/chessboard.png"
     }
+
+    Slider{
+        x:250
+        y:320
+        id:slider
+        stepSize: 0.1
+        from: 0; to:100
+        value: 100
+        orientation: Qt.Horizontal
+        snapMode: "SnapAlways"
+        onValueChanged: {
+            bgm.audioOutput.volume=value/100
+        }
+    }
+
 }

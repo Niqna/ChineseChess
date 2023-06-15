@@ -22,25 +22,40 @@ Window {
 
     Component{
         id:help
-        Help{}
+        Helppage{}
     }
 
     Component{
         id:online
-        Online{}
+        Onlinepage{}
     }
 
     Component{
         id:setting
-        Setting{}
+        Settingpage{}
     }
 
+    Component{
+        id:local
+        Localpage{}
+    }
 
-//    MediaPlayer{
-//        id:bgm
-//        source: "qrc:/music/bg4.mp3"
-//        audioOutput: AudioOutput{}
-//    }
+    MediaPlayer{
+        id:bgm
+        //autoPlay:false
+        source: "qrc:/music/bg4.mp3"
+        audioOutput: AudioOutput{}
+    }
 
+    Timer{
+        id:musictimer
+        interval: 100
+        running: true
+        repeat: true
+        onTriggered: {
+            bgm.play()
+            running=false
+        }
+    }
 }
 

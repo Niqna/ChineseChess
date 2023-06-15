@@ -19,12 +19,6 @@ Item {
         }
     }
 
-
-    Component{
-        id:localpage
-        Local{}
-    }
-
     Image {
         id: juanzhou
         anchors.horizontalCenter: parent.horizontalCenter
@@ -46,7 +40,7 @@ Item {
             }
         }
         Image {
-            id: local
+            id: localbg
             source: "qrc:/image/04.png"
             anchors.horizontalCenter: parent.horizontalCenter
             width: 250; height: 80
@@ -59,7 +53,7 @@ Item {
                 anchors.centerIn: parent.Center
                 TapHandler{
                     onTapped: {
-                        myLoader.sourceComponent=localpage
+                        myLoader.sourceComponent=local
                     }
                 }
             }

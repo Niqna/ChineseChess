@@ -55,7 +55,7 @@ Item {
             source: "qrc:/image/04.png"
             anchors.horizontalCenter: parent.horizontalCenter
             width: 250; height: 80
-            y:330
+            y:340
             Text {
                 x:90; y:20
                 color: "white"
@@ -64,7 +64,7 @@ Item {
                 anchors.centerIn: parent.Center
                 TapHandler{
                     onTapped: {
-                        myLoader.sourceComponent=onlinepage
+                        myLoader.sourceComponent=online
                     }
                 }
             }

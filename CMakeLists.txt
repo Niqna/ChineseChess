@@ -23,12 +23,6 @@ qt_add_qml_module(appChineseChess
     SOURCES
 
     QML_FILES
-        main.qml
-        Help.qml
-        Online.qml
-        Mainpage.qml
-        Setting.qml
-        Local.qml
 )
 
 target_compile_features(appChineseChess PRIVATE cxx_std_20)
@@ -52,3 +46,6 @@ install(TARGETS appChineseChess
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
+find_package(Qt6 REQUIRED COMPONENTS SpatialAudio)
+target_link_libraries(appChineseChess PRIVATE Qt6::SpatialAudio)

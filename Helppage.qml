@@ -20,28 +20,27 @@ Item {
         source: "qrc:/image/3-1.png"
         TapHandler{
             onTapped: {
-                if(i>1&&i<4){
-                    i--
-                }
-                else{
-                    i=3
-                }
-                if(i===1){
-                    rect1.visible=true
-                    rect2.visible=false
-                    rect3.visible=false
-                }
-                if(i===2){
+                switch(i){
+                case 3:
+                    i=2
                     rect2.visible=true
                     rect1.visible=false
                     rect3.visible=false
-                }
-                if(i===3){
+                    break;
+                case 1:
+                    i=3
                     rect3.visible=true
-                    rect2.visible=false
                     rect1.visible=false
-                }
+                    rect2.visible=false
+                    break;
+                case 2:
+                    i=1
+                    rect1.visible=true
+                    rect2.visible=false
+                    rect3.visible=false
+                    break;
 
+                }
                 title.source="qrc:/image/help"+i+".png"
             }
         }
@@ -54,38 +53,39 @@ Item {
         source: "qrc:/image/3-2.png"
         TapHandler{
             onTapped: {
-                if(i<3){
-                    i++
-                }
-                else{
-                    i=1
-                }
-                if(i===1){
-                    rect1.visible=true
-                    rect2.visible=false
-                    rect3.visible=false
-                }
-                if(i===2){
-                    rect3.visible=true
-                    rect1.visible=false
-                    rect2.visible=false
-                }
-                if(i===3){
+
+                switch(i){
+                case 1:
+                    i=2
                     rect2.visible=true
                     rect1.visible=false
                     rect3.visible=false
+                    break;
+                case 2:
+                    i=3
+                    rect3.visible=true
+                    rect1.visible=false
+                    rect2.visible=false
+                    break;
+                case 3:
+                    i=1
+                    rect1.visible=true
+                    rect2.visible=false
+                    rect3.visible=false
+                    break;
                 }
-
                 title.source="qrc:/image/help"+i+".png"
             }
         }
     }
+
     Image {
         id: title
         x:110
         y:95
         source: "qrc:/image/help1.png"
     }
+
     Rectangle{
         id:rect1
         x:45
