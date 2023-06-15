@@ -8,7 +8,6 @@ Item {
     property int i: 1
     width: 480
     height: 854
-    visible: false
     Image {
         id: bg2
         source: "qrc:/image/01.png"
@@ -190,5 +189,10 @@ Item {
         x:30
         y:700
         source: "qrc:/image/back.png"
+        TapHandler{
+            onTapped: {
+                myLoader.sourceComponent=main
+            }
+        }
     }
 }

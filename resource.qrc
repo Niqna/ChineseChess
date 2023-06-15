@@ -1,0 +1,46 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/1-1.png</file>
+        <file>image/1-2.png</file>
+        <file>image/1-3.png</file>
+        <file>image/1-4.png</file>
+        <file>image/01.png</file>
+        <file>image/3-1.png</file>
+        <file>image/3-2.png</file>
+        <file>image/04.png</file>
+        <file>image/7-1.png</file>
+        <file>image/7-2.png</file>
+        <file>image/7-3.png</file>
+        <file>image/7-4.png</file>
+        <file>image/8-1.png</file>
+        <file>image/8-2.png</file>
+        <file>image/8-3.png</file>
+        <file>image/8-4.png</file>
+        <file>image/back.png</file>
+        <file>image/bg2.png</file>
+        <file>image/help1.png</file>
+        <file>image/help2.png</file>
+        <file>image/help3.png</file>
+        <file>image/setting.png</file>
+        <file>image/music.png</file>
+        <file>image/chessboard.png</file>
+        <file>music/bg2.mp3</file>
+        <file>music/bg4.mp3</file>
+        <file>music/button.wav</file>
+        <file>image/1-01.png</file>
+        <file>image/redbing.png</file>
+        <file>image/redxiang.png</file>
+        <file>image/redjv.png</file>
+        <file>image/redma.png</file>
+        <file>image/redpao.png</file>
+        <file>image/redshi.png</file>
+        <file>image/redshuai.png</file>
+        <file>image/blackjv.png</file>
+        <file>image/blackma.png</file>
+        <file>image/blackpao.png</file>
+        <file>image/blackshi.png</file>
+        <file>image/blackxiang.png</file>
+        <file>image/blackzu.png</file>
+        <file>image/blackjiang.png</file>
+    </qresource>
+</RCC>

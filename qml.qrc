@@ -1,22 +1,10 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>image/01.png</file>
-        <file>image/3-1.png</file>
-        <file>image/3-2.png</file>
-        <file>image/7-1.png</file>
-        <file>image/7-2.png</file>
-        <file>image/7-3.png</file>
-        <file>image/7-4.png</file>
-        <file>image/8-1.png</file>
-        <file>image/8-2.png</file>
-        <file>image/8-3.png</file>
-        <file>image/8-4.png</file>
-        <file>image/bg2.png</file>
-        <file>image/help1.png</file>
-        <file>image/help2.png</file>
-        <file>image/help3.png</file>
-        <file>image/back.png</file>
         <file>Help.qml</file>
+        <file>Online.qml</file>
+        <file>Mainpage.qml</file>
+        <file>Setting.qml</file>
+        <file>Game.qml</file>
     </qresource>
 </RCC>

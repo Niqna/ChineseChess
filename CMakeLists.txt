@@ -1,53 +1,40 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.26)
 
-project(chess VERSION 0.1 LANGUAGES CXX)
+project(ChineseChess VERSION 0.1 LANGUAGES CXX)
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
+find_package(Qt6 6.4 REQUIRED COMPONENTS Quick)
 
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
+qt_standard_project_setup()
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+qt_add_executable(appChineseChess)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick)
-
-set(PROJECT_SOURCES
+target_sources(appChineseChess
+    PRIVATE
         main.cpp
         qml.qrc
+        resource.qrc
+    PUBLIC
+
 )
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(chess
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-    )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET chess APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-else()
-    if(ANDROID)
-        add_library(chess SHARED
-            ${PROJECT_SOURCES}
-        )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    else()
-        add_executable(chess
-          ${PROJECT_SOURCES}
-        )
-    endif()
-endif()
+qt_add_qml_module(appChineseChess
+    URI ChineseChess
+    VERSION 1.0
+    SOURCES
 
-target_compile_definitions(chess
-  PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-target_link_libraries(chess
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
+    QML_FILES
+        main.qml
+        Help.qml
+        Online.qml
+        Mainpage.qml
+        Setting.qml
+        Game.qml
+)
 
-set_target_properties(chess PROPERTIES
+target_compile_features(appChineseChess PRIVATE cxx_std_20)
+
+set_target_properties(appChineseChess PROPERTIES
+    AUTORCC TRUE
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -55,7 +42,97 @@ set_target_properties(chess PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_import_qml_plugins(chess)
-    qt_finalize_executable(chess)
-endif()
+target_link_libraries(appChineseChess
+    PRIVATE
+        Qt6::Quick
+)
+
+install(TARGETS appChineseChess
+    BUNDLE DESTINATION .
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#qt_add_executable(Message)  //Creates and finalizes an application target of a platform-specific type.
+#This command performs the following tasks:
+#    1. Create a CMake target of the appropriate type for the target platform.
+#    2. Link the target to the Qt::Core library.
+#    3. Handle finalization of the CMake target.
+
+
+
+# qt_standard_project_setup()     #set(CMAKE_AUTOUIC ON)  set(CMAKE_AUTOMOC ON)
+
+# @if %{HasTranslation}
+# find_package(Qt6 REQUIRED COMPONENTS Core Quick LinguistTools)
+# @else
+# find_package(Qt6 REQUIRED COMPONENTS Core Quick)
+# @endif
+
+# target_sources(appMessage
+#     PRIVATE
+#         main.cpp
+#         qml.qrc
+#     @if %{HasTranslation}
+#         %{TsFileName}
+#     @endif
+#
+#     PUBLIC
+#
+# )
+
+# qt_import_qml_plugins(Message)
