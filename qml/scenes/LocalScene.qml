@@ -1,29 +1,34 @@
 import QtQuick 2.15
-import QtQuick.Controls 2.0
+import Felgo 3.0
+import "../common"
 
-Item {
-    width: 480
-    height: 854
-    Image {
-        source: "qrc:/image/01.png"
-        anchors.fill: parent
-        Text {
-            width: 180; height: 48
-            x:180; y:95
-            color: "white"
-            text: '局域网'
-            font.pixelSize: 40
-        }
+// LOCAL SCENE
+
+SceneBase {
+    id: localScene
+    anchors.fill: parent
+    BackgroundImage {
+        source: "../../assets/image/01.png"
+        anchors.fill: parent.gameWindowAnchorItem
     }
-
+    Text {
+        id: title
+        width: localScene.width/4
+        height: 48
+        x: localScene.width/2 - title.width/2
+        y: localScene.height/9
+        color: "white"
+        text: '局域网'
+        font.pixelSize: 40
+    }
     Image {
         id: juanzhou
         anchors.horizontalCenter: parent.horizontalCenter
         y:180
-        source: "qrc:/image/1-4.png"
+        source: "../../assets/image/1-4.png"
 
         Image {
-            source: "qrc:/image/04.png"
+            source: "../../assets/image/04.png"
             anchors.horizontalCenter: parent.horizontalCenter
             width: 250; height: 80
             y:110
@@ -37,7 +42,7 @@ Item {
         }
 
         Image {
-            source: "qrc:/image/04.png"
+            source: "../../assets/image/04.png"
             anchors.horizontalCenter: parent.horizontalCenter
             width: 250; height: 80
             y:220
@@ -52,10 +57,10 @@ Item {
 
         Image {
             id: local
-            source: "qrc:/image/04.png"
+            source: "../../assets/image/04.png"
             anchors.horizontalCenter: parent.horizontalCenter
             width: 250; height: 80
-            y:340
+            y:330
             Text {
                 x:90; y:20
                 color: "white"
@@ -64,10 +69,11 @@ Item {
                 anchors.centerIn: parent.Center
                 TapHandler{
                     onTapped: {
-                        myLoader.sourceComponent=online
+                        backButtonPressed()
                     }
                 }
             }
         }
     }
+
 }
