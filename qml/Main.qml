@@ -5,8 +5,8 @@ import "scenes"
 
 GameWindow {
     id: window
-    screenWidth: 480
-    screenHeight: 854
+    screenWidth: 486
+    screenHeight: 864
 
     // menu scene
     MenuScene {
@@ -15,7 +15,16 @@ GameWindow {
         onHelpPressed: window.state = "help"
         onLocalPressed: window.state = "local"
         onSettingPressed: window.state = "setting"
-        onGamePressed: window.state="game"
+        onSoloPressed: window.state="solo"
+    }
+
+    // solo scene
+    SoloScene {
+        id: soloScene
+        onBackButtonPressed: window.state = "menu"
+        onGamePressed: window.state = "game"
+//        onCreateRoomPressed:window.state= "createRoom"
+//        onJoinRoomPressed: window.state= "joinRoom"
     }
 
     // local scene
@@ -36,6 +45,14 @@ GameWindow {
     SettingScene {
         id: settingScene
         onBackButtonPressed: window.state = "menu"
+    }
+
+    // game scene
+    GameScene {
+        id: gameScene
+        onBackButtonPressed: window.state = "menu"
+        theme: settingScene.theme
+
     }
 
     // create scene
@@ -62,6 +79,11 @@ GameWindow {
             PropertyChanges {target: window; activeScene: menuScene}
         },
         State {
+            name: "solo"
+            PropertyChanges {target: soloScene; opacity: 1}
+            PropertyChanges {target: window; activeScene: soloScene}
+        },
+        State {
             name: "local"
             PropertyChanges {target: localScene; opacity: 1}
             PropertyChanges {target: window; activeScene: localScene}
@@ -85,6 +107,11 @@ GameWindow {
             name: "joinRoom"
             PropertyChanges {target: joinRoomScene; opacity: 1}
             PropertyChanges {target: window; activeScene: joinRoomScene}
+        },
+        State {
+            name: "game"
+            PropertyChanges {target: gameScene; opacity: 1}
+            PropertyChanges {target: window; activeScene: gameScene}
         }
     ]
 }

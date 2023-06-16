@@ -191,8 +191,7 @@ SceneBase {
 
     Image {
         id: back
-        x:30
-        y:700
+        y:750
         source: "../../assets/image/back.png"
         TapHandler{
             onTapped: {
@@ -200,6 +199,4 @@ SceneBase {
             }
         }
     }
-
-
 }

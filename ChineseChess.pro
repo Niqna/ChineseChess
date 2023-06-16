@@ -68,4 +68,5 @@ DISTFILES += \
     qml/scenes/HelpScene.qml \
     qml/scenes/LocalScene.qml \
     qml/scenes/MenuScene.qml \
-    qml/scenes/SettingScene.qml
+    qml/scenes/SettingScene.qml \
+    qml/scenes/SoloScene.qml

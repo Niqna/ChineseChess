@@ -7,6 +7,8 @@ SceneBase {
     id: menuScene
 
     // signal indicating that the localScene should be displayed
+    signal soloPressed
+    // signal indicating that the localScene should be displayed
     signal localPressed
     // signal indicating that the helpScene should be displayed
     signal helpPressed
@@ -31,6 +33,11 @@ SceneBase {
             width: parent.width-50
             height: parent.height-50
             source: "../../assets/image/8-1.png"
+            TapHandler{
+                onTapped: {
+                    onclicked: soloPressed()
+                }
+            }
         }
     }
 

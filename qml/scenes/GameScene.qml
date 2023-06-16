@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.15
 import Felgo 3.0
 import "../common"
 import "../entity"
@@ -6,6 +6,7 @@ import "../entity"
 // EMPTY SCENE
 
 SceneBase {
+
     property int theme:  1
 
     id: gameScene
@@ -14,6 +15,18 @@ SceneBase {
     BackgroundImage {
         anchors.fill: parent.gameWindowAnchorItem
         source: "../../assets/image/gameImage/" + theme + "-01.png"
+    }
+
+    Image {
+        id: back
+        x: 100
+        y:750
+        source: "../../assets/image/back.png"
+        TapHandler{
+            onTapped: {
+                backButtonPressed()
+            }
+        }
     }
 
     Image {
