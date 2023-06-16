@@ -1,11 +1,12 @@
 import Felgo 3.0
 import QtQuick 2.0
-import "./scenes"
+
+import "scenes"
 
 GameWindow {
     id: window
-    screenWidth: 486
-    screenHeight: 864
+    screenWidth: 480
+    screenHeight: 854
 
     // menu scene
     MenuScene {
@@ -14,12 +15,15 @@ GameWindow {
         onHelpPressed: window.state = "help"
         onLocalPressed: window.state = "local"
         onSettingPressed: window.state = "setting"
+        onGamePressed: window.state="game"
     }
 
     // local scene
     LocalScene {
         id: localScene
         onBackButtonPressed: window.state = "menu"
+        onCreateRoomPressed:window.state= "createRoom"
+        onJoinRoomPressed: window.state= "joinRoom"
     }
 
     // help scene
@@ -34,13 +38,21 @@ GameWindow {
         onBackButtonPressed: window.state = "menu"
     }
 
-    GameScene {
-        id: gameScene
+    // create scene
+    CreateRoomScene {
+        id:createRoomScene
+        onBackButtonPressed: window.state = "local"
+    }
+
+    // join scece
+    JoinRoomScene {
+        id:joinRoomScene
+        onBackButtonPressed: window.state = "local"
     }
 
     // menuScene is our first scene, so set the state to menu initially
-    state: "game"
-    activeScene: gameScene
+    state: "menu"
+    activeScene: menuScene
 
     // state machine, takes care reversing the PropertyChanges when changing the state, like changing the opacity back to 0
     states: [
@@ -65,9 +77,14 @@ GameWindow {
             PropertyChanges {target: window; activeScene: settingScene}
         },
         State {
-            name: "game"
-            PropertyChanges {target: gameScene; opacity: 1}
-            PropertyChanges {target: window; activeScene: gameScene}
+            name: "createRoom"
+            PropertyChanges {target: createRoomScene; opacity: 1}
+            PropertyChanges {target: window; activeScene: createRoomScene}
+        },
+        State {
+            name: "joinRoom"
+            PropertyChanges {target: joinRoomScene; opacity: 1}
+            PropertyChanges {target: window; activeScene: joinRoomScene}
         }
     ]
 }
