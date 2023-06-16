@@ -62,7 +62,9 @@ macx {
 
 DISTFILES += \
     qml/common/SceneBase.qml \
+    qml/scenes/CreateRoomScene.qml \
     qml/scenes/HelpScene.qml \
+    qml/scenes/JoinRoomScene.qml \
     qml/scenes/LocalScene.qml \
     qml/scenes/MenuScene.qml \
     qml/scenes/SettingScene.qml

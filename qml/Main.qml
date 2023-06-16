@@ -14,12 +14,15 @@ GameWindow {
         onHelpPressed: window.state = "help"
         onLocalPressed: window.state = "local"
         onSettingPressed: window.state = "setting"
+
     }
 
     // local scene
     LocalScene {
         id: localScene
         onBackButtonPressed: window.state = "menu"
+        onCreateRoomPressed:window.state= "createRoom"
+        onJoinRoomPressed: window.state= "joinRoom"
     }
 
     // help scene
@@ -32,6 +35,18 @@ GameWindow {
     SettingScene {
         id: settingScene
         onBackButtonPressed: window.state = "menu"
+    }
+
+    // create scene
+    CreateRoomScene {
+        id:createRoomScene
+        onBackButtonPressed: window.state = "local"
+    }
+
+    // join scece
+    JoinRoomScene {
+        id:joinRoomScene
+        onBackButtonPressed: window.state = "local"
     }
 
     // menuScene is our first scene, so set the state to menu initially
@@ -59,6 +74,16 @@ GameWindow {
             name: "setting"
             PropertyChanges {target: settingScene; opacity: 1}
             PropertyChanges {target: window; activeScene: settingScene}
+        },
+        State {
+            name: "createRoom"
+            PropertyChanges {target: createRoomScene; opacity: 1}
+            PropertyChanges {target: window; activeScene: createRoomScene}
+        },
+        State {
+            name: "joinRoom"
+            PropertyChanges {target: joinRoomScene; opacity: 1}
+            PropertyChanges {target: window; activeScene: joinRoomScene}
         }
     ]
 }
