@@ -1,15 +1,26 @@
 import QtQuick 2.15
 import Felgo 3.0
-import QtMultimedia 5.15
+
 import "../common"
 
 // Setting SCENE
 
 SceneBase {
-
-    property int theme
+    property int theme: 1
     id: settingScene
     anchors.fill: parent
+
+    function updateTheme() {
+        if(theme === 1)
+            chooseTheme.jumpTo("theme1")
+        if(theme === 2)
+            chooseTheme.jumpTo("theme2")
+        if(theme === 3)
+            chooseTheme.jumpTo("theme3")
+        if(theme === 4)
+            chooseTheme.jumpTo("theme4")
+    }
+
     BackgroundImage {
         anchors.fill: parent.gameWindowAnchorItem
         source: "../../assets/image/01.png"
@@ -20,6 +31,7 @@ SceneBase {
         source: "../../assets/image/back.png"
         TapHandler{
             onTapped: {
+                updateTheme()
                 backButtonPressed()
             }
         }
@@ -54,24 +66,8 @@ SceneBase {
         source: "../../assets/image/3-1.png"
         TapHandler{
             onTapped: {
-                switch(theme){
-                case 1:
-                    theme = 4
-                    chooseTheme.jumpTo("theme4")
-                    break
-                case 2:
-                    theme = 1
-                    chooseTheme.jumpTo("theme1")
-                    break
-                case 3:
-                    theme = 2
-                    chooseTheme.jumpTo("theme2")
-                    break
-                case 4:
-                    theme = 3
-                    chooseTheme.jumpTo("theme3")
-                    break
-                }
+                theme = (theme + 2) % 4 + 1
+                updateTheme()
             }
         }
     }
@@ -127,55 +123,21 @@ SceneBase {
         source: "../../assets/image/3-2.png"
         TapHandler{
             onTapped: {
-                switch(theme){
-                case 3:
-                    theme = 4
-                    chooseTheme.jumpTo("theme4")
-                    break
-                case 4:
-                    theme = 1
-                    chooseTheme.jumpTo("theme1")
-                    break
-                case 1:
-                    theme = 2
-                    chooseTheme.jumpTo("theme2")
-                    break
-                case 2:
-                    theme = 3
-                    chooseTheme.jumpTo("theme3")
-                    break
-                }
+                theme = theme % 4 + 1
+                updateTheme()
             }
         }
     }
 
-    MediaPlayer{
-        id:bgm
-//        autoPlay:false
-        source: "../../assets/music/bg4.mp3"
-    }
-
-    Timer{
-        id:musictimer
-        interval: 100
-        running: true
-        repeat: true
-        onTriggered: {
-            bgm.play()
-            running=false
-        }
-    }
-
     GameSlider{
+        id:slider
         x: musicImg.x + musicImg.width - 20
         y: musicImg.y + musicImg.height/4
         width: settingScene.width - 260
-        id:slider
-        value: 1
+        value: bgm.volume
         orientation: Qt.Horizontal
         onValueChanged: {
             bgm.volume=value
-            console.log(value)
         }
     }
 

@@ -5,6 +5,10 @@ import "../common"
 // CREATEROOM SCENE
 
 SceneBase {
+
+    // signal indicating that the gameScene should be displayed
+    signal gamePressed
+
     id: joinRoomScene
     anchors.fill: parent
     BackgroundImage {
@@ -13,10 +17,8 @@ SceneBase {
     }
     Text {
         id: title
-        width: localScene.width/4
-        height: 48
-        x: localScene.width/2 - title.width/2
-        y: localScene.height/9
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: createRoomScene.height/9
         color: "white"
         text: '加入房间'
         font.pixelSize: 40
@@ -30,10 +32,11 @@ SceneBase {
         Text {
             x:60; y:110
             font.pixelSize: 30
-            text: qsTr("Port:")
+            text: qsTr("IP:")
         }
 
         AppTextField{
+            id: ip
             x:80; y:150
             width: 210
             height: 40
@@ -43,10 +46,11 @@ SceneBase {
         Text {
             x:60; y:210
             font.pixelSize: 30
-            text: qsTr("IP:")
+            text: qsTr("Port:")
         }
 
         AppTextField{
+            id: port
             x:80; y:250
             width: 210
             height: 40
@@ -61,17 +65,29 @@ SceneBase {
             Text {
                 x:90; y:20
                 color: "white"
-                text: '返回'
+                text: '加入'
                 font.pixelSize: 30
                 anchors.centerIn: parent.Center
-                TapHandler{
-                    onTapped: {
-                        backButtonPressed()
-                    }
+            }
+            TapHandler{
+                onTapped: {
+                    gamePressed()
+                    gameScene.init()
+                    gameScene.camp = 0
                 }
             }
         }
     }
-
+    Image {
+        id: back
+        x: 0
+        y:750
+        source: "../../assets/image/back.png"
+        TapHandler{
+            onTapped: {
+                backButtonPressed()
+            }
+        }
+    }
 }
 

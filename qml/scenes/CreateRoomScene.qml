@@ -5,6 +5,10 @@ import "../common"
 // CREATEROOM SCENE
 
 SceneBase {
+
+    // signal indicating that the gameScene should be displayed
+    signal gamePressed
+
     id: createRoomScene
     anchors.fill: parent
     BackgroundImage {
@@ -13,10 +17,8 @@ SceneBase {
     }
     Text {
         id: title
-        width: localScene.width/4
-        height: 48
-        x: localScene.width/2 - title.width/2
-        y: localScene.height/9
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: createRoomScene.height/9
         color: "white"
         text: '创建房间'
         font.pixelSize: 40
@@ -28,13 +30,14 @@ SceneBase {
         source: "../../assets/image/1-4.png"
 
         Text {
-            x:60; y:110
+            x:60; y:160
             font.pixelSize: 30
             text: qsTr("Port:")
         }
 
         AppTextField{
-            x:80; y:150
+            id: port
+            x:80; y:200
             width: 210
             height: 40
             color: "black"
@@ -44,7 +47,7 @@ SceneBase {
             source: "../../assets/image/04.png"
             anchors.horizontalCenter: parent.horizontalCenter
             width: 250; height: 80
-            y:230
+            y:280
             Text {
                 x:90; y:20
                 color: "white"
@@ -52,24 +55,42 @@ SceneBase {
                 font.pixelSize: 30
                 anchors.centerIn: parent.Center
             }
+            TapHandler{
+                onTapped: {
+                    gamePressed()
+                    gameScene.init()
+                    gameScene.camp = 1
+                }
+            }
         }
 
-        Image {
-            source: "../../assets/image/04.png"
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: 250; height: 80
-            y:330
-            Text {
-                x:90; y:20
-                color: "white"
-                text: '返回'
-                font.pixelSize: 30
-                anchors.centerIn: parent.Center
-                TapHandler{
-                    onTapped: {
-                        backButtonPressed()
-                    }
-                }
+//        Image {
+//            source: "../../assets/image/04.png"
+//            anchors.horizontalCenter: parent.horizontalCenter
+//            width: 250; height: 80
+//            y:330
+//            Text {
+//                x:90; y:20
+//                color: "white"
+//                text: '返回'
+//                font.pixelSize: 30
+//                anchors.centerIn: parent.Center
+//                TapHandler{
+//                    onTapped: {
+//                        backButtonPressed()
+//                    }
+//                }
+//            }
+//        }
+    }
+    Image {
+        id: back
+        x: 0
+        y:750
+        source: "../../assets/image/back.png"
+        TapHandler{
+            onTapped: {
+                backButtonPressed()
             }
         }
     }
