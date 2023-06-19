@@ -41,9 +41,9 @@ DEPLOYMENTFOLDERS += assetsFolder
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
-    connect.cpp \
-    localplay.cpp \
-    server.cpp
+    server.cpp      \
+    connect.cpp
+
 
 android {
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
@@ -76,6 +76,5 @@ DISTFILES += \
     qml/scenes/SoloScene.qml
 
 HEADERS += \
-    connect.h \
-    localplay.h \
-    server.h
+    server.h\
+    connect.h

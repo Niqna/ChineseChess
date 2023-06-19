@@ -6,6 +6,7 @@ import Connect 1.0
 // CREATEROOM SCENE
 
 SceneBase {
+
     signal connectSig(var p,var i)
     // signal indicating that the gameScene should be displayed
     signal gamePressed
@@ -37,7 +38,7 @@ SceneBase {
         }
 
         AppTextField{
-            id:portText
+            id:ipText
             x:80; y:120
             width: 210
             height: 40
@@ -51,7 +52,7 @@ SceneBase {
         }
 
         AppTextField{
-            id:ipText
+            id: portText
             x:80; y:220
             width: 210
             height: 40
@@ -64,33 +65,9 @@ SceneBase {
             width: 250; height: 80
             y:280
             Text {
-                id:text
                 x:90; y:20
                 color: "white"
                 text: '连接'
-                font.pixelSize: 30
-                anchors.centerIn: parent.Center
-                TapHandler{
-                    onTapped: {
-                        connectSig(portText.getText(0,6),ipText.getText(0,15))
-                    }
-                }
-            }
-        }
-
-        Component.onCompleted: {
-            connectSig.connect(connect.portSlot)
-        }
-
-        Image {
-            source: "../../assets/image/04.png"
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: 250; height: 80
-            y:360
-            Text {
-                x:90; y:20
-                color: "white"
-                text: '加入'
                 font.pixelSize: 30
                 anchors.centerIn: parent.Center
             }
@@ -99,10 +76,38 @@ SceneBase {
                     gamePressed()
                     gameScene.init()
                     gameScene.camp = 0
+                    connectSig(portText.getText(0,6),ipText.getText(0,15))
                 }
             }
         }
     }
+
+    Component.onCompleted: {
+        connectSig.connect(connect.portSlot)
+    }
+
+
+//    Image {
+//        source: "../../assets/image/04.png"
+//        anchors.horizontalCenter: parent.horizontalCenter
+//        width: 250; height: 80
+//        y:360
+//        Text {
+//            x:90; y:20
+//            color: "white"
+//            text: '加入'
+//            font.pixelSize: 30
+//            anchors.centerIn: parent.Center
+//        }
+//        TapHandler{
+//            onTapped: {
+//                gamePressed()
+//                gameScene.init()
+//                gameScene.camp = 0
+
+//            }
+//        }
+//    }
 
     Connect{
         id:connect
