@@ -9,8 +9,6 @@ GameWindow {
     screenWidth: 486
     screenHeight: 864
 
-//    property int theme: 1
-
     // setting scene
     SettingScene {
         id: settingScene
