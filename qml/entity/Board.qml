@@ -1,11 +1,19 @@
-import QtQuick 2.0
+import QtQuick 2.15
 import Felgo 3.0
 
 Rectangle {
 
-    property int boardtheme
+    //    signal firstMouseEvent
 
+    property int boardtheme
     property int camp
+
+    property bool isfirstchoose: true
+    property int _row
+    property int _col
+    property int first_row
+    property int first_col
+    property int rowcol
 
     id: board
     x: parent.x
@@ -14,17 +22,59 @@ Rectangle {
     height: 540
     color: "transparent"
 
-    function move(row1, col1, row2, col2) {
+    function xy_to_rowcol(x,y) {
+        _row = y / 54 + 1
+        _col = x / 54 + 1
+    }
+
+    function choose(_x, _y) {
+        //        _row = xy_to_rowcol(_x)
+        //        _col = xy_to_rowcol(_y)
+        xy_to_rowcol(_x, _y)
+        console.log(_row, _col)
+        if (isfirstchoose) {
+            if (getID(_row, _col)) {
+                clickedBoard.y = (_row - 1) * 54
+                clickedBoard.x = (_col - 1) * 54
+                if(!clickedBoard.visible)
+                    clickedBoard.visible = true
+                else
+                    clickedBoard.visible = false
+                getID(_row, _col).isClicked = true
+                isfirstchoose = false
+                first_row = _row
+                first_col = _col
+            }
+        } else if(_row!=first_row || _col!=first_col){
+            getID(_row, _col).isExist = false
+            getID(_row,_col).row = 0
+            moveStone.start()
+            clickedBoard.visible = false
+            isfirstchoose = true
+            getID(first_row, first_col).isClicked = first
+//            if(getID(_row, _col))
+
+        } else {
+            clickedBoard.visible = false
+            isfirstchoose = true
+        }
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            choose(mouseX,mouseY)
+        }
+    }
+
+    ParallelAnimation {
+        id: moveStone
+        PropertyAnimation { target: getID(first_row, first_col); property: "row"; to: _row; duration: 100}
+        PropertyAnimation { target: getID(first_row, first_col); property: "col"; to: _col; duration: 100}
 
     }
 
-
-    SequentialAnimation {
-        id: move
-
-    }
-
-    Stone { id: opposite_jiang; theme: boardtheme; type: 1}
+    Stone { id: opposite_jiang; theme: boardtheme; type: 1;}
     Stone { id: opposite_shi1; theme: boardtheme; type: 2}
     Stone { id: opposite_xiang1; theme: boardtheme; type: 3}
     Stone { id: opposite_ma1; theme: boardtheme; type: 4}
@@ -57,6 +107,27 @@ Rectangle {
     Stone { id: own_bing3; theme: boardtheme; type: 7}
     Stone { id: own_bing4; theme: boardtheme; type: 7}
     Stone { id: own_bing5; theme: boardtheme; type: 7}
+
+    SpriteSequence {
+        visible: false
+        id: clickedBoard
+        //        anchors.fill: parent
+        width: 54
+        height:54
+        Sprite {
+            name: "click1"
+            source: "../../assets/image/gameImage/click1.png"
+            frameDuration: 300
+            to: { "click2": 1 }
+
+        }
+        Sprite {
+            name: "click2"
+            source: "../../assets/image/gameImage/click2.png"
+            frameDuration: 300
+            to: { "click1": 1 }
+        }
+    }
 
     function init() {
         camp = gameScene.camp
@@ -94,6 +165,42 @@ Rectangle {
         own_bing3.row = 7; own_bing3.col = 5; own_bing3.camp = camp
         own_bing4.row = 7; own_bing4.col = 7; own_bing4.camp = camp
         own_bing5.row = 7; own_bing5.col = 9; own_bing5.camp = camp
+    }
 
+    function getID(row, col) {
+        if( opposite_jiang.row ===row && opposite_jiang.col ===col ) { return opposite_jiang }
+        else if( opposite_shi1.row ===row && opposite_shi1.col ===col ) { return opposite_shi1 }
+        else if( opposite_shi2.row ===row && opposite_shi2.col ===col ) { return opposite_shi2 }
+        else if( opposite_xiang1.row ===row && opposite_xiang1.col ===col ) { return opposite_xiang1 }
+        else if( opposite_xiang2.row ===row && opposite_xiang2.col ===col ) { return opposite_xiang2 }
+        else if( opposite_ma1.row ===row && opposite_ma1.col ===col ) { return opposite_ma1 }
+        else if( opposite_ma2.row ===row && opposite_ma2.col ===col ) { return opposite_ma2 }
+        else if( opposite_ju1.row ===row && opposite_ju1.col ===col ) { return opposite_ju1 }
+        else if( opposite_ju2.row ===row && opposite_ju2.col ===col ) { return opposite_ju2 }
+        else if( opposite_pao1.row ===row && opposite_pao1.col ===col ) { return opposite_pao1 }
+        else if( opposite_pao2.row ===row && opposite_pao2.col ===col ) { return opposite_pao2 }
+        else if( opposite_bing1.row ===row && opposite_bing1.col ===col ) { return opposite_bing1 }
+        else if( opposite_bing2.row ===row && opposite_bing2.col ===col ) { return opposite_bing2 }
+        else if( opposite_bing3.row ===row && opposite_bing3.col ===col ) { return opposite_bing3 }
+        else if( opposite_bing4.row ===row && opposite_bing4.col ===col ) { return opposite_bing4 }
+        else if( opposite_bing5.row ===row && opposite_bing5.col ===col ) { return opposite_bing5 }
+
+        else if( own_jiang.row ===row && own_jiang.col ===col ) { return own_jiang }
+        else if( own_shi1.row ===row && own_shi1.col ===col ) { return own_shi1 }
+        else if( own_shi2.row ===row && own_shi2.col ===col ) { return own_shi2 }
+        else if( own_xiang1.row ===row && own_xiang1.col ===col ) { return own_xiang1 }
+        else if( own_xiang2.row ===row && own_xiang2.col ===col ) { return own_xiang2 }
+        else if( own_ma1.row ===row && own_ma1.col ===col ) { return own_ma1 }
+        else if( own_ma2.row ===row && own_ma2.col ===col ) { return own_ma2 }
+        else if( own_ju1.row ===row && own_ju1.col ===col ) { return own_ju1 }
+        else if( own_ju2.row ===row && own_ju2.col ===col ) { return own_ju2 }
+        else if( own_pao1.row ===row && own_pao1.col ===col ) { return own_pao1 }
+        else if( own_pao2.row ===row && own_pao2.col ===col ) { return own_pao2 }
+        else if( own_bing1.row ===row && own_bing1.col ===col ) { return own_bing1 }
+        else if( own_bing2.row ===row && own_bing2.col ===col ) { return own_bing2 }
+        else if( own_bing3.row ===row && own_bing3.col ===col ) { return own_bing3 }
+        else if( own_bing4.row ===row && own_bing4.col ===col ) { return own_bing4 }
+        else if( own_bing5.row ===row && own_bing5.col ===col ) { return own_bing5 }
+        else return false
     }
 }
