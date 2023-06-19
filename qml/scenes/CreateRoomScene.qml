@@ -11,7 +11,7 @@ SceneBase {
     signal gamePressed
     signal portSig(var s)
     signal cancelSig()
-    signal openGameScene()
+
 
     id: createRoomScene
     anchors.fill: parent
@@ -47,7 +47,6 @@ SceneBase {
             color: "black"
         }
 
-
         Text {
             x:60; y:220
             font.pixelSize: 25
@@ -68,36 +67,31 @@ SceneBase {
             }
             TapHandler{
                 onTapped: {
-                    gamePressed()
-                    gameScene.init()
-                    gameScene.camp = 1
                     portSig(port.getText(0,10))
+                    waitMessage.visible = true
                 }
             }
         }
 
         Component.onCompleted: {
-                    portSig.connect(server.portSlot)
-                }
+            portSig.connect(server.portSlot)
+        }
 
-//        Image {
-//            source: "../../assets/image/04.png"
-//            anchors.horizontalCenter: parent.horizontalCenter
-//            width: 250; height: 80
-//            y:330
-//            Text {
-//                x:90; y:20
-//                color: "white"
-//                text: '返回'
-//                font.pixelSize: 30
-//                anchors.centerIn: parent.Center
-//                TapHandler{
-//                    onTapped: {
-//                        backButtonPressed()
-//                    }
-//                }
-//            }
-//        }
+        Rectangle{
+            id:waitMessage
+            visible: false
+            width: 180
+            height: 40
+            color: "transparent"
+            x:(juanzhou.width-waitMessage.width)/2
+            y:(juanzhou.height-waitMessage.height)/2
+            anchors.centerIn: parent.Center
+            Text {
+                text: qsTr("waiting...")
+                font.pixelSize: 25
+            }
+        }
+
     }
     Image {
         id: back
@@ -111,9 +105,17 @@ SceneBase {
         }
     }
 
+
     Server{
-          id:server
-      }
+        id:server
+
+        onConnectSuccess: {
+            gamePressed()
+            gameScene.camp = 0
+            gameScene.init()
+            waitMessage.visible = false
+        }
+    }
 
 }
 

@@ -42,9 +42,10 @@ void Server::portSlot(QString s)
         return;
     }
 
-    connectSuccess();
-    connect(tcpserver,SIGNAL(newConnection()),this,SLOT(sendMessage()));
-    qDebug()<<"server start";
+    connect(tcpserver,&QTcpServer::newConnection,this,[=](){
+        connectSuccess();
+        qDebug()<<"server start";
+    });
 }
 
 void Server::sendMessage()

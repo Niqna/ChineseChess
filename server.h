@@ -19,7 +19,6 @@ public slots:
     void readMessage();
 
 signals:
-
     void ipChanged();
     void connectSuccess();
 

@@ -4,9 +4,14 @@ Connect::Connect(QObject *parent)
     : QObject{parent}
 {
     tcpsocket = new QTcpSocket(this);
+
+    connect(tcpsocket, &QTcpSocket::connected, this, [=](){
+        connectSuccess();
+    });
     connect(tcpsocket,SIGNAL(readyRead()),this,SLOT(readMessage()));
     connect(tcpsocket,SIGNAL(error(QAbstractSocket::SocketError)),
             this,SLOT(displayError(QAbstractSocket::SocketError)));
+
 }
 
 void Connect::portSlot(QString p,QString i)

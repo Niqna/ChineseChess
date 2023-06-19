@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtNetwork>
 
+
 class Connect : public QObject
 {
     Q_OBJECT
@@ -17,6 +18,7 @@ public slots:
     void sendMessage();
 
 signals:
+    void connectSuccess();
 
 private:
     quint16 port;

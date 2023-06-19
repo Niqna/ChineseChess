@@ -41,8 +41,8 @@ DEPLOYMENTFOLDERS += assetsFolder
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
-    server.cpp      \
-    connect.cpp
+    connect.cpp \
+    server.cpp
 
 
 android {
@@ -76,5 +76,5 @@ DISTFILES += \
     qml/scenes/SoloScene.qml
 
 HEADERS += \
-    server.h\
-    connect.h
+    connect.h \
+    server.h

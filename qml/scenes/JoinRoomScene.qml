@@ -7,9 +7,9 @@ import Connect 1.0
 
 SceneBase {
 
-    signal connectSig(var p,var i)
     // signal indicating that the gameScene should be displayed
     signal gamePressed
+    signal connectSig(var p,var i)
 
     id: joinRoomScene
     anchors.fill: parent
@@ -32,28 +32,28 @@ SceneBase {
         source: "../../assets/image/1-4.png"
 
         Text {
-            x:60; y:80
+            x:60; y:110
             font.pixelSize: 30
             text: qsTr("IP:")
         }
 
         AppTextField{
-            id:ipText
-            x:80; y:120
+            id: ipText
+            x:80; y:150
             width: 210
             height: 40
             color: "black"
         }
 
         Text {
-            x:60; y:180
+            x:60; y:210
             font.pixelSize: 30
             text: qsTr("Port:")
         }
 
         AppTextField{
             id: portText
-            x:80; y:220
+            x:80; y:250
             width: 210
             height: 40
             color: "black"
@@ -63,19 +63,19 @@ SceneBase {
             source: "../../assets/image/04.png"
             anchors.horizontalCenter: parent.horizontalCenter
             width: 250; height: 80
-            y:280
+            y:330
             Text {
                 x:90; y:20
                 color: "white"
-                text: '连接'
+                text: '加入'
                 font.pixelSize: 30
                 anchors.centerIn: parent.Center
             }
             TapHandler{
                 onTapped: {
-                    gamePressed()
-                    gameScene.init()
-                    gameScene.camp = 0
+//                    gamePressed()
+//                    gameScene.camp = 1
+//                    gameScene.init()
                     connectSig(portText.getText(0,6),ipText.getText(0,15))
                 }
             }
@@ -86,31 +86,13 @@ SceneBase {
         connectSig.connect(connect.portSlot)
     }
 
-
-//    Image {
-//        source: "../../assets/image/04.png"
-//        anchors.horizontalCenter: parent.horizontalCenter
-//        width: 250; height: 80
-//        y:360
-//        Text {
-//            x:90; y:20
-//            color: "white"
-//            text: '加入'
-//            font.pixelSize: 30
-//            anchors.centerIn: parent.Center
-//        }
-//        TapHandler{
-//            onTapped: {
-//                gamePressed()
-//                gameScene.init()
-//                gameScene.camp = 0
-
-//            }
-//        }
-//    }
-
     Connect{
         id:connect
+        onConnectSuccess: {
+            gamePressed()
+            gameScene.camp = 1
+            gameScene.init()
+        }
     }
 
     Image {
