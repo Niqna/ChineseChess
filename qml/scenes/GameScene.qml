@@ -2,12 +2,20 @@ import QtQuick 2.15
 import Felgo 3.0
 import "../common"
 import "../entity"
+import "../dialogs"
 
-// EMPTY SCENE
+// GAME SCENE
 
 SceneBase {
 
-    property int theme:  1
+    property int theme
+
+    property int camp
+
+    function init() {
+        theme = settingScene.theme
+        board.init()
+    }
 
     id: gameScene
 
@@ -18,25 +26,17 @@ SceneBase {
     }
 
     Image {
-        id: back
-        x: 100
-        y:750
-        source: "../../assets/image/back.png"
-        TapHandler{
-            onTapped: {
-                backButtonPressed()
-            }
-        }
-    }
-
-    Image {
         id: help
         x: 135
         y: 700
         width: 65
         height:130
         source: "../../assets/image/gameImage/" + theme + "-04.png"
-
+        TapHandler{
+            onTapped: {
+                systemDialog.show()
+            }
+        }
     }
     Image {
         id: undo
@@ -73,13 +73,8 @@ SceneBase {
         }
     }
 
-
-
-
     Board {
         id: board
-        boardtheme: theme
-
     }
 
     SpringAnimation {
@@ -87,51 +82,7 @@ SceneBase {
 
     }
 
-    //    Repeater {
-
-    //        model: ["jiang", "shi", "xiang", "ma", "ju", "pao", "bin"]
-    //        SpriteSequence {
-    //            id: modelDate
-    //            width: diameter
-    //            height: diamter
-    //            y: 130
-    //            goalSprite: ""
-    //            anchors.horizontalCenter: parent.horizontalCenter
-    //            Sprite{
-    //                name: "jiang"
-    //                source: "../../assets/image/gameImage/1-02.png"
-    //                frameCount: 1
-    //                frameWidth: 54
-    //                frameHeight: 54
-    //            }
-    //        }
-    //    }
-
-
-
-
-
-
-    //        Sprite{
-    //            name: "pao"
-    //            source: "../../assets/image/gameImage/1-02.png"
-    //            frameCount: 1
-    //            frameX: 264
-    //            frameWidth: 52
-    //            frameHeight: 52
-    //        }
-    //        Sprite{
-    //            name: "bing"
-    //            source: "../../assets/image/gameImage/1-02.png"
-    //            frameCount: 1
-    //            frameX: 316
-    //            frameWidth: 52
-    //            frameHeight: 52
-    //        }
-    //    }
-
-    //    Stone {
-
-    //    }
-
+    SystemDialog {
+      id: systemDialog
+    }
 }

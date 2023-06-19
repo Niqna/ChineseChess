@@ -99,7 +99,7 @@ SceneBase {
     Server{
         id:server
     }
-    
+
     function connectSuccessSlot(){
         openGameScene()
     }

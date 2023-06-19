@@ -1,5 +1,6 @@
 import Felgo 3.0
 import QtQuick 2.0
+import QtMultimedia 5.15
 
 import "scenes"
 
@@ -8,23 +9,35 @@ GameWindow {
     screenWidth: 486
     screenHeight: 864
 
+//    property int theme: 1
+
+    // setting scene
+    SettingScene {
+        id: settingScene
+        onBackButtonPressed: window.state = "menu"
+    }
     // menu scene
     MenuScene {
         id: menuScene
         // listen to the button signals of the scene and change the state according to it
         onHelpPressed: window.state = "help"
         onLocalPressed: window.state = "local"
-        onSettingPressed: window.state = "setting"
+        onSettingPressed: {
+            settingScene.updateTheme()
+            window.state = "setting"
+        }
         onSoloPressed: window.state="solo"
     }
 
     // solo scene
     SoloScene {
         id: soloScene
+
         onBackButtonPressed: window.state = "menu"
-        onGamePressed: window.state = "game"
-//        onCreateRoomPressed:window.state= "createRoom"
-//        onJoinRoomPressed: window.state= "joinRoom"
+        onGamePressed: {
+            window.state = "game"
+            gameScene.init()
+        }
     }
 
     // local scene
@@ -41,17 +54,12 @@ GameWindow {
         onBackButtonPressed: window.state = "menu"
     }
 
-    // setting scene
-    SettingScene {
-        id: settingScene
-        onBackButtonPressed: window.state = "menu"
-    }
+
 
     // game scene
     GameScene {
         id: gameScene
         onBackButtonPressed: window.state = "menu"
-        theme: settingScene.theme
 
     }
 
@@ -59,12 +67,36 @@ GameWindow {
     CreateRoomScene {
         id:createRoomScene
         onBackButtonPressed: window.state = "local"
+        onGamePressed: {
+            window.state = "game"
+            gameScene.init()
+        }
     }
 
     // join scece
     JoinRoomScene {
         id:joinRoomScene
         onBackButtonPressed: window.state = "local"
+        onGamePressed: {
+            window.state = "game"
+            gameScene.init()
+        }
+    }
+
+    MediaPlayer{
+        id:bgm
+        source: "../assets/music/bg4.mp3"
+    }
+
+    Timer{
+        id:musictimer
+        interval: 100
+        running: true
+        repeat: true
+        onTriggered: {
+            bgm.play()
+            running=false
+        }
     }
 
     // menuScene is our first scene, so set the state to menu initially
