@@ -7,7 +7,7 @@ import "../common"
 
 SceneBase {
 
-    property int theme
+    property int theme:1
     id: settingScene
     anchors.fill: parent
     BackgroundImage {

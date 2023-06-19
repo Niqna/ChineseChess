@@ -1,6 +1,7 @@
 # allows to add DEPLOYMENTFOLDERS and links to the Felgo library and QtCreator auto-completion
 CONFIG += felgo
 QT       += core gui multimedia
+QT       += network
 
 # uncomment this line to add the Live Client Module and use live reloading with your custom C++ code
 # for the remaining steps to build a custom Live Code Reload app see here: https://felgo.com/custom-code-reload-app/
@@ -39,8 +40,10 @@ DEPLOYMENTFOLDERS += assetsFolder
 
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp
-
+SOURCES += main.cpp \
+    connect.cpp \
+    localplay.cpp \
+    server.cpp
 
 android {
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
@@ -70,3 +73,8 @@ DISTFILES += \
     qml/scenes/MenuScene.qml \
     qml/scenes/SettingScene.qml \
     qml/scenes/SoloScene.qml
+
+HEADERS += \
+    connect.h \
+    localplay.h \
+    server.h

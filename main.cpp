@@ -6,6 +6,10 @@
 // uncomment this line to add the Live Client Module and use live reloading with your custom C++ code
 //#include <FelgoLiveClient>
 
+//#include "localplay.h"
+#include "server.h"
+#include "connect.h"
+
 int main(int argc, char *argv[])
 {
 
@@ -14,6 +18,10 @@ int main(int argc, char *argv[])
     FelgoApplication felgo;
 
     QQmlApplicationEngine engine;
+
+//    qmlRegisterType<LocalPlay>("Localplay",1,0,"Localplay");
+    qmlRegisterType<Server>("Server",1,0,"Server");
+    qmlRegisterType<Connect>("Connect",1,0,"Connect");
     felgo.initialize(&engine);
 
     // Set an optional license key from project file
