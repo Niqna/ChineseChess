@@ -37,11 +37,11 @@ Rectangle {
         console.log(_row, _col)
 
         if(isfirstchoose) {
-            if(getID(_row, _col).camp !== isRed) {
-                cueRoundMes()
-                return
-            }
             if(getID(_row, _col)) {
+                if(getID(_row, _col).camp !== isRed) {
+                    cueRoundMes()
+                    return
+                }
                 clickedBoard.y = (_row - 1) * 54
                 clickedBoard.x = (_col - 1) * 54
                 if(!clickedBoard.visible)
@@ -151,7 +151,6 @@ Rectangle {
     }
 
     function init() {
-        Stone.isExist = true
         camp = gameScene.camp
         boardtheme = gameScene.theme
         clickedBoard.visible = false
@@ -267,6 +266,8 @@ Rectangle {
     }
     function canMove(row1,  col1,  row2,  col2)
     {
+        if(getID(row1, col1).camp === getID(row2, col2).camp)
+            return false
         switch(getID(row1, col1).type) {
         case 7://bing
             var r=relation( row1,  col1,  row2,  col2)
