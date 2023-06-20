@@ -1,37 +1,8 @@
-import QtQuick 2.0
+import QtQuick 2.15
 import Felgo 3.0
 
-/*
-  DESCRIPTION:
-
-//  An example dialog implementation, with modal option and simple animations.
-//  EXAMPLE USAGE:
-
-  Scene {
-    id: scene
-    width: 480
-    height: 320
-
-    SimpleButton {
-      text: "SHOW DIALOG"
-      anchors.centerIn: parent
-      onClicked: myDialog.show()
-    }
-
-    cueRoundDialog {
-      id: myDialog
-      box.color: "#f0f0f0"
-      question.text: "Quit the game?"
-      modal: true
-      onSelectedOk: {
-        Qt.quit()
-      }
-    }
-  }
-
-*/
-
 Item {
+
     id: dialog
     // if the parent is a Scene, we can fill the whole screen with gameWindowAnchorItem
     anchors.fill: parent.gameWindowAnchorItem ? parent.gameWindowAnchorItem : parent
@@ -39,14 +10,7 @@ Item {
     enabled: visible
     // by default, the dialog is invisible
     visible: false
-
-    // alias to access the box
-    property alias box: box
-    // alias to access the question text
-    property alias question: question
-
-    // property to make this dialog modal and prevents selecting anything behind it
-    property bool modal: false
+    property int winCamp: 0
 
     // signals emitted if a button has been pressed
     signal selectedOk
@@ -59,7 +23,7 @@ Item {
         showAnimation.start()
     }
 
-    // hide function
+    //    // hide function
     function hide() {
         // start hide animation, the dialog will be set invisible once the animation has finished
         hideAnimation.start()
@@ -68,7 +32,9 @@ Item {
     // this component prevents selecting anything behind the dialog, only enabled if it's a modal dialog
     MouseArea {
         anchors.fill: parent
-        enabled: dialog.modal
+        onClicked: {
+            dialog.visible = false
+        }
     }
 
     // visible overlay, only visible if it's a modal dialog
@@ -79,37 +45,58 @@ Item {
         color: "#000"
     }
 
-    // the box containing dialog text and buttons
-    Rectangle {
+    Image {
         id: box
-        width: 200
-        height: 100
-        color: "#fff"
-        border.width: 1
-        border.color: "#000"
-        radius: 10
-        anchors.centerIn: parent
-
-        Text {
-            id: question
-            text: "Question?"
-            anchors.centerIn: parent
-            anchors.verticalCenterOffset: -20
-            color: "#000"
-        }
-
-        SimpleButton {
-            text: "OK"
-            anchors.right: parent.right
-            anchors.rightMargin: 10
-            anchors.bottom: parent.bottom
+        x: 150
+        y: 225
+        width: 186
+        height: 349
+        source: "../../assets/image/gameImage/again_box.png"
+        Image {
+            anchors.left: box.left
+            anchors.leftMargin: 10
+            anchors.bottom: box.bottom
             anchors.bottomMargin: 10
-            onClicked: {
-                // emit signal and hide dialog if button is selected
-                dialog.selectedOk()
-                dialog.hide()
+            width: 50
+            height: 54
+            source: "../../assets/image/gameImage/again1.png"
+            Image {
+                width: 50
+                height: 54
+                source: "../../assets/image/gameImage/again_yes.png"
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        // emit signal and hide dialog if button is selected
+                        dialog.selectedOk()
+                        dialog.hide()
+                    }
+                }
             }
         }
+        Image {
+            anchors.right: box.right
+            anchors.rightMargin: 10
+            anchors.bottom: box.bottom
+            anchors.bottomMargin: 10
+            width: 50
+            height: 54
+            source: "../../assets/image/gameImage/again1.png"
+            Image {
+                width: 50
+                height: 54
+                source: "../../assets/image/gameImage/again_no.png"
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        // emit signal and hide dialog if button is selected
+                        dialog.selectedCancel()
+                        dialog.hide()
+                    }
+                }
+            }
+        }
+
     }
 
     // animation to show the dialog

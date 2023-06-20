@@ -1,37 +1,10 @@
 import QtQuick 2.0
 import Felgo 3.0
 
-/*
-  DESCRIPTION:
-
-//  An example dialog implementation, with modal option and simple animations.
-//  EXAMPLE USAGE:
-
-  Scene {
-    id: scene
-    width: 480
-    height: 320
-
-    SimpleButton {
-      text: "SHOW DIALOG"
-      anchors.centerIn: parent
-      onClicked: myDialog.show()
-    }
-
-    cueRoundDialog {
-      id: myDialog
-      box.color: "#f0f0f0"
-      question.text: "Quit the game?"
-      modal: true
-      onSelectedOk: {
-        Qt.quit()
-      }
-    }
-  }
-
-*/
-
 Item {
+
+    signal gameAgainMes
+
     id: dialog
     // if the parent is a Scene, we can fill the whole screen with gameWindowAnchorItem
     anchors.fill: parent.gameWindowAnchorItem ? parent.gameWindowAnchorItem : parent
@@ -39,18 +12,7 @@ Item {
     enabled: visible
     // by default, the dialog is invisible
     visible: false
-
-    // alias to access the box
-    property alias box: box
-    // alias to access the question text
-    property alias question: question
-
-    // property to make this dialog modal and prevents selecting anything behind it
-    property bool modal: false
-
-    // signals emitted if a button has been pressed
-    signal selectedOk
-    signal selectedCancel
+    property int winCamp: 0
 
     // show function
     function show() {
@@ -59,7 +21,7 @@ Item {
         showAnimation.start()
     }
 
-    // hide function
+    //    // hide function
     function hide() {
         // start hide animation, the dialog will be set invisible once the animation has finished
         hideAnimation.start()
@@ -68,7 +30,10 @@ Item {
     // this component prevents selecting anything behind the dialog, only enabled if it's a modal dialog
     MouseArea {
         anchors.fill: parent
-        enabled: dialog.modal
+        onClicked: {
+            dialog.visible = false
+            dialog.gameAgainMes()
+        }
     }
 
     // visible overlay, only visible if it's a modal dialog
@@ -79,36 +44,20 @@ Item {
         color: "#000"
     }
 
-    // the box containing dialog text and buttons
-    Rectangle {
-        id: box
-        width: 200
-        height: 100
-        color: "#fff"
-        border.width: 1
-        border.color: "#000"
-        radius: 10
-        anchors.centerIn: parent
-
-        Text {
-            id: question
-            text: "Question?"
-            anchors.centerIn: parent
-            anchors.verticalCenterOffset: -20
-            color: "#000"
-        }
-
-        SimpleButton {
-            text: "OK"
-            anchors.right: parent.right
-            anchors.rightMargin: 10
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: 10
-            onClicked: {
-                // emit signal and hide dialog if button is selected
-                dialog.selectedOk()
-                dialog.hide()
-            }
+    Image {
+        //        visible: false
+        id: fan
+        y: 200
+        width: 480
+        height: 306
+        source: "../../assets/image/gameImage/fan5.png"
+        Image {
+            id: win
+            x: 50
+            y: 60
+            width: 367
+            height: 146
+            source: "../../assets/image/gameImage/win" + winCamp + ".png"
         }
     }
 
@@ -116,7 +65,7 @@ Item {
     ParallelAnimation {
         id: showAnimation
         NumberAnimation {
-            target: box
+            target: fan
             property: "scale"
             from: 0
             to: 1
@@ -136,7 +85,7 @@ Item {
     ParallelAnimation {
         id: hideAnimation
         NumberAnimation {
-            target: box
+            target: fan
             property: "scale"
             from: 1
             to: 0

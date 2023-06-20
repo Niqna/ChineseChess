@@ -14,7 +14,6 @@ SpriteSequence {
     property int rowcol
 
     property bool isExist: true
-    property bool isClicked: false
 
     id: stone
     visible: isExist

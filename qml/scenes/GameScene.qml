@@ -76,6 +76,10 @@ SceneBase {
     Board {
         id: board
         onCueRoundMes: cueRoundDialog.show()
+        onGameOverMes: {
+            gameOverDialog.winCamp = isRed
+            gameOverDialog.show()
+        }
     }
 
     SpringAnimation {
@@ -94,6 +98,22 @@ SceneBase {
         modal: true
         onSelectedOk: {
           cueRoundDialog.quit()
+        }
+    }
+
+    GameOverDialog {
+        id: gameOverDialog
+        onGameAgainMes: gameAgainDialog.show()
+    }
+
+    GameAgainDialog {
+        id: gameAgainDialog
+        onSelectedOk:{
+            gameScene.init()
+
+        }
+        onSelectedCancel: {
+            backButtonPressed()
         }
     }
 }

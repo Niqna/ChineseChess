@@ -3,22 +3,20 @@ import Felgo 3.0
 
 
 Rectangle {
-
-    //    signal firstMouseEvent
-
     signal cueRoundMes
-       signal addStepMes
+    signal addStepMes
+    signal gameOverMes
 
-       property int boardtheme
-       property int camp
+    property int boardtheme
+    property int camp
 
-       property bool isfirstchoose: true
-       property int _row
-       property int _col
-       property int first_row
-       property int first_col
-       property int rowcol
-       property int isRed: 0
+    property bool isfirstchoose: true
+    property int _row
+    property int _col
+    property int first_row
+    property int first_col
+    property int rowcol
+    property int isRed: 0
 
     id: board
     x: parent.x
@@ -33,48 +31,56 @@ Rectangle {
     }
 
     function choose(_x, _y) {
-            //        _row = xy_to_rowcol(_x)
-            //        _col = xy_to_rowcol(_y)
-            xy_to_rowcol(_x, _y)
-            console.log(_row, _col)
+        //        _row = xy_to_rowcol(_x)
+        //        _col = xy_to_rowcol(_y)
+        xy_to_rowcol(_x, _y)
+        console.log(_row, _col)
 
-            if(isfirstchoose) {
-                if(getID(_row, _col).camp !== isRed) {
-                    cueRoundMes()
-                    return
-                }
-                if(getID(_row, _col)) {
-                    clickedBoard.y = (_row - 1) * 54
-                    clickedBoard.x = (_col - 1) * 54
-                    if(!clickedBoard.visible)
-                        clickedBoard.visible = true
-                    else
-                        clickedBoard.visible = false
-                    getID(_row, _col).isClicked = true
-                    isfirstchoose = false
-                    first_row = _row
-                    first_col = _col
-                }
-            } else if((_row!=first_row || _col!=first_col) && canMove(first_row,  first_col,  _row,  _col)){
-                if(getID(_row, _col).type === 1) {
-
-                }
-
-                getID(_row, _col).isExist = false
-                getID(_row,_col).row = 0
-                moveStone.start()
-                isRed = (isRed + 1)  % 2
-                clickedBoard.visible = false
-                isfirstchoose = true
-                getID(first_row, first_col).isClicked = first
-                //            if(getID(_row, _col))
-
-            } else {
-                clickedBoard.visible = false
-                isfirstchoose = true
+        if(isfirstchoose) {
+            if(getID(_row, _col).camp !== isRed) {
+                cueRoundMes()
+                return
+            }
+            if(getID(_row, _col)) {
+                clickedBoard.y = (_row - 1) * 54
+                clickedBoard.x = (_col - 1) * 54
+                if(!clickedBoard.visible)
+                    clickedBoard.visible = true
+                else
+                    clickedBoard.visible = false
+                isfirstchoose = false
+                first_row = _row
+                first_col = _col
+            }
+        } else if((_row!=first_row || _col!=first_col) && canMove(first_row,  first_col,  _row,  _col)){
+            if(getID(_row, _col).type === 1) {
+                gameOverMes(isRed)
+                return
             }
 
+            getID(_row, _col).isExist = false
+            getID(_row,_col).row = 0
+//            core += getCore(_row, _col)
+
+            moveStone.start()
+            isRed = (isRed + 1)  % 2
+            clickedBoard.visible = false
+            isfirstchoose = true
+
+        } else {
+            clickedBoard.visible = false
+            isfirstchoose = true
         }
+
+    }
+
+//    function getCore(row,col) {
+//        switch(getID(row, col).type) {
+
+//        }
+
+//    }
+
     MouseArea {
         anchors.fill: parent
         onClicked: {
@@ -89,7 +95,7 @@ Rectangle {
 
     }
 
-    Stone { id: opposite_jiang; theme: boardtheme; type: 1;}
+    Stone { id: opposite_jiang; theme: boardtheme; type: 1; isExist: true}
     Stone { id: opposite_shi1; theme: boardtheme; type: 2}
     Stone { id: opposite_xiang1; theme: boardtheme; type: 3}
     Stone { id: opposite_ma1; theme: boardtheme; type: 4}
@@ -145,41 +151,43 @@ Rectangle {
     }
 
     function init() {
+        Stone.isExist = true
         camp = gameScene.camp
         boardtheme = gameScene.theme
-        opposite_jiang.row = 1; opposite_jiang.col = 5; opposite_jiang.camp = (camp + 1)  % 2
-        opposite_shi1.row = 1; opposite_shi1.col = 4; opposite_shi1.camp = (camp + 1)  % 2
-        opposite_shi2.row = 1; opposite_shi2.col = 6; opposite_shi2.camp = (camp + 1)  % 2
-        opposite_xiang1.row = 1; opposite_xiang1.col = 3; opposite_xiang1.camp = (camp + 1)  % 2
-        opposite_xiang2.row = 1; opposite_xiang2.col = 7; opposite_xiang2.camp = (camp + 1)  % 2
-        opposite_ma1.row = 1; opposite_ma1.col = 2; opposite_ma1.camp = (camp + 1)  % 2
-        opposite_ma2.row = 1; opposite_ma2.col = 8; opposite_ma2.camp = (camp + 1)  % 2
-        opposite_ju1.row = 1; opposite_ju1.col = 1; opposite_ju1.camp = (camp + 1)  % 2
-        opposite_ju2.row = 1; opposite_ju2.col = 9; opposite_ju2.camp = (camp + 1)  % 2
-        opposite_pao1.row = 3; opposite_pao1.col = 2; opposite_pao1.camp = (camp + 1)  % 2
-        opposite_pao2.row = 3; opposite_pao2.col = 8; opposite_pao2.camp = (camp + 1)  % 2
-        opposite_bing1.row = 4; opposite_bing1.col = 1; opposite_bing1.camp = (camp + 1)  % 2
-        opposite_bing2.row = 4; opposite_bing2.col = 3; opposite_bing2.camp = (camp + 1)  % 2
-        opposite_bing3.row = 4; opposite_bing3.col = 5; opposite_bing3.camp = (camp + 1)  % 2
-        opposite_bing4.row = 4; opposite_bing4.col = 7; opposite_bing4.camp = (camp + 1)  % 2
-        opposite_bing5.row = 4; opposite_bing5.col = 9; opposite_bing5.camp = (camp + 1)  % 2
+        clickedBoard.visible = false
+        opposite_jiang.row = 1; opposite_jiang.col = 5; opposite_jiang.camp = (camp + 1)  % 2; opposite_jiang.isExist = true
+        opposite_shi1.row = 1; opposite_shi1.col = 4; opposite_shi1.camp = (camp + 1)  % 2; opposite_shi1.isExist = true
+        opposite_shi2.row = 1; opposite_shi2.col = 6; opposite_shi2.camp = (camp + 1)  % 2; opposite_shi2.isExist = true
+        opposite_xiang1.row = 1; opposite_xiang1.col = 3; opposite_xiang1.camp = (camp + 1)  % 2; opposite_xiang1.isExist = true
+        opposite_xiang2.row = 1; opposite_xiang2.col = 7; opposite_xiang2.camp = (camp + 1)  % 2; opposite_xiang2.isExist = true
+        opposite_ma1.row = 1; opposite_ma1.col = 2; opposite_ma1.camp = (camp + 1)  % 2; opposite_ma1.isExist = true
+        opposite_ma2.row = 1; opposite_ma2.col = 8; opposite_ma2.camp = (camp + 1)  % 2; opposite_ma2.isExist = true
+        opposite_ju1.row = 1; opposite_ju1.col = 1; opposite_ju1.camp = (camp + 1)  % 2; opposite_ju1.isExist = true
+        opposite_ju2.row = 1; opposite_ju2.col = 9; opposite_ju2.camp = (camp + 1)  % 2; opposite_ju2.isExist = true
+        opposite_pao1.row = 3; opposite_pao1.col = 2; opposite_pao1.camp = (camp + 1)  % 2; opposite_pao1.isExist = true
+        opposite_pao2.row = 3; opposite_pao2.col = 8; opposite_pao2.camp = (camp + 1)  % 2; opposite_pao2.isExist = true
+        opposite_bing1.row = 4; opposite_bing1.col = 1; opposite_bing1.camp = (camp + 1)  % 2; opposite_bing1.isExist = true
+        opposite_bing2.row = 4; opposite_bing2.col = 3; opposite_bing2.camp = (camp + 1)  % 2; opposite_bing2.isExist = true
+        opposite_bing3.row = 4; opposite_bing3.col = 5; opposite_bing3.camp = (camp + 1)  % 2; opposite_bing3.isExist = true
+        opposite_bing4.row = 4; opposite_bing4.col = 7; opposite_bing4.camp = (camp + 1)  % 2; opposite_bing4.isExist = true
+        opposite_bing5.row = 4; opposite_bing5.col = 9; opposite_bing5.camp = (camp + 1)  % 2; opposite_bing5.isExist = true
 
-        own_jiang.row = 10; own_jiang.col = 5; own_jiang.camp = camp
-        own_shi1.row = 10; own_shi1.col = 4; own_shi1.camp = camp
-        own_shi2.row = 10; own_shi2.col = 6; own_shi2.camp = camp
-        own_xiang1.row = 10; own_xiang1.col = 3; own_xiang1.camp = camp
-        own_xiang2.row = 10; own_xiang2.col = 7; own_xiang2.camp = camp
-        own_ma1.row = 10; own_ma1.col = 2; own_ma1.camp = camp
-        own_ma2.row = 10; own_ma2.col = 8; own_ma2.camp = camp
-        own_ju1.row = 10; own_ju1.col = 1; own_ju1.camp = camp
-        own_ju2.row = 10; own_ju2.col = 9; own_ju2.camp = camp
-        own_pao1.row = 8; own_pao1.col = 2; own_pao1.camp = camp
-        own_pao2.row = 8; own_pao2.col = 8; own_pao2.camp = camp
-        own_bing1.row = 7; own_bing1.col = 1; own_bing1.camp = camp
-        own_bing2.row = 7; own_bing2.col = 3; own_bing2.camp = camp
-        own_bing3.row = 7; own_bing3.col = 5; own_bing3.camp = camp
-        own_bing4.row = 7; own_bing4.col = 7; own_bing4.camp = camp
-        own_bing5.row = 7; own_bing5.col = 9; own_bing5.camp = camp
+        own_jiang.row = 10; own_jiang.col = 5; own_jiang.camp = camp; own_jiang.isExist = true
+        own_shi1.row = 10; own_shi1.col = 4; own_shi1.camp = camp; own_shi1.isExist = true
+        own_shi2.row = 10; own_shi2.col = 6; own_shi2.camp = camp; own_shi2.isExist = true
+        own_xiang1.row = 10; own_xiang1.col = 3; own_xiang1.camp = camp; own_xiang1.isExist = true
+        own_xiang2.row = 10; own_xiang2.col = 7; own_xiang2.camp = camp; own_xiang2.isExist = true
+        own_ma1.row = 10; own_ma1.col = 2; own_ma1.camp = camp; own_ma1.isExist = true
+        own_ma2.row = 10; own_ma2.col = 8; own_ma2.camp = camp; own_ma2.isExist = true
+        own_ju1.row = 10; own_ju1.col = 1; own_ju1.camp = camp; own_ju1.isExist = true
+        own_ju2.row = 10; own_ju2.col = 9; own_ju2.camp = camp; own_ju2.isExist = true
+        own_pao1.row = 8; own_pao1.col = 2; own_pao1.camp = camp; own_pao1.isExist = true
+        own_pao2.row = 8; own_pao2.col = 8; own_pao2.camp = camp; own_pao2.isExist = true
+        own_bing1.row = 7; own_bing1.col = 1; own_bing1.camp = camp; own_bing1.isExist = true
+        own_bing2.row = 7; own_bing2.col = 3; own_bing2.camp = camp; own_bing2.isExist = true
+        own_bing3.row = 7; own_bing3.col = 5; own_bing3.camp = camp; own_bing3.isExist = true
+        own_bing4.row = 7; own_bing4.col = 7; own_bing4.camp = camp; own_bing4.isExist = true
+        own_bing5.row = 7; own_bing5.col = 9; own_bing5.camp = camp; own_bing5.isExist = true
     }
 
     function getID(row, col) {
@@ -220,7 +228,7 @@ Rectangle {
     }
     function getStoneCountAtLine( row1,  col1,  row2,  col2)
     {
-     var  ret = 0;
+        var  ret = 0;
         if(row1 !== row2 && col1 !== col2)
             return false;
         if(row1 === row2 && col1 === col2)
@@ -240,8 +248,8 @@ Rectangle {
         }
         else
         {
-             min = row1 < row2 ? row1 : row2;
-             max = row1 < row2 ? row2 : row1;
+            min = row1 < row2 ? row1 : row2;
+            max = row1 < row2 ? row2 : row1;
             for(var row = min+1; row<max; ++row)
             {
                 if(getID(row, col1))
@@ -257,66 +265,66 @@ Rectangle {
     {
         return Math.abs(row1-row)*10+ Math.abs(col1-col);
     }
-   function canMove(row1,  col1,  row2,  col2)
+    function canMove(row1,  col1,  row2,  col2)
     {
-       switch(getID(row1, col1).type) {
-       case 7://bing
-           var r=relation( row1,  col1,  row2,  col2)
-           if(getID(row1,col1).camp!==camp)
-           {
-               if(row2<6)
-               {
-                   if(row2-row1==1&&(r===1||r===10))
-                   {
-                       return true;
-                   }else{
-                       return false;
-                   }
-               }else
-               {
-                if((row2-row1==1||Math.abs(col2-col1)==1)&&r===1||r===10){
-                return true;
-                } else{
-                return false;
+        switch(getID(row1, col1).type) {
+        case 7://bing
+            var r=relation( row1,  col1,  row2,  col2)
+            if(getID(row1,col1).camp!==camp)
+            {
+                if(row2<6)
+                {
+                    if(row2-row1==1&&(r===1||r===10))
+                    {
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else
+                {
+                    if((row2-row1==1||Math.abs(col2-col1)==1)&&r===1||r===10){
+                        return true;
+                    } else{
+                        return false;
+                    }
                 }
-               }
-           }else
-           {
-               if(row2>5)
-               {
-                   if(row2-row1==-1&&(r===1||r===10))
-                   {
-                       return true;
-                   }else{
-                       return false;
-                   }
-               }else
-               {
-                if((row2-row1==-1||Math.abs(col2-col1)==1)&&(r===1||r===10)){
-                return true;
-                } else{
-                return false;
+            }else
+            {
+                if(row2>5)
+                {
+                    if(row2-row1==-1&&(r===1||r===10))
+                    {
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }else
+                {
+                    if((row2-row1==-1||Math.abs(col2-col1)==1)&&(r===1||r===10)){
+                        return true;
+                    } else{
+                        return false;
+                    }
                 }
-               }
-           }
-       case 4://ma
-           r=relation( row1,  col1,  row2,  col2)
-           if((r !== 12 && r !== 21)){
-               return false;
-           }else{
-               if(r===12)
-               {
-                   if(getID(row1,(col1+col2)/2))
-                   {
-                       return false
-                   }else{return true}
-               }else if(r===21){
-                   if(getID((row2+row1)/2,col1)){
-                       return false
-                   }else{return true}
-               }
-               return true
-           }
+            }
+        case 4://ma
+            r=relation( row1,  col1,  row2,  col2)
+            if((r !== 12 && r !== 21)){
+                return false;
+            }else{
+                if(r===12)
+                {
+                    if(getID(row1,(col1+col2)/2))
+                    {
+                        return false
+                    }else{return true}
+                }else if(r===21){
+                    if(getID((row2+row1)/2,col1)){
+                        return false
+                    }else{return true}
+                }
+                return true
+            }
 
         case 2://shi
 
@@ -329,27 +337,27 @@ Rectangle {
         case 3://xiang
             if(getID((row1+row2)/2,(col1+col2)/2))
             {
-            return false
-            }
-           r=relation( row1,  col1,  row2,  col2)
-           if(getID(row1,col1).camp!==camp)//camp==hong
-           {
-            if(row2>5){
-            return false;
-            }else if(r !== 22){
                 return false
-            }else{
-            return true;
             }
-           }else {
-            if(row2<6){
-            return false;
-            }else if(r !== 22){
-           return false;
-           }else{
-            return true;
+            r=relation( row1,  col1,  row2,  col2)
+            if(getID(row1,col1).camp!==camp)//camp==hong
+            {
+                if(row2>5){
+                    return false;
+                }else if(r !== 22){
+                    return false
+                }else{
+                    return true;
+                }
+            }else {
+                if(row2<6){
+                    return false;
+                }else if(r !== 22){
+                    return false;
+                }else{
+                    return true;
+                }
             }
-           }
 
 
 
@@ -366,7 +374,7 @@ Rectangle {
             var ret = getStoneCountAtLine(row1, col1, row2, col2);
             if(ret===0)
             {
-             return true;
+                return true;
             }else
             {
                 return false
@@ -394,7 +402,7 @@ Rectangle {
                 }
             }
 
-       }
+        }
 
 
     }
