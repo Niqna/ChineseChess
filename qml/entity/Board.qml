@@ -1,22 +1,24 @@
 import QtQuick 2.15
 import Felgo 3.0
-import "../common"
+
 
 Rectangle {
 
+    //    signal firstMouseEvent
+
     signal cueRoundMes
-    signal addStepMes
+       signal addStepMes
 
-    property int boardtheme
-    property int camp
+       property int boardtheme
+       property int camp
 
-    property bool isfirstchoose: true
-    property int _row
-    property int _col
-    property int first_row
-    property int first_col
-    property int rowcol
-    property int isRed: 0
+       property bool isfirstchoose: true
+       property int _row
+       property int _col
+       property int first_row
+       property int first_col
+       property int rowcol
+       property int isRed: 0
 
     id: board
     x: parent.x
@@ -31,49 +33,48 @@ Rectangle {
     }
 
     function choose(_x, _y) {
-        //        _row = xy_to_rowcol(_x)
-        //        _col = xy_to_rowcol(_y)
-        xy_to_rowcol(_x, _y)
-        console.log(_row, _col)
+            //        _row = xy_to_rowcol(_x)
+            //        _col = xy_to_rowcol(_y)
+            xy_to_rowcol(_x, _y)
+            console.log(_row, _col)
 
-        if(isfirstchoose) {
-            if(getID(_row, _col).camp !== isRed) {
-                cueRoundMes()
-                return
+            if(isfirstchoose) {
+                if(getID(_row, _col).camp !== isRed) {
+                    cueRoundMes()
+                    return
+                }
+                if(getID(_row, _col)) {
+                    clickedBoard.y = (_row - 1) * 54
+                    clickedBoard.x = (_col - 1) * 54
+                    if(!clickedBoard.visible)
+                        clickedBoard.visible = true
+                    else
+                        clickedBoard.visible = false
+                    getID(_row, _col).isClicked = true
+                    isfirstchoose = false
+                    first_row = _row
+                    first_col = _col
+                }
+            } else if((_row!=first_row || _col!=first_col) && canMove(first_row,  first_col,  _row,  _col)){
+                if(getID(_row, _col).type === 1) {
+
+                }
+
+                getID(_row, _col).isExist = false
+                getID(_row,_col).row = 0
+                moveStone.start()
+                isRed = (isRed + 1)  % 2
+                clickedBoard.visible = false
+                isfirstchoose = true
+                getID(first_row, first_col).isClicked = first
+                //            if(getID(_row, _col))
+
+            } else {
+                clickedBoard.visible = false
+                isfirstchoose = true
             }
-            if(getID(_row, _col)) {
-                clickedBoard.y = (_row - 1) * 54
-                clickedBoard.x = (_col - 1) * 54
-                if(!clickedBoard.visible)
-                    clickedBoard.visible = true
-                else
-                    clickedBoard.visible = false
-                getID(_row, _col).isClicked = true
-                isfirstchoose = false
-                first_row = _row
-                first_col = _col
-            }
-        } else if(_row!=first_row || _col!=first_col){
-            if(getID(_row, _col).type === 1) {
 
-            }
-
-            getID(_row, _col).isExist = false
-            getID(_row,_col).row = 0
-            moveStone.start()
-            isRed = (isRed + 1)  % 2
-            clickedBoard.visible = false
-            isfirstchoose = true
-            getID(first_row, first_col).isClicked = first
-            //            if(getID(_row, _col))
-
-        } else {
-            clickedBoard.visible = false
-            isfirstchoose = true
         }
-
-    }
-
     MouseArea {
         anchors.fill: parent
         onClicked: {
@@ -216,5 +217,185 @@ Rectangle {
         else if( own_bing4.row ===row && own_bing4.col ===col ) { return own_bing4 }
         else if( own_bing5.row ===row && own_bing5.col ===col ) { return own_bing5 }
         else return false
+    }
+    function getStoneCountAtLine( row1,  col1,  row2,  col2)
+    {
+     var  ret = 0;
+        if(row1 !== row2 && col1 !== col2)
+            return false;
+        if(row1 === row2 && col1 === col2)
+            return false;
+
+        if(row1 === row2)
+        {
+            var min = col1 < col2 ? col1 : col2;
+            var max = col1 < col2 ? col2 : col1;
+            for(var col = min+1; col<max; ++col)
+            {
+                if(getID(row1, col) )
+                {
+                    ++ret;
+                }
+            }
+        }
+        else
+        {
+             min = row1 < row2 ? row1 : row2;
+             max = row1 < row2 ? row2 : row1;
+            for(var row = min+1; row<max; ++row)
+            {
+                if(getID(row, col1))
+                {
+                    ++ret;
+                }
+            }
+        }
+
+        return ret;
+    }
+    function relation( row1,  col1,  row,  col)
+    {
+        return Math.abs(row1-row)*10+ Math.abs(col1-col);
+    }
+   function canMove(row1,  col1,  row2,  col2)
+    {
+       switch(getID(row1, col1).type) {
+       case 7://bing
+           var r=relation( row1,  col1,  row2,  col2)
+           if(getID(row1,col1).camp!==camp)
+           {
+               if(row2<6)
+               {
+                   if(row2-row1==1&&(r===1||r===10))
+                   {
+                       return true;
+                   }else{
+                       return false;
+                   }
+               }else
+               {
+                if((row2-row1==1||Math.abs(col2-col1)==1)&&r===1||r===10){
+                return true;
+                } else{
+                return false;
+                }
+               }
+           }else
+           {
+               if(row2>5)
+               {
+                   if(row2-row1==-1&&(r===1||r===10))
+                   {
+                       return true;
+                   }else{
+                       return false;
+                   }
+               }else
+               {
+                if((row2-row1==-1||Math.abs(col2-col1)==1)&&(r===1||r===10)){
+                return true;
+                } else{
+                return false;
+                }
+               }
+           }
+       case 4://ma
+           r=relation( row1,  col1,  row2,  col2)
+           if((r !== 12 && r !== 21)){
+               return false;
+           }else{
+               if(r===12)
+               {
+                   if(getID(row1,(col1+col2)/2))
+                   {
+                       return false
+                   }else{return true}
+               }else if(r===21){
+                   if(getID((row2+row1)/2,col1)){
+                       return false
+                   }else{return true}
+               }
+               return true
+           }
+
+        case 2://shi
+
+            r=relation( row1,  col1,  row2,  col2)
+            if(r !== 11 ||col2<4||col2>6||(row2>=4&&row2<=7)){
+                return false;
+            }else{
+                return true;
+            }
+        case 3://xiang
+            if(getID((row1+row2)/2,(col1+col2)/2))
+            {
+            return false
+            }
+           r=relation( row1,  col1,  row2,  col2)
+           if(getID(row1,col1).camp!==camp)//camp==hong
+           {
+            if(row2>5){
+            return false;
+            }else if(r !== 22){
+                return false
+            }else{
+            return true;
+            }
+           }else {
+            if(row2<6){
+            return false;
+            }else if(r !== 22){
+           return false;
+           }else{
+            return true;
+            }
+           }
+
+
+
+
+        case 1://jiang
+            r=relation(row1,  col1,  row2,  col2)
+            if(r !== 1 && r !== 10||col2<4||col2>6||(row2>=4&&row2<=7))
+            {
+                return false;
+            }else{
+                return true;
+            }
+        case 5://che
+            var ret = getStoneCountAtLine(row1, col1, row2, col2);
+            if(ret===0)
+            {
+             return true;
+            }else
+            {
+                return false
+            }
+        case 6://pao
+
+            ret = getStoneCountAtLine(row2, col2, row1, col1);
+            if(getID(row2,col2))
+            {
+                if(ret===1)
+                {
+                    return true
+                }else
+                {
+                    return false
+                }
+            }else
+            {
+                if(ret===0)
+                {
+                    return true
+                }else
+                {
+                    return false
+                }
+            }
+
+       }
+
+
     }
 }
