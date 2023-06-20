@@ -6,6 +6,7 @@ Rectangle {
     signal cueRoundMes
     signal addStepMes
     signal gameOverMes
+    signal xyChanged
 
     property int boardtheme
     property int camp
@@ -61,6 +62,11 @@ Rectangle {
             getID(_row, _col).isExist = false
             getID(_row,_col).row = 0
 
+//            xyChanged()
+//            if(getID(first_row, first_col).camp===0)
+//                server.xyChangedSlot(first_row,first_col,_row,_col)
+//            else
+//                connect.xyChangedSlot(first_row,first_col,_row,_col)
             moveStone.start()
             isRed = (isRed + 1)  % 2
             clickedBoard.visible = false

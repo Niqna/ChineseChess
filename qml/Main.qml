@@ -3,11 +3,15 @@ import QtQuick 2.0
 import QtMultimedia 5.15
 
 import "scenes"
+import Server 1.0
+import Connect 1.0
 
 GameWindow {
     id: window
     screenWidth: 486
     screenHeight: 864
+
+    signal gamePressed()
 
     // setting scene
     SettingScene {
@@ -65,20 +69,20 @@ GameWindow {
     CreateRoomScene {
         id:createRoomScene
         onBackButtonPressed: window.state = "local"
-        onGamePressed: {
-            window.state = "game"
-            gameScene.init()
-        }
+//        onGamePressed: {
+//            window.state = "game"
+//            gameScene.init()
+//        }
     }
 
     // join scece
     JoinRoomScene {
         id:joinRoomScene
         onBackButtonPressed: window.state = "local"
-        onGamePressed: {
-            window.state = "game"
-            gameScene.init()
-        }
+//        onGamePressed: {
+//            window.state = "game"
+//            gameScene.init()
+//        }
     }
 
     MediaPlayer{
@@ -144,4 +148,28 @@ GameWindow {
             PropertyChanges {target: window; activeScene: gameScene}
         }
     ]
+
+//    Server{
+//        id:server
+
+//        onConnectSuccess: {
+//            window.state = "game"
+//            gamePressed()
+//            gameScene.camp = 0
+//            gameScene.init()
+//        }
+//    }
+
+//    Connect{
+//        id:connect
+//        onConnectSuccess: {
+//            window.state = "game"
+//            gamePressed()
+//            gameScene.camp = 1
+//            gameScene.init()
+//        }
+//        onConnectxy: {
+
+//        }
+//    }
 }

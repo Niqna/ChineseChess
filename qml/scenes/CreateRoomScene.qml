@@ -8,9 +8,9 @@ import "../common"
 SceneBase {
 
     // signal indicating that the gameScene should be displayed
-    signal gamePressed
+//    signal gamePressed
     signal portSig(var s)
-    signal cancelSig()
+//    signal cancelSig()
 
 
     id: createRoomScene
@@ -50,7 +50,7 @@ SceneBase {
         Text {
             x:60; y:220
             font.pixelSize: 25
-            text: qsTr("本地IP: "/*+server.ip*/)
+            text: qsTr("本地IP: "+server.ip)
         }
 
         Image {
@@ -67,15 +67,15 @@ SceneBase {
             }
             TapHandler{
                 onTapped: {
-//                    portSig(port.getText(0,10))
+                    portSig(port.getText(0,10))
                     waitMessage.visible = true
                 }
             }
         }
 
-//        Component.onCompleted: {
-//            portSig.connect(server.portSlot)
-//        }
+        Component.onCompleted: {
+            portSig.connect(server.portSlot)
+        }
 
         Rectangle{
             id:waitMessage

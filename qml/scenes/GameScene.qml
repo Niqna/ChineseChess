@@ -116,4 +116,28 @@ SceneBase {
             backButtonPressed()
         }
     }
+
+    Server{
+        id:server
+
+        onConnectSuccess: {
+            window.state = "game"
+            gamePressed()
+            gameScene.camp = 0
+            gameScene.init()
+        }
+    }
+
+    Connect{
+        id:connect
+        onConnectSuccess: {
+            window.state = "game"
+            gamePressed()
+            gameScene.camp = 1
+            gameScene.init()
+        }
+        onConnectxy: {
+
+        }
+    }
 }
