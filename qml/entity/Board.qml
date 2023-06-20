@@ -182,6 +182,7 @@ Rectangle {
         camp = gameScene.camp
         boardtheme = gameScene.theme
         clickedBoard.visible = false
+        lastStep.visible = false
         isRed = 0
         opposite_jiang.row = 1; opposite_jiang.col = 5; opposite_jiang.camp = (camp + 1)  % 2; opposite_jiang.isExist = true
         opposite_shi1.row = 1; opposite_shi1.col = 4; opposite_shi1.camp = (camp + 1)  % 2; opposite_shi1.isExist = true
