@@ -84,6 +84,7 @@ Rectangle {
         lastStep.x = (col1 - 1) * 54
         lastStep.visible = true
         isRed = (isRed + 1)  % 2
+        xyChanged()
     }
 
     Stone { id: opposite_jiang; theme: boardtheme; type: 1; isExist: true}

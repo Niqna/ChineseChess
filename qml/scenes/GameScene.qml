@@ -10,15 +10,22 @@ import "../dialogs"
 
 
 SceneBase {
+    signal moveStoneMes
 
     property int theme: 1
 
     property int camp
 
+    property int isServer: camp
+
     function init() {
         theme = settingScene.theme
         board.init()
     }
+
+//    function networkMove(row1, col1, row2, col2) {
+
+//    }
 
     id: gameScene
 
@@ -76,12 +83,29 @@ SceneBase {
         }
     }
 
+
+
     Board {
         id: board
         onCueRoundMes: cueRoundDialog.show()
         onGameOverMes: {
             gameOverDialog.winCamp = isRed
             gameOverDialog.show()
+        }
+        onXyChanged: {
+            var row1 = first_row
+            var col1 = first_col
+            var row2 = _row
+            var col2 = _col
+            createRoomScene.sendMes(row1, col1, row2, col2)
+//            if(isServer === 0 ){
+//                createRoomScene.sendMes(row1, col1, row2, col2)
+
+
+//            } else {
+//                joinRoomScene.sendMes(row1, col1, row2, col2)
+//            }
+//            isServer = !isServer
         }
     }
 
@@ -119,28 +143,7 @@ SceneBase {
             backButtonPressed()
         }
     }
-
-//    Server{
-//        id:server
-
-//        onConnectSuccess: {
-//            window.state = "game"
-//            gamePressed()
-//            gameScene.camp = 0
-//            gameScene.init()
-//        }
-//    }
-
-//    Connect{
-//        id:connect
-//        onConnectSuccess: {
-//            window.state = "game"
-//            gamePressed()
-//            gameScene.camp = 1
-//            gameScene.init()
-//        }
-//        onConnectxy: {
-
-//        }
-//    }
+    onMoveStoneMes: {
+        board.moveStone(first_row, first_col, _row, _col)
+    }
 }

@@ -1,15 +1,18 @@
 import QtQuick 2.15
 import Felgo 3.0
 import "../common"
-//import Server 1.0
+import Server 1.0
 
 // CREATEROOM SCENE
 
 SceneBase {
 
     // signal indicating that the gameScene should be displayed
-//    signal gamePressed
+    signal gamePressed
+    signal sendMes
+    signal acceptMes
     signal portSig(var s)
+
 //    signal cancelSig()
 
 
@@ -106,16 +109,27 @@ SceneBase {
     }
 
 
-//    Server{
-//        id:server
+    Server{
+        id:server
 
-//        onConnectSuccess: {
-//            gamePressed()
-//            gameScene.camp = 0
-//            gameScene.init()
-//            waitMessage.visible = false
-//        }
-//    }
+        onConnectSuccess: {
+            gamePressed()
+            gameScene.camp = 0
+            gameScene.init()
+            waitMessage.visible = false
+        }
+    }
+    onSendMes: {
+        server.xyChangedSlot(row1, col1, row2, col2)
+        joinRoomScene.acceptMes()
+    }
 
+    onAcceptMes: {
+        var first_row = server.firstrow
+        var first_col = server.firstcol
+        var _row = server.row
+        var _col = server.col
+        gameScene.moveStoneMes(first_row, first_col, _row, _col)
+    }
 }
 

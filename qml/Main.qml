@@ -68,20 +68,20 @@ GameWindow {
     CreateRoomScene {
         id:createRoomScene
         onBackButtonPressed: window.state = "local"
-//        onGamePressed: {
-//            window.state = "game"
-//            gameScene.init()
-//        }
+        onGamePressed: {
+            window.state = "game"
+            gameScene.init()
+        }
     }
 
     // join scece
     JoinRoomScene {
         id:joinRoomScene
         onBackButtonPressed: window.state = "local"
-//        onGamePressed: {
-//            window.state = "game"
-//            gameScene.init()
-//        }
+        onGamePressed: {
+            window.state = "game"
+            gameScene.init()
+        }
     }
 
     MediaPlayer{
@@ -89,17 +89,6 @@ GameWindow {
         source: "../assets/music/bg4.mp3"
         autoPlay: true
     }
-
-//    Timer{
-//        id:musictimer
-//        interval: 100
-//        running: true
-//        repeat: true
-//        onTriggered: {
-//            bgm.play()
-//            running=false
-//        }
-//    }
 
     // menuScene is our first scene, so set the state to menu initially
     state: "menu"

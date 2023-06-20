@@ -22,6 +22,10 @@ public slots:
 signals:
     void ipChanged();
     void connectSuccess();
+    void firstrowChanged();
+    void firstcolChanged();
+    void rowChanged();
+    void colChanged();
 
 private:
     QString ip;

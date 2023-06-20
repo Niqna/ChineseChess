@@ -1,14 +1,16 @@
 import QtQuick 2.15
 import Felgo 3.0
 import "../common"
-//import Connect 1.0
+import Connect 1.0
 
 // CREATEROOM SCENE
 
 SceneBase {
 
     // signal indicating that the gameScene should be displayed
-//    signal gamePressed
+    signal sendMes
+    signal acceptMes
+    signal gamePressed
     signal connectSig(var p,var i)
 
     id: joinRoomScene
@@ -86,14 +88,14 @@ SceneBase {
         connectSig.connect(connect.portSlot)
     }
 
-//    Connect{
-//        id:connect
-//        onConnectSuccess: {
-//            gamePressed()
-//            gameScene.camp = 1
-//            gameScene.init()
-//        }
-//    }
+    Connect{
+        id:connect
+        onConnectSuccess: {
+            gamePressed()
+            gameScene.camp = 1
+            gameScene.init()
+        }
+    }
 
     Image {
         id: back
@@ -105,6 +107,19 @@ SceneBase {
                 backButtonPressed()
             }
         }
+    }
+
+    onSendMes: {
+        connect.xyChangedSlot(row1, col1, row2, col2)
+        createRoomScene.acceptMes()
+    }
+
+    onAcceptMes: {
+        var first_row = connect.firstrow
+        var first_col = connect.firstcol
+        var _row = connect.row
+        var _col = connect.col
+        gameScene.moveStoneMes(first_row, first_col, _row, _col)
     }
 }
 
