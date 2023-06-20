@@ -3,8 +3,7 @@ import QtQuick 2.0
 import QtMultimedia 5.15
 
 import "scenes"
-import Server 1.0
-import Connect 1.0
+
 
 GameWindow {
     id: window
@@ -88,18 +87,19 @@ GameWindow {
     MediaPlayer{
         id:bgm
         source: "../assets/music/bg4.mp3"
+        autoPlay: true
     }
 
-    Timer{
-        id:musictimer
-        interval: 100
-        running: true
-        repeat: true
-        onTriggered: {
-            bgm.play()
-            running=false
-        }
-    }
+//    Timer{
+//        id:musictimer
+//        interval: 100
+//        running: true
+//        repeat: true
+//        onTriggered: {
+//            bgm.play()
+//            running=false
+//        }
+//    }
 
     // menuScene is our first scene, so set the state to menu initially
     state: "menu"

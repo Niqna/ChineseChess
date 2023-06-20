@@ -3,8 +3,11 @@ import Felgo 3.0
 import "../common"
 import "../entity"
 import "../dialogs"
+//import Server 1.0
+//import Connect 1.0
 
 // GAME SCENE
+
 
 SceneBase {
 
@@ -117,27 +120,27 @@ SceneBase {
         }
     }
 
-    Server{
-        id:server
+//    Server{
+//        id:server
 
-        onConnectSuccess: {
-            window.state = "game"
-            gamePressed()
-            gameScene.camp = 0
-            gameScene.init()
-        }
-    }
+//        onConnectSuccess: {
+//            window.state = "game"
+//            gamePressed()
+//            gameScene.camp = 0
+//            gameScene.init()
+//        }
+//    }
 
-    Connect{
-        id:connect
-        onConnectSuccess: {
-            window.state = "game"
-            gamePressed()
-            gameScene.camp = 1
-            gameScene.init()
-        }
-        onConnectxy: {
+//    Connect{
+//        id:connect
+//        onConnectSuccess: {
+//            window.state = "game"
+//            gamePressed()
+//            gameScene.camp = 1
+//            gameScene.init()
+//        }
+//        onConnectxy: {
 
-        }
-    }
+//        }
+//    }
 }

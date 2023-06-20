@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import Felgo 3.0
+import QtMultimedia 5.15
 
 
 Rectangle {
@@ -45,30 +46,23 @@ Rectangle {
                 }
                 clickedBoard.y = (_row - 1) * 54
                 clickedBoard.x = (_col - 1) * 54
-                if(!clickedBoard.visible)
-                    clickedBoard.visible = true
-                else
-                    clickedBoard.visible = false
+                clickedBoard.visible = !clickedBoard.visible
                 isfirstchoose = false
                 first_row = _row
                 first_col = _col
             }
-        } else if((_row!=first_row || _col!=first_col) && canMove(first_row,  first_col,  _row,  _col)){
+        } else if(canMove(first_row,  first_col,  _row,  _col)){
             if(getID(_row, _col).type === 1) {
                 gameOverMes(isRed)
+                win.play()
                 return
             }
-
-            getID(_row, _col).isExist = false
-            getID(_row,_col).row = 0
-
-//            xyChanged()
-//            if(getID(first_row, first_col).camp===0)
-//                server.xyChangedSlot(first_row,first_col,_row,_col)
-//            else
-//                connect.xyChangedSlot(first_row,first_col,_row,_col)
-            moveStone.start()
-            isRed = (isRed + 1)  % 2
+            //            xyChanged()
+            //            if(getID(first_row, first_col).camp===0)
+            //                server.xyChangedSlot(first_row,first_col,_row,_col)
+            //            else
+            //                connect.xyChangedSlot(first_row,first_col,_row,_col)
+            moveStone(first_row, first_col, _row, _col)
             clickedBoard.visible = false
             isfirstchoose = true
 
@@ -76,21 +70,20 @@ Rectangle {
             clickedBoard.visible = false
             isfirstchoose = true
         }
-
     }
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            choose(mouseX,mouseY)
+    function moveStone(row1, col1, row2, col2) {
+        if(getID(row2, col2)) {
+            s_cnv.play()
+            getID(row2, col2).isExist = false
+            getID(row2,col2).row = 0
         }
-    }
-
-    ParallelAnimation {
-        id: moveStone
-        PropertyAnimation { target: getID(first_row, first_col); property: "row"; to: _row; duration: 100}
-        PropertyAnimation { target: getID(first_row, first_col); property: "col"; to: _col; duration: 100}
-
+        getID(row1, col1).row = row2
+        getID(row1, col1).col = col2
+        lastStep.y = (row1 - 1) * 54
+        lastStep.x = (col1 - 1) * 54
+        lastStep.visible = true
+        isRed = (isRed + 1)  % 2
     }
 
     Stone { id: opposite_jiang; theme: boardtheme; type: 1; isExist: true}
@@ -127,6 +120,13 @@ Rectangle {
     Stone { id: own_bing4; theme: boardtheme; type: 7}
     Stone { id: own_bing5; theme: boardtheme; type: 7}
 
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            choose(mouseX,mouseY)
+        }
+    }
+
     SpriteSequence {
         visible: false
         id: clickedBoard
@@ -147,6 +147,36 @@ Rectangle {
             to: { "click1": 1 }
         }
     }
+
+    Image {
+        id: lastStep
+        visible: false
+        Keys.priority: Keys.AfterItem
+        width: 54
+        height:54
+        source: "../../assets/image/gameImage/last.png"
+        NumberAnimation {
+            running: lastStep.visible
+            loops: Animation.Infinite
+            id: lastStepAnim
+            target: lastStep
+            property: "rotation"
+            from: 0
+            to: 360
+            duration: 750
+        }
+    }
+
+    MediaPlayer{
+        id: s_cnv
+        source: "../../assets/music/s_cnv.wav"
+    }
+
+    MediaPlayer{
+        id: win
+        source: "../../assets/music/win.mp3"
+    }
+
 
     function init() {
         camp = gameScene.camp
@@ -259,12 +289,16 @@ Rectangle {
 
         return ret;
     }
+
     function relation( row1,  col1,  row,  col)
     {
         return Math.abs(row1-row)*10+ Math.abs(col1-col);
     }
+
     function canMove(row1,  col1,  row2,  col2)
     {
+        if(getID(row1, col1) === getID(row2, col2))
+            return false
         if(getID(row1, col1).camp === getID(row2, col2).camp)
             return false
         switch(getID(row1, col1).type) {
