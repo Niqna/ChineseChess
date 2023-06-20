@@ -60,7 +60,6 @@ Rectangle {
 
             getID(_row, _col).isExist = false
             getID(_row,_col).row = 0
-//            core += getCore(_row, _col)
 
             moveStone.start()
             isRed = (isRed + 1)  % 2
@@ -73,13 +72,6 @@ Rectangle {
         }
 
     }
-
-//    function getCore(row,col) {
-//        switch(getID(row, col).type) {
-
-//        }
-
-//    }
 
     MouseArea {
         anchors.fill: parent
@@ -154,6 +146,7 @@ Rectangle {
         camp = gameScene.camp
         boardtheme = gameScene.theme
         clickedBoard.visible = false
+        isRed = 0
         opposite_jiang.row = 1; opposite_jiang.col = 5; opposite_jiang.camp = (camp + 1)  % 2; opposite_jiang.isExist = true
         opposite_shi1.row = 1; opposite_shi1.col = 4; opposite_shi1.camp = (camp + 1)  % 2; opposite_shi1.isExist = true
         opposite_shi2.row = 1; opposite_shi2.col = 6; opposite_shi2.camp = (camp + 1)  % 2; opposite_shi2.isExist = true

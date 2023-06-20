@@ -76,15 +76,15 @@ SceneBase {
 //                    gamePressed()
 //                    gameScene.camp = 1
 //                    gameScene.init()
-                    connectSig(portText.getText(0,6),ipText.getText(0,15))
+//                    connectSig(portText.getText(0,6),ipText.getText(0,15))
                 }
             }
         }
     }
 
-    Component.onCompleted: {
-        connectSig.connect(connect.portSlot)
-    }
+//    Component.onCompleted: {
+//        connectSig.connect(connect.portSlot)
+//    }
 
 //    Connect{
 //        id:connect

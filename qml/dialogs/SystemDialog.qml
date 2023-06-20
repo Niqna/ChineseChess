@@ -29,6 +29,8 @@ Item {
         // start hide animation, the dialog will be set invisible once the animation has finished
         cancel.jumpTo("false")
         cancel.goalSprite = "false"
+        restart.jumpTo("false")
+        restart.goalSprite = "false"
         setting.jumpTo("false")
         setting.goalSprite = "false"
         help.jumpTo("false")
@@ -92,9 +94,50 @@ Item {
         }
 
         SpriteSequence {
+            id: restart
+            x: 70
+            y: 175
+            width: 217
+            height: 55
+            goalSprite: "false"
+            Sprite{
+                name: "false"
+                source: "../../assets/image/gameImage/dialog1.png"
+                frameCount: 1
+                frameX: 0
+                frameY: 55
+                frameWidth: 217
+                frameHeight: 55
+            }
+            Sprite{
+                name: "true"
+                source: "../../assets/image/gameImage/dialog2.png"
+                frameCount: 1
+                frameX: 0
+                frameY: 55
+                frameWidth: 217
+                frameHeight: 55
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    if(restart.goalSprite === "false"){
+                        initSprite()
+                        restart.jumpTo("true")
+                        restart.goalSprite = "true"
+
+                    } else {
+                        gameScene.init()
+                        hide()
+                    }
+                }
+            }
+        }
+
+        SpriteSequence {
             id: help
             x: 70
-            y: 200
+            y: 250
             width: 217
             height: 55
             goalSprite: "false"
@@ -134,7 +177,7 @@ Item {
         SpriteSequence {
             id: setting
             x: 70
-            y: 300
+            y: 325
             width: 217
             height: 55
             goalSprite: "false"

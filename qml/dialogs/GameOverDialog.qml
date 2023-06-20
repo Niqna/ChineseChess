@@ -39,7 +39,6 @@ Item {
     // visible overlay, only visible if it's a modal dialog
     Rectangle {
         id: overlay
-        visible: dialog.modal
         anchors.fill: parent
         color: "#000"
     }

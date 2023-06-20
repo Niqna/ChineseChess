@@ -8,7 +8,7 @@ import "../dialogs"
 
 SceneBase {
 
-    property int theme
+    property int theme: 1
 
     property int camp
 
