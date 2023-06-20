@@ -3,11 +3,12 @@
 
 #include <QObject>
 #include <QtNetwork>
-
+#include <QQmlEngine>
 
 class Connect : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
 public:
     explicit Connect(QObject *parent = nullptr);
 

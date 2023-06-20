@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import Felgo 3.0
 import "../common"
-import Connect 1.0
+//import Connect 1.0
 
 // CREATEROOM SCENE
 
@@ -86,14 +86,14 @@ SceneBase {
         connectSig.connect(connect.portSlot)
     }
 
-    Connect{
-        id:connect
-        onConnectSuccess: {
-            gamePressed()
-            gameScene.camp = 1
-            gameScene.init()
-        }
-    }
+//    Connect{
+//        id:connect
+//        onConnectSuccess: {
+//            gamePressed()
+//            gameScene.camp = 1
+//            gameScene.init()
+//        }
+//    }
 
     Image {
         id: back

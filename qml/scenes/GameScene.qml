@@ -75,6 +75,7 @@ SceneBase {
 
     Board {
         id: board
+        onCueRoundMes: cueRoundDialog.show()
     }
 
     SpringAnimation {
@@ -84,5 +85,15 @@ SceneBase {
 
     SystemDialog {
       id: systemDialog
+    }
+
+    CueRoundDialog {
+        id: cueRoundDialog
+        box.color: "#f0f0f0"
+        question.text: "This is not your round!"
+        modal: true
+        onSelectedOk: {
+          cueRoundDialog.quit()
+        }
     }
 }

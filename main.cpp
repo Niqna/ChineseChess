@@ -17,6 +17,9 @@ int main(int argc, char *argv[])
     FelgoApplication felgo;
 
     QQmlApplicationEngine engine;
+//    template<typename T>
+//    int qmlRegisterType(const char *uri, int versignMajor,
+//                        int versionMinor, const char *qmlName);
 
     qmlRegisterType<Server>("Server",1,0,"Server");
     qmlRegisterType<Connect>("Connect",1,0,"Connect");

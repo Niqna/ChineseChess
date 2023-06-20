@@ -3,10 +3,13 @@
 
 #include <QObject>
 #include <QtNetwork>
+#include <QQmlEngine>
 
 class Server : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString ip READ getIp WRITE setIp NOTIFY ipChanged)
+    QML_ELEMENT
 public:
     explicit Server(QObject *parent = nullptr);
 
@@ -23,8 +26,7 @@ signals:
     void connectSuccess();
 
 private:
-    QString ip;
-    Q_PROPERTY(QString ip READ getIp WRITE setIp NOTIFY ipChanged)
+    QString ip;    
     quint16 port;
     QTcpServer *tcpserver;
     QTcpSocket *clientConnection;

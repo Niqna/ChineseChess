@@ -1,9 +1,11 @@
 import QtQuick 2.15
 import Felgo 3.0
+import "../common"
 
 Rectangle {
 
-    //    signal firstMouseEvent
+    signal cueRoundMes
+    signal addStepMes
 
     property int boardtheme
     property int camp
@@ -14,6 +16,7 @@ Rectangle {
     property int first_row
     property int first_col
     property int rowcol
+    property int isRed: 0
 
     id: board
     x: parent.x
@@ -32,8 +35,13 @@ Rectangle {
         //        _col = xy_to_rowcol(_y)
         xy_to_rowcol(_x, _y)
         console.log(_row, _col)
-        if (isfirstchoose) {
-            if (getID(_row, _col)) {
+
+        if(isfirstchoose) {
+            if(getID(_row, _col).camp !== isRed) {
+                cueRoundMes()
+                return
+            }
+            if(getID(_row, _col)) {
                 clickedBoard.y = (_row - 1) * 54
                 clickedBoard.x = (_col - 1) * 54
                 if(!clickedBoard.visible)
@@ -46,18 +54,24 @@ Rectangle {
                 first_col = _col
             }
         } else if(_row!=first_row || _col!=first_col){
+            if(getID(_row, _col).type === 1) {
+
+            }
+
             getID(_row, _col).isExist = false
             getID(_row,_col).row = 0
             moveStone.start()
+            isRed = (isRed + 1)  % 2
             clickedBoard.visible = false
             isfirstchoose = true
             getID(first_row, first_col).isClicked = first
-//            if(getID(_row, _col))
+            //            if(getID(_row, _col))
 
         } else {
             clickedBoard.visible = false
             isfirstchoose = true
         }
+
     }
 
     MouseArea {

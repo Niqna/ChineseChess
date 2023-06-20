@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import Felgo 3.0
 import "../common"
-import Server 1.0
+//import Server 1.0
 
 // CREATEROOM SCENE
 
@@ -106,16 +106,16 @@ SceneBase {
     }
 
 
-    Server{
-        id:server
+//    Server{
+//        id:server
 
-        onConnectSuccess: {
-            gamePressed()
-            gameScene.camp = 0
-            gameScene.init()
-            waitMessage.visible = false
-        }
-    }
+//        onConnectSuccess: {
+//            gamePressed()
+//            gameScene.camp = 0
+//            gameScene.init()
+//            waitMessage.visible = false
+//        }
+//    }
 
 }
 

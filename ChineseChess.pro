@@ -65,6 +65,7 @@ macx {
 
 DISTFILES += \
     qml/common/SceneBase.qml \
+    qml/dialogs/CueRoundDialog.qml \
     qml/dialogs/SystemDialog.qml \
     qml/entity/Board.qml \
     qml/entity/Stone.qml \
