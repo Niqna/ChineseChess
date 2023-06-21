@@ -13,6 +13,11 @@ SceneBase {
 //    signal acceptMes
     signal portSig(var s)
 
+    property int row1
+    property int col1
+    property int row2
+    property int col2
+
 //    signal cancelSig()
 
 
@@ -108,10 +113,7 @@ SceneBase {
         }
     }
 
-    property int row1
-    property int col1
-    property int row2
-    property int col2
+
 
     Server{
         id:server

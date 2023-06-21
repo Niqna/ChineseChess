@@ -9,6 +9,7 @@ Rectangle {
     signal gameOverMes
     signal xyChanged_server
     signal xyChanged_connect
+    signal xyChanged
 
     property int boardtheme
     property int camp
@@ -20,6 +21,7 @@ Rectangle {
     property int first_col
     property int rowcol
     property int isRed: 0
+
 
     id: board
     x: parent.x
@@ -34,8 +36,6 @@ Rectangle {
     }
 
     function choose(_x, _y) {
-        //        _row = xy_to_rowcol(_x)
-        //        _col = xy_to_rowcol(_y)
         xy_to_rowcol(_x, _y)
         console.log(_row, _col)
 
@@ -45,6 +45,11 @@ Rectangle {
                     cueRoundMes()
                     return
                 }
+                if(gameScene.isConnected && getID(_row, _col).camp !== gameScene.isServer) {
+                    cueRoundMes()
+                    return
+                }
+
                 clickedBoard.y = (_row - 1) * 54
                 clickedBoard.x = (_col - 1) * 54
                 clickedBoard.visible = !clickedBoard.visible
@@ -58,23 +63,9 @@ Rectangle {
                 win.play()
                 return
             }
-
-            console.log(getID(first_row, first_col).camp)
-            if(getID(first_row, first_col).camp===0){
-                console.log("0")
-                xyChanged_server()
-            }
-            else{
-                console.log("00")
-                xyChanged_connect()
-            }
-
-            //            xyChanged()
-            //            if(getID(first_row, first_col).camp===0)
-            //                server.xyChangedSlot(first_row,first_col,_row,_col)
-            //            else
-            //                connect.xyChangedSlot(first_row,first_col,_row,_col)
             moveStone(first_row, first_col, _row, _col)
+            if(gameScene.isConnected)
+                xyChanged()
             clickedBoard.visible = false
             isfirstchoose = true
 
@@ -91,20 +82,11 @@ Rectangle {
             getID(row2,col2).row = 0
         }
         getID(row1, col1).row = row2
-        getID(row1, col1).col = col2
+        getID(row2, col1).col = col2
         lastStep.y = (row1 - 1) * 54
         lastStep.x = (col1 - 1) * 54
         lastStep.visible = true
         isRed = (isRed + 1)  % 2
-//        console.log(getID(row2, col2).camp)
-//        if(getID(row2, col2).camp===0){
-//            console.log("0")
-//            xyChanged_server()
-//        }
-//        else{
-//            console.log("00")
-//            xyChanged_connect()
-//        }
     }
 
     Stone { id: opposite_jiang; theme: boardtheme; type: 1; isExist: true}

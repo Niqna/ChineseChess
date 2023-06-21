@@ -70,6 +70,7 @@ DISTFILES += \
     qml/dialogs/GameOverDialog.qml \
     qml/dialogs/SystemDialog.qml \
     qml/entity/Board.qml \
+    qml/entity/Clock.qml \
     qml/entity/Stone.qml \
     qml/scenes/GameSceen.qml \
     qml/scenes/HelpScene.qml \

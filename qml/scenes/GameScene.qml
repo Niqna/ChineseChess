@@ -21,15 +21,18 @@ SceneBase {
     property int camp
 
     property int isServer: camp
+    property bool isConnected
 
     function init() {
         theme = settingScene.theme
         board.init()
+        clock.init()
+        clock.start()
     }
 
-//    function networkMove(row1, col1, row2, col2) {
+    //    function networkMove(row1, col1, row2, col2) {
 
-//    }
+    //    }
 
     id: gameScene
 
@@ -37,6 +40,11 @@ SceneBase {
     BackgroundImage {
         anchors.fill: parent.gameWindowAnchorItem
         source: "../../assets/image/gameImage/" + theme + "-01.png"
+    }
+    Clock {
+        id: clock
+        x: 85
+        y: 10
     }
 
     Image {
@@ -97,24 +105,24 @@ SceneBase {
             gameOverDialog.show()
         }
 
-        onXyChanged_server: {
-            createRoomScene.row1 = first_row
-            createRoomScene.col1 = first_col
-            createRoomScene.row2 = _row
-            createRoomScene.col2 = _col
-            console.log("1");
-            console.log(createRoomScene.row1,createRoomScene.col1,createRoomScene.row2,createRoomScene.col2)
-            createRoomScene.sendMes()
-        }
-
-        onXyChanged_connect: {
-            joinRoomScene.row1 = first_row
-            joinRoomScene.col1 = first_col
-            joinRoomScene.row2 = _row
-            joinRoomScene.col2 = _col
-            console.log("11")
-            console.log(joinRoomScene.row1,joinRoomScene.col1,joinRoomScene.row2,joinRoomScene.col2)
-            joinRoomScene.sendMes()
+        onXyChanged: {
+            if(isServer == 0){
+                createRoomScene.row1 = first_row
+                createRoomScene.col1 = first_col
+                createRoomScene.row2 = _row
+                createRoomScene.col2 = _col
+                console.log("1");
+                console.log(createRoomScene.row1,createRoomScene.col1,createRoomScene.row2,createRoomScene.col2)
+                createRoomScene.sendMes()
+            } else {
+                joinRoomScene.row1 = first_row
+                joinRoomScene.col1 = first_col
+                joinRoomScene.row2 = _row
+                joinRoomScene.col2 = _col
+                console.log("11")
+                console.log(joinRoomScene.row1,joinRoomScene.col1,joinRoomScene.row2,joinRoomScene.col2)
+                joinRoomScene.sendMes()
+            }
         }
     }
 
@@ -138,7 +146,7 @@ SceneBase {
     }
 
     SystemDialog {
-      id: systemDialog
+        id: systemDialog
     }
 
     CueRoundDialog {
@@ -147,7 +155,7 @@ SceneBase {
         question.text: "This is not your round!"
         modal: true
         onSelectedOk: {
-          cueRoundDialog.quit()
+            cueRoundDialog.quit()
         }
     }
 

@@ -50,10 +50,10 @@ void Server::portSlot(QString s)
         connect(clientConnection,&QTcpSocket::readyRead,this,[=](){
             QByteArray data = clientConnection->readAll();
             QStringList list = QString(data).split(",");
-            firstrow = 10-list[0].toInt();
-            firstcol = 9-list[1].toInt();
-            row = 10-list[2].toInt();
-            col = 9-list[3].toInt();
+            firstrow = 10-list[0].toInt() + 1;
+            firstcol = 9-list[1].toInt() + 1;
+            row = 10-list[2].toInt() + 1;
+            col = 9-list[3].toInt() + 1;
             qDebug()<<list<<"  "<<firstrow<<"  "<<firstcol<<"  "<<row<<"  "<<col;
             receiveOk();
         });

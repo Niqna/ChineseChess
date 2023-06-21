@@ -71,6 +71,7 @@ GameWindow {
         onGamePressed: {
             window.state = "game"
             gameScene.init()
+            gameScene.isConnected = true
         }
     }
 
@@ -81,6 +82,7 @@ GameWindow {
         onGamePressed: {
             window.state = "game"
             gameScene.init()
+            gameScene.isConnected = true
         }
     }
 

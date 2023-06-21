@@ -13,6 +13,11 @@ SceneBase {
     signal gamePressed
     signal connectSig(var p,var i)
 
+    property int row1
+    property int col1
+    property int row2
+    property int col2
+
     id: joinRoomScene
     anchors.fill: parent
     BackgroundImage {
@@ -88,10 +93,7 @@ SceneBase {
         connectSig.connect(connect.portSlot)
     }
 
-    property int row1
-    property int col1
-    property int row2
-    property int col2
+
 
     Connect{
         id:connect
@@ -134,12 +136,12 @@ SceneBase {
 //        createRoomScene.acceptMes()
     }
 
-//    onAcceptMes: {
-//        var first_row = connect.firstrow
-//        var first_col = connect.firstcol
-//        var _row = connect.row
-//        var _col = connect.col
-//        gameScene.moveStoneMes(first_row, first_col, _row, _col)
-//    }
+    onAcceptMes: {
+        var first_row = connect.firstrow
+        var first_col = connect.firstcol
+        var _row = connect.row
+        var _col = connect.col
+        gameScene.moveStoneMes(first_row, first_col, _row, _col)
+    }
 }
 
