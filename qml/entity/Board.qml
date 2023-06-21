@@ -57,11 +57,6 @@ Rectangle {
                 win.play()
                 return
             }
-            //            xyChanged()
-            //            if(getID(first_row, first_col).camp===0)
-            //                server.xyChangedSlot(first_row,first_col,_row,_col)
-            //            else
-            //                connect.xyChangedSlot(first_row,first_col,_row,_col)
             moveStone(first_row, first_col, _row, _col)
             clickedBoard.visible = false
             isfirstchoose = true
@@ -79,7 +74,7 @@ Rectangle {
             getID(row2,col2).row = 0
         }
         getID(row1, col1).row = row2
-        getID(row1, col1).col = col2
+        getID(row2, col1).col = col2
         lastStep.y = (row1 - 1) * 54
         lastStep.x = (col1 - 1) * 54
         lastStep.visible = true
