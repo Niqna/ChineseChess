@@ -9,7 +9,6 @@ class Server : public QObject
     Q_OBJECT
 public:
     explicit Server(QObject *parent = nullptr);
-
     Q_PROPERTY(QString ip READ getIp WRITE setIp NOTIFY ipChanged)
     Q_PROPERTY(int firstrow READ getFirstrow WRITE setFirstrow NOTIFY firstrowChanged)
     Q_PROPERTY(int firstcol READ getFirstcol WRITE setFirstcol NOTIFY firstcolChanged)
@@ -43,7 +42,6 @@ signals:
     void writeOk();
     void receiveOk();
     void rowChanged();
-
     void colChanged();
 
 private:
@@ -55,7 +53,6 @@ private:
     int firstcol;
     int row;
     int col;
-
 };
 
 #endif // SERVER_H

@@ -22,7 +22,6 @@ SceneBase {
 
     property int isServer: camp
 
-
     function init() {
         theme = settingScene.theme
         board.init()
@@ -97,6 +96,7 @@ SceneBase {
             gameOverDialog.winCamp = isRed
             gameOverDialog.show()
         }
+
         onXyChanged_server: {
             createRoomScene.row1 = first_row
             createRoomScene.col1 = first_col
@@ -166,6 +166,7 @@ SceneBase {
             backButtonPressed()
         }
     }
+
     onMoveStoneMes: function(first_row, first_col, _row, _col){
         board.moveStone(first_row, first_col, _row, _col)
     }

@@ -9,7 +9,7 @@ SceneBase {
 
     // signal indicating that the gameScene should be displayed
     signal sendMes
-//    signal acceptMes
+    signal acceptMes
     signal gamePressed
     signal connectSig(var p,var i)
 
@@ -75,6 +75,9 @@ SceneBase {
             }
             TapHandler{
                 onTapped: {
+//                    gamePressed()
+//                    gameScene.camp = 1
+//                    gameScene.init()
                     connectSig(portText.getText(0,6),ipText.getText(0,15))
                 }
             }
@@ -110,7 +113,6 @@ SceneBase {
             console.log("33")
             console.log("R write ok")
         }
-
     }
 
     Image {
