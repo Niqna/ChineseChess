@@ -250,6 +250,7 @@ Item {
                     } else {
                         dialog.hide()
                         backButtonPressed()
+
                     }
                 }
             }

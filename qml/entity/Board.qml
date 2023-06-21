@@ -7,8 +7,6 @@ Rectangle {
     signal cueRoundMes
     signal addStepMes
     signal gameOverMes
-//    signal xyChanged_server
-//    signal xyChanged_connect
     signal xyChanged
 
     property int boardtheme
@@ -19,7 +17,6 @@ Rectangle {
     property int _col
     property int first_row
     property int first_col
-//    property int rowcol
     property int isRed: 0
 
     id: board
@@ -122,10 +119,17 @@ Rectangle {
     Stone { id: own_bing4; theme: boardtheme; type: 7}
     Stone { id: own_bing5; theme: boardtheme; type: 7}
 
+//    TapHandler {
+//        id: handler
+//        onTapped: {
+//            choose(handler.point,handler.position.x)
+//        }
+//    }
+
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            choose(mouseX,mouseY)
+            choose(mouseX, mouseY)
         }
     }
 
