@@ -30,9 +30,8 @@ Item {
     }
 
     // this component prevents selecting anything behind the dialog, only enabled if it's a modal dialog
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
+    TapHandler {
+        onTapped: {
             dialog.visible = false
         }
     }

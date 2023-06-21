@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.15
 import Felgo 3.0
 
 Item {
@@ -28,9 +28,8 @@ Item {
     }
 
     // this component prevents selecting anything behind the dialog, only enabled if it's a modal dialog
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
+    TapHandler {
+        onTapped: {
             dialog.visible = false
             dialog.gameAgainMes()
         }
@@ -44,7 +43,6 @@ Item {
     }
 
     Image {
-        //        visible: false
         id: fan
         y: 200
         width: 480

@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.15
 import Felgo 3.0
 
 //Clock
@@ -25,7 +25,7 @@ Rectangle {
         time_run.start()
     }
 
-    function pause() {
+    function stop() {
         time_run.stop()
     }
 

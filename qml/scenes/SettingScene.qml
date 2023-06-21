@@ -142,5 +142,4 @@ SceneBase {
             bgm.volume=value
         }
     }
-
 }

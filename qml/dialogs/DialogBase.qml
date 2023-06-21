@@ -1,35 +1,5 @@
-import QtQuick 2.0
+import QtQuick 2.15
 import Felgo 3.0
-
-/*
-  DESCRIPTION:
-
-//  An example dialog implementation, with modal option and simple animations.
-//  EXAMPLE USAGE:
-
-  Scene {
-    id: scene
-    width: 480
-    height: 320
-
-    SimpleButton {
-      text: "SHOW DIALOG"
-      anchors.centerIn: parent
-      onClicked: myDialog.show()
-    }
-
-    cueRoundDialog {
-      id: myDialog
-      box.color: "#f0f0f0"
-      question.text: "Quit the game?"
-      modal: true
-      onSelectedOk: {
-        Qt.quit()
-      }
-    }
-  }
-
-*/
 
 Item {
     id: dialog
@@ -66,9 +36,10 @@ Item {
     }
 
     // this component prevents selecting anything behind the dialog, only enabled if it's a modal dialog
-    MouseArea {
-        anchors.fill: parent
-        enabled: dialog.modal
+    TapHandler {
+        onTapped: {
+            dialog.visible = false
+        }
     }
 
     // visible overlay, only visible if it's a modal dialog

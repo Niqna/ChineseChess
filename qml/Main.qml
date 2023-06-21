@@ -10,8 +10,6 @@ GameWindow {
     screenWidth: 486
     screenHeight: 864
 
-//    signal gamePressed()
-
     // menu scene
     MenuScene {
         id: menuScene

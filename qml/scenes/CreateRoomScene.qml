@@ -18,7 +18,6 @@ SceneBase {
     property int row2
     property int col2
 
-
     id: createRoomScene
     anchors.fill: parent
     BackgroundImage {
@@ -97,7 +96,6 @@ SceneBase {
                 font.pixelSize: 25
             }
         }
-
     }
 
     Image {
@@ -116,6 +114,7 @@ SceneBase {
         id:server
 
         onConnectSuccess: {
+            waitMessage.visible = false
             gamePressed()
             gameScene.camp = 0
             gameScene.init()
@@ -123,7 +122,6 @@ SceneBase {
         }
 
         onReceiveOk: {
-            console.log("44")
             row1=server.firstrow
             col1=server.firstcol
             row2=server.row
@@ -133,7 +131,6 @@ SceneBase {
         }
 
         onWriteOk: {
-            console.log("3")
             console.log("C write ok")
         }
 
@@ -143,7 +140,6 @@ SceneBase {
     }
 
     onSendMes:{
-        console.log("2")
         console.log(row1,col1,row2,col2)
         server.xyChangedSlot(row1, col1, row2, col2)
     }

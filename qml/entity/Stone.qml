@@ -22,7 +22,7 @@ SpriteSequence {
     z: 2
     width: 54
     height: 54
-    Keys.priority: Keys.AfterItem
+    enabled: false
     Sprite{
         name: "normal"
         source: "../../assets/image/gameImage/" + theme + "-02.png"

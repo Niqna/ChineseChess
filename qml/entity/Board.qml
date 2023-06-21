@@ -70,6 +70,7 @@ Rectangle {
             if(getID(row2, col2).type === 1) {
                 gameOverMes(isRed)
                 win.play()
+                clock.stop()
                 return
             }
             s_cnv.play()
@@ -80,7 +81,10 @@ Rectangle {
         getID(row2, col1).col = col2
         lastStep.y = (row1 - 1) * 54
         lastStep.x = (col1 - 1) * 54
+        lastStep2.y = (row2 - 1) * 54 - 5
+        lastStep2.x = (col2 - 1) * 54 - 5
         lastStep.visible = true
+        lastStep2.visible = true
         isRed = (isRed + 1)  % 2
         addStepMes()
     }
@@ -119,23 +123,17 @@ Rectangle {
     Stone { id: own_bing4; theme: boardtheme; type: 7}
     Stone { id: own_bing5; theme: boardtheme; type: 7}
 
-//    TapHandler {
-//        id: handler
-//        onTapped: {
-//            choose(handler.point,handler.position.x)
-//        }
-//    }
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            choose(mouseX, mouseY)
+    TapHandler {
+        id: handler
+        onTapped: {
+            choose(point.position.x,point.position.y)
         }
     }
 
     SpriteSequence {
         visible: false
         id: clickedBoard
+        enabled: false
         //        anchors.fill: parent
         width: 54
         height:54
@@ -157,7 +155,7 @@ Rectangle {
     Image {
         id: lastStep
         visible: false
-        Keys.priority: Keys.AfterItem
+        enabled: false
         width: 54
         height:54
         source: "../../assets/image/gameImage/last.png"
@@ -166,6 +164,25 @@ Rectangle {
             loops: Animation.Infinite
             id: lastStepAnim
             target: lastStep
+            property: "rotation"
+            from: 0
+            to: 360
+            duration: 750
+        }
+    }
+
+    Image {
+        id: lastStep2
+        visible: false
+        enabled: false
+        width: 64
+        height: 64
+        source: "../../assets/image/gameImage/last2.png"
+        NumberAnimation {
+            running: lastStep.visible
+            loops: Animation.Infinite
+            id: lastStepAnim1
+            target: lastStep2
             property: "rotation"
             from: 0
             to: 360
@@ -183,12 +200,12 @@ Rectangle {
         source: "../../assets/music/win.mp3"
     }
 
-
     function init() {
         camp = gameScene.camp
         boardtheme = gameScene.theme
         clickedBoard.visible = false
         lastStep.visible = false
+        lastStep2.visible = false
         isRed = 0
         opposite_jiang.row = 1; opposite_jiang.col = 5; opposite_jiang.camp = (camp + 1)  % 2; opposite_jiang.isExist = true
         opposite_shi1.row = 1; opposite_shi1.col = 4; opposite_shi1.camp = (camp + 1)  % 2; opposite_shi1.isExist = true
@@ -261,89 +278,72 @@ Rectangle {
         else if( own_bing5.row ===row && own_bing5.col ===col ) { return own_bing5 }
         else return false
     }
-    function getStoneCountAtLine( row1,  col1,  row2,  col2)
-    {
+
+    function getStoneCountAtLine( row1,  col1,  row2,  col2) {
         var  ret = 0;
         if(row1 !== row2 && col1 !== col2)
             return false;
         if(row1 === row2 && col1 === col2)
             return false;
 
-        if(row1 === row2)
-        {
+        if(row1 === row2) {
             var min = col1 < col2 ? col1 : col2;
             var max = col1 < col2 ? col2 : col1;
-            for(var col = min+1; col<max; ++col)
-            {
-                if(getID(row1, col) )
-                {
+            for(var col = min + 1; col<max; ++col) {
+                if(getID(row1, col)) {
                     ++ret;
                 }
             }
-        }
-        else
-        {
+        } else {
             min = row1 < row2 ? row1 : row2;
             max = row1 < row2 ? row2 : row1;
-            for(var row = min+1; row<max; ++row)
-            {
-                if(getID(row, col1))
-                {
+            for(var row = min+1; row<max; ++row) {
+                if(getID(row, col1)) {
                     ++ret;
                 }
             }
         }
-
         return ret;
     }
 
-    function relation( row1,  col1,  row,  col)
-    {
+    function relation( row1,  col1,  row,  col) {
         return Math.abs(row1-row)*10+ Math.abs(col1-col);
     }
 
-    function canMove(row1,  col1,  row2,  col2)
-    {
+    function canMove(row1,  col1,  row2,  col2) {
         if(getID(row1, col1) === getID(row2, col2))
             return false
         if(getID(row1, col1).camp === getID(row2, col2).camp)
             return false
+
         switch(getID(row1, col1).type) {
         case 7://bing
             var r=relation( row1,  col1,  row2,  col2)
-            if(getID(row1,col1).camp!==camp)
-            {
-                if(row2<6)
-                {
-                    if(row2-row1==1&&(r===1||r===10))
-                    {
+            if(getID(row1, col1).camp!==camp) {
+                if(row2 < 6) {
+                    if(row2 - row1 == 1 && (r === 1 || r === 10)) {
                         return true;
-                    }else{
+                    } else {
                         return false;
                     }
-                }else
-                {
-                    if((row2-row1==1||Math.abs(col2-col1)==1)&&r===1||r===10){
+                } else {
+                    if((row2 - row1 == 1 || Math.abs(col2 - col1) == 1) && r === 1 || r === 10){
                         return true;
-                    } else{
+                    } else {
                         return false;
                     }
                 }
-            }else
-            {
-                if(row2>5)
-                {
-                    if(row2-row1==-1&&(r===1||r===10))
-                    {
+            }else {
+                if(row2 > 5) {
+                    if(row2 - row1 == -1 && (r === 1||r === 10)) {
                         return true;
-                    }else{
+                    } else {
                         return false;
                     }
-                }else
-                {
-                    if((row2-row1==-1||Math.abs(col2-col1)==1)&&(r===1||r===10)){
+                } else {
+                    if((row2 - row1 == -1 || Math.abs(col2 - col1) == 1)&&(r === 1 || r === 10)){
                         return true;
-                    } else{
+                    } else {
                         return false;
                     }
                 }
@@ -352,7 +352,7 @@ Rectangle {
             r=relation( row1,  col1,  row2,  col2)
             if((r !== 12 && r !== 21)){
                 return false;
-            }else{
+            } else {
                 if(r===12)
                 {
                     if(getID(row1,(col1+col2)/2))
@@ -399,10 +399,6 @@ Rectangle {
                     return true;
                 }
             }
-
-
-
-
         case 1://jiang
             r=relation(row1,  col1,  row2,  col2)
             if(r !== 1 && r !== 10||col2<4||col2>6||(row2>=4&&row2<=7))
@@ -421,30 +417,20 @@ Rectangle {
                 return false
             }
         case 6://pao
-
             ret = getStoneCountAtLine(row2, col2, row1, col1);
-            if(getID(row2,col2))
-            {
-                if(ret===1)
-                {
+            if(getID(row2,col2)) {
+                if(ret===1) {
                     return true
-                }else
-                {
+                } else {
                     return false
                 }
-            }else
-            {
-                if(ret===0)
-                {
+            }else {
+                if(ret===0) {
                     return true
-                }else
-                {
+                } else {
                     return false
                 }
             }
-
         }
-
-
     }
 }

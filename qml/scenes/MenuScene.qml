@@ -78,7 +78,6 @@ SceneBase {
             height: parent.height-110
             source: "../../assets/image/8-3.png"
         }
-
         TapHandler{
             onTapped: {
                 onclicked: helpPressed()

@@ -10,13 +10,10 @@ import "../dialogs"
 SceneBase {
 
     signal disConnect
-
     signal move_connect
-
     signal move_server
 
     property int theme: 1
-
     property int camp
 
     property int isServer: camp
@@ -194,7 +191,6 @@ SceneBase {
     }
 
     onMove_server: {
-        console.log("55")
         console.log(createRoomScene.row1,createRoomScene.col1,createRoomScene.row2,createRoomScene.col2)
         board.moveStone(createRoomScene.row1,createRoomScene.col1,createRoomScene.row2,createRoomScene.col2)
         console.log("move")

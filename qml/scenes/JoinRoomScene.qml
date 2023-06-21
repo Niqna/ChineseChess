@@ -101,7 +101,6 @@ SceneBase {
             gameScene.init()
         }
         onReceiveOk: {
-            console.log("4")
             row1=connect.firstrow
             col1=connect.firstcol
             row2=connect.row
@@ -110,8 +109,7 @@ SceneBase {
             gameScene.move_connect()
         }
         onWriteOk: {
-            console.log("33")
-            console.log("R write ok")
+            console.log("S write ok")
         }
         onDisConnectSignal: {
             gameScene.disConnect()
@@ -131,7 +129,6 @@ SceneBase {
     }
 
     onSendMes:{
-        console.log("22")
         console.log(row1,col1,row2,col2)
         connect.xyChangedSlot(row1, col1, row2, col2)
     }

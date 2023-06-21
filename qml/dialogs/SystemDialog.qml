@@ -81,9 +81,8 @@ Item {
                 frameWidth: 217
                 frameHeight: 55
             }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
+            TapHandler {
+                onTapped: {
                     if(cancel.goalSprite === "false"){
                         initSprite()
                         cancel.jumpTo("true")
@@ -121,9 +120,8 @@ Item {
                 frameWidth: 217
                 frameHeight: 55
             }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
+            TapHandler {
+                onTapped: {
                     if(restart.goalSprite === "false"){
                         initSprite()
                         restart.jumpTo("true")
@@ -162,9 +160,8 @@ Item {
                 frameWidth: 217
                 frameHeight: 55
             }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
+            TapHandler {
+                onTapped: {
                     if(help.goalSprite === "false"){
                         initSprite()
                         help.jumpTo("true")
@@ -202,9 +199,8 @@ Item {
                 frameWidth: 217
                 frameHeight: 55
             }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
+            TapHandler {
+                onTapped: {
                     if(setting.goalSprite === "false"){
                         initSprite()
                         setting.jumpTo("true")
@@ -242,9 +238,8 @@ Item {
                 frameWidth: 217
                 frameHeight: 55
             }
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
+            TapHandler {
+                onTapped: {
                     if(backmemu.goalSprite === "false"){
                         initSprite()
                         backmemu.jumpTo("true")
@@ -253,7 +248,7 @@ Item {
                     } else {
                         dialog.hide()
                         backButtonPressed()
-                        disConnectSig()
+
                     }
                 }
             }
