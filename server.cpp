@@ -43,7 +43,7 @@ void Server::portSlot(QString s)
     }
 
     connect(tcpserver,&QTcpServer::newConnection,this,[=](){
-        connectSuccess();
+        emit connectSuccess();
 
         clientConnection=tcpserver->nextPendingConnection();
 
@@ -55,10 +55,11 @@ void Server::portSlot(QString s)
             row = 10-list[2].toInt() + 1;
             col = 9-list[3].toInt() + 1;
             qDebug()<<list<<"  "<<firstrow<<"  "<<firstcol<<"  "<<row<<"  "<<col;
-            receiveOk();
+            emit receiveOk();
         });
 
         connect(clientConnection,&QTcpSocket::disconnected,this,[=](){
+            emit disConnectSignal();
             clientConnection->close();
             clientConnection->deleteLater();
         });
@@ -125,6 +126,13 @@ void Server::xyChangedSlot(int x,int y,int x1,int y1)
             +QString::number(x1)+","+QString::number(y1);
     qDebug()<<"11111  "<<mes;
     clientConnection->write(mes.toUtf8());
-    writeOk();
+    emit writeOk();
+}
+
+void Server::disConnect()
+{
+    clientConnection->disconnectFromHost();
+    clientConnection->close();
+    clientConnection->deleteLater();
 }
 

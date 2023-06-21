@@ -3,6 +3,9 @@ import Felgo 3.0
 import "../scenes"
 
 Item {
+
+    signal disConnectSig
+
     id: dialog
     // if the parent is a Scene, we can fill the whole screen with gameWindowAnchorItem
     anchors.fill: parent.gameWindowAnchorItem ? parent.gameWindowAnchorItem : parent
@@ -250,7 +253,7 @@ Item {
                     } else {
                         dialog.hide()
                         backButtonPressed()
-
+                        disConnectSig()
                     }
                 }
             }

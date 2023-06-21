@@ -9,6 +9,8 @@ import "../dialogs"
 
 SceneBase {
 
+    signal disConnect
+
     signal move_connect
 
     signal move_server
@@ -200,6 +202,14 @@ SceneBase {
 
     SystemDialog {
         id: systemDialog
+        onDisConnectSig:{
+            if(isServer === 0){
+                createRoomScene.disConnect_server()
+            }
+            else{
+                joinRoomScene.disConnect_Connect()
+            }
+        }
     }
 
     DialogBase {
@@ -209,6 +219,16 @@ SceneBase {
         modal: true
         onSelectedOk: {
             cueRoundDialog.quit()
+        }
+    }
+
+    DialogBase {
+        id: disconnectDialog
+        box.color: "#f0f0f0"
+        question.text: "Connection down!"
+        modal: true
+        onSelectedOk: {
+            window.state = "menu"
         }
     }
 
@@ -226,5 +246,8 @@ SceneBase {
         onSelectedCancel: {
             backButtonPressed()
         }
+    }
+    onDisConnect: {
+        disconnectDialog.show()
     }
 }

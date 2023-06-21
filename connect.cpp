@@ -6,7 +6,7 @@ Connect::Connect(QObject *parent)
     tcpsocket = new QTcpSocket(this);
 
     connect(tcpsocket, &QTcpSocket::connected, this, [=](){
-        connectSuccess();
+        emit connectSuccess();
     });
     connect(tcpsocket,&QTcpSocket::readyRead,this,[=](){
         QByteArray data = tcpsocket->readAll();
@@ -17,10 +17,14 @@ Connect::Connect(QObject *parent)
         row = 10-list[2].toInt()+1;
         col = 9-list[3].toInt()+1;
         qDebug()<<list<<"  "<<firstrow<<"  "<<firstcol<<"  "<<row<<"  "<<col;
-        receiveOk();
+        emit receiveOk();
     });
-    connect(tcpsocket,SIGNAL(error(QAbstractSocket::SocketError)),
-            this,SLOT(displayError(QAbstractSocket::SocketError)));
+
+    connect(tcpsocket,&QTcpSocket::disconnected,this,[=](){
+        emit disConnectSignal();
+        tcpsocket->close();
+        tcpsocket->deleteLater();
+    });
 
 }
 
@@ -123,5 +127,12 @@ void Connect::xyChangedSlot(int x, int y, int x1, int y1)
             +","+QString::number(x1)+","+QString::number(y1);
     qDebug()<<"11111";
     tcpsocket->write(mes.toUtf8());
-    writeOk();
+    emit writeOk();
+}
+
+void Connect::disConnect()
+{
+    tcpsocket->disconnectFromHost();
+    tcpsocket->close();
+    tcpsocket->deleteLater();
 }

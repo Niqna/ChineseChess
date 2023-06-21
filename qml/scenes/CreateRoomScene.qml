@@ -9,7 +9,7 @@ SceneBase {
 
     // signal indicating that the gameScene should be displayed
     signal gamePressed
-
+    signal disConnect_server
     signal sendMes
     signal portSig(var s)
 
@@ -136,6 +136,10 @@ SceneBase {
             console.log("3")
             console.log("C write ok")
         }
+
+        onDisConnectSignal: {
+            gameScene.disConnect()
+        }
     }
 
     onSendMes:{
@@ -143,5 +147,10 @@ SceneBase {
         console.log(row1,col1,row2,col2)
         server.xyChangedSlot(row1, col1, row2, col2)
     }
+
+    onDisConnect_server: {
+        server.disConnect()
+    }
+
 }
 

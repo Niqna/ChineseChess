@@ -12,6 +12,7 @@ public:
 
     explicit Connect(QObject *parent = nullptr);
     Q_INVOKABLE void xyChangedSlot(int x,int y,int x1,int y1);
+    Q_INVOKABLE void disConnect();
 
     Q_PROPERTY(int firstrow READ getFirstrow WRITE setFirstrow NOTIFY firstrowChanged)
     Q_PROPERTY(int firstcol READ getFirstcol WRITE setFirstcol NOTIFY firstcolChanged)
@@ -43,6 +44,7 @@ signals:
     void rowChanged();
     void colChanged();
     void writeOk();
+    void disConnectSignal();
 
 private:
     quint16 port;

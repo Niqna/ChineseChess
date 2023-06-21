@@ -11,6 +11,7 @@ SceneBase {
     signal sendMes
     signal gamePressed
     signal connectSig(var p,var i)
+    signal disConnect_Connect
 
     property int row1
     property int col1
@@ -112,6 +113,9 @@ SceneBase {
             console.log("33")
             console.log("R write ok")
         }
+        onDisConnectSignal: {
+            gameScene.disConnect()
+        }
     }
 
     Image {
@@ -130,6 +134,10 @@ SceneBase {
         console.log("22")
         console.log(row1,col1,row2,col2)
         connect.xyChangedSlot(row1, col1, row2, col2)
+    }
+
+    onDisConnect_Connect: {
+        connect.disConnect()
     }
 }
 

@@ -18,6 +18,7 @@ public:
     const QString &getIp() const;
     void setIp(const QString &newIp);
     Q_INVOKABLE void xyChangedSlot(int x,int y,int x1,int y1);
+    Q_INVOKABLE void disConnect();
 
     int getFirstrow() const;
     void setFirstrow(int newFirstrow);
@@ -43,6 +44,7 @@ signals:
     void receiveOk();
     void rowChanged();
     void colChanged();
+    void disConnectSignal();
 
 private:
     QString ip;
