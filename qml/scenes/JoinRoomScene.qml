@@ -9,7 +9,6 @@ SceneBase {
 
     // signal indicating that the gameScene should be displayed
     signal sendMes
-    signal acceptMes
     signal gamePressed
     signal connectSig(var p,var i)
 
@@ -20,10 +19,12 @@ SceneBase {
 
     id: joinRoomScene
     anchors.fill: parent
+
     BackgroundImage {
         source: "../../assets/image/01.png"
         anchors.fill: parent.gameWindowAnchorItem
     }
+
     Text {
         id: title
         anchors.horizontalCenter: parent.horizontalCenter
@@ -32,6 +33,7 @@ SceneBase {
         text: '加入房间'
         font.pixelSize: 40
     }
+
     Image {
         id: juanzhou
         anchors.horizontalCenter: parent.horizontalCenter
@@ -80,9 +82,6 @@ SceneBase {
             }
             TapHandler{
                 onTapped: {
-//                    gamePressed()
-//                    gameScene.camp = 1
-//                    gameScene.init()
                     connectSig(portText.getText(0,6),ipText.getText(0,15))
                 }
             }
@@ -92,8 +91,6 @@ SceneBase {
     Component.onCompleted: {
         connectSig.connect(connect.portSlot)
     }
-
-
 
     Connect{
         id:connect
@@ -133,15 +130,6 @@ SceneBase {
         console.log("22")
         console.log(row1,col1,row2,col2)
         connect.xyChangedSlot(row1, col1, row2, col2)
-//        createRoomScene.acceptMes()
-    }
-
-    onAcceptMes: {
-        var first_row = connect.firstrow
-        var first_col = connect.firstcol
-        var _row = connect.row
-        var _col = connect.col
-        gameScene.moveStoneMes(first_row, first_col, _row, _col)
     }
 }
 

@@ -7,6 +7,7 @@ import "../common"
 
 SceneBase {
     property int theme: 1
+
     id: settingScene
     anchors.fill: parent
 
@@ -25,6 +26,7 @@ SceneBase {
         anchors.fill: parent.gameWindowAnchorItem
         source: "../../assets/image/01.png"
     }
+
     Image {
         id: back
         y:750

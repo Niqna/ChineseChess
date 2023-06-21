@@ -3,14 +3,11 @@ import Felgo 3.0
 import "../common"
 import "../entity"
 import "../dialogs"
-//import Server 1.0
-//import Connect 1.0
 
 // GAME SCENE
 
 
 SceneBase {
-    signal moveStoneMes
 
     signal move_connect
 
@@ -23,16 +20,19 @@ SceneBase {
     property int isServer: camp
     property bool isConnected
 
+    property int step1: 0
+    property int step2: 0
+    property int step3: 0
+
     function init() {
         theme = settingScene.theme
+        step1 = 0
+        step2 = 0
+        step3 = 0
         board.init()
         clock.init()
         clock.start()
     }
-
-    //    function networkMove(row1, col1, row2, col2) {
-
-    //    }
 
     id: gameScene
 
@@ -41,10 +41,98 @@ SceneBase {
         anchors.fill: parent.gameWindowAnchorItem
         source: "../../assets/image/gameImage/" + theme + "-01.png"
     }
+
+    Board {
+        id: board
+        onCueRoundMes: cueRoundDialog.show()
+        onGameOverMes: {
+            gameOverDialog.winCamp = isRed
+            gameOverDialog.show()
+        }
+
+        onXyChanged: {
+            if(isServer == 0){
+                createRoomScene.row1 = first_row
+                createRoomScene.col1 = first_col
+                createRoomScene.row2 = _row
+                createRoomScene.col2 = _col
+                console.log("1");
+                console.log(createRoomScene.row1,createRoomScene.col1,createRoomScene.row2,createRoomScene.col2)
+                createRoomScene.sendMes()
+            } else {
+                joinRoomScene.row1 = first_row
+                joinRoomScene.col1 = first_col
+                joinRoomScene.row2 = _row
+                joinRoomScene.col2 = _col
+                console.log("11")
+                console.log(joinRoomScene.row1,joinRoomScene.col1,joinRoomScene.row2,joinRoomScene.col2)
+                joinRoomScene.sendMes()
+            }
+        }
+        onAddStepMes: {
+            step1++
+            if(step1 > 9) {
+                step1 = 0
+                step2++
+                if(step2 > 9) {
+                    step2 = 0
+                    step3++
+                    if(step3 > 9) {
+                        step3 = 0
+                    }
+                }
+            }
+        }
+    }
+
     Clock {
         id: clock
         x: 85
         y: 10
+    }
+
+    Rectangle {
+        id: step
+        x: 360
+        y: 10
+        width: 75
+        height: 28
+        color: "transparent"
+        AnimatedSprite {
+            id: step_1
+            width: 25
+            height: 28
+            anchors.right: step.right
+            source: "../../assets/image/gameImage/" + theme + "-03.png"
+            frameX: step1 * 25
+            frameY: 0
+            frameWidth: 25
+            frameHeight: 28
+        }
+
+        AnimatedSprite {
+            id: step_2
+            width: 25
+            height: 28
+            anchors.right: step_1.left
+            source: "../../assets/image/gameImage/" + theme + "-03.png"
+            frameWidth: 25
+            frameHeight: 28
+            frameX: step2 * 25
+            frameY: 0
+        }
+
+        AnimatedSprite {
+            id: step_3
+            width: 25
+            height: 28
+            anchors.right: step_2.left
+            source: "../../assets/image/gameImage/" + theme + "-03.png"
+            frameWidth: 25
+            frameHeight: 28
+            frameX: step3 * 25
+            frameY: 0
+        }
     }
 
     Image {
@@ -81,6 +169,7 @@ SceneBase {
             frameHeight: 76
         }
     }
+
     SpriteSequence {
         x: undo.x + 3
         y: undo.y + 20
@@ -92,37 +181,6 @@ SceneBase {
             frameX: 150
             frameWidth: 50
             frameHeight: 76
-        }
-    }
-
-
-
-    Board {
-        id: board
-        onCueRoundMes: cueRoundDialog.show()
-        onGameOverMes: {
-            gameOverDialog.winCamp = isRed
-            gameOverDialog.show()
-        }
-
-        onXyChanged: {
-            if(isServer == 0){
-                createRoomScene.row1 = first_row
-                createRoomScene.col1 = first_col
-                createRoomScene.row2 = _row
-                createRoomScene.col2 = _col
-                console.log("1");
-                console.log(createRoomScene.row1,createRoomScene.col1,createRoomScene.row2,createRoomScene.col2)
-                createRoomScene.sendMes()
-            } else {
-                joinRoomScene.row1 = first_row
-                joinRoomScene.col1 = first_col
-                joinRoomScene.row2 = _row
-                joinRoomScene.col2 = _col
-                console.log("11")
-                console.log(joinRoomScene.row1,joinRoomScene.col1,joinRoomScene.row2,joinRoomScene.col2)
-                joinRoomScene.sendMes()
-            }
         }
     }
 
@@ -140,16 +198,11 @@ SceneBase {
         console.log("move")
     }
 
-    SpringAnimation {
-        id: stone
-
-    }
-
     SystemDialog {
         id: systemDialog
     }
 
-    CueRoundDialog {
+    DialogBase {
         id: cueRoundDialog
         box.color: "#f0f0f0"
         question.text: "This is not your round!"
@@ -173,9 +226,5 @@ SceneBase {
         onSelectedCancel: {
             backButtonPressed()
         }
-    }
-
-    onMoveStoneMes: function(first_row, first_col, _row, _col){
-        board.moveStone(first_row, first_col, _row, _col)
     }
 }

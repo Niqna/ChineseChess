@@ -13,10 +13,12 @@ SceneBase {
 
     id: localScene
     anchors.fill: parent
+
     BackgroundImage {
         source: "../../assets/image/01.png"
         anchors.fill: parent.gameWindowAnchorItem
     }
+
     Text {
         id: title
         width: localScene.width/4
@@ -27,6 +29,7 @@ SceneBase {
         text: '局域网'
         font.pixelSize: 40
     }
+
     Image {
         id: juanzhou
         anchors.horizontalCenter: parent.horizontalCenter

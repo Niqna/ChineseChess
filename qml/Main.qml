@@ -10,13 +10,8 @@ GameWindow {
     screenWidth: 486
     screenHeight: 864
 
-    signal gamePressed()
+//    signal gamePressed()
 
-    // setting scene
-    SettingScene {
-        id: settingScene
-        onBackButtonPressed: window.state = "menu"
-    }
     // menu scene
     MenuScene {
         id: menuScene
@@ -55,7 +50,11 @@ GameWindow {
         onBackButtonPressed: window.state = "menu"
     }
 
-
+    // setting scene
+    SettingScene {
+        id: settingScene
+        onBackButtonPressed: window.state = "menu"
+    }
 
     // game scene
     GameScene {
@@ -139,28 +138,4 @@ GameWindow {
             PropertyChanges {target: window; activeScene: gameScene}
         }
     ]
-
-//    Server{
-//        id:server
-
-//        onConnectSuccess: {
-//            window.state = "game"
-//            gamePressed()
-//            gameScene.camp = 0
-//            gameScene.init()
-//        }
-//    }
-
-//    Connect{
-//        id:connect
-//        onConnectSuccess: {
-//            window.state = "game"
-//            gamePressed()
-//            gameScene.camp = 1
-//            gameScene.init()
-//        }
-//        onConnectxy: {
-
-//        }
-//    }
 }

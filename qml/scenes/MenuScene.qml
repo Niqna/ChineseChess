@@ -16,10 +16,12 @@ SceneBase {
     signal settingPressed
 
     anchors.fill: parent
+
     BackgroundImage {
         anchors.fill: parent.gameWindowAnchorItem
         source: "../../assets/image/bg2.png"
     }
+
     Image {
         id: soloScene
         x: menuScene.width * 3 / 5
@@ -104,6 +106,4 @@ SceneBase {
             }
         }
     }
-
-
 }

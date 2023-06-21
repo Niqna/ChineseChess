@@ -65,12 +65,13 @@ macx {
 
 DISTFILES += \
     qml/common/SceneBase.qml \
-    qml/dialogs/CueRoundDialog.qml \
+    qml/dialogs/DialogBase.qml \
     qml/dialogs/GameAgainDialog.qml \
     qml/dialogs/GameOverDialog.qml \
     qml/dialogs/SystemDialog.qml \
     qml/entity/Board.qml \
     qml/entity/Clock.qml \
+    qml/entity/Step.qml \
     qml/entity/Stone.qml \
     qml/scenes/GameSceen.qml \
     qml/scenes/HelpScene.qml \

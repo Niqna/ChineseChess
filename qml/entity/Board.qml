@@ -7,8 +7,8 @@ Rectangle {
     signal cueRoundMes
     signal addStepMes
     signal gameOverMes
-    signal xyChanged_server
-    signal xyChanged_connect
+//    signal xyChanged_server
+//    signal xyChanged_connect
     signal xyChanged
 
     property int boardtheme
@@ -19,9 +19,8 @@ Rectangle {
     property int _col
     property int first_row
     property int first_col
-    property int rowcol
+//    property int rowcol
     property int isRed: 0
-
 
     id: board
     x: parent.x
@@ -49,7 +48,6 @@ Rectangle {
                     cueRoundMes()
                     return
                 }
-
                 clickedBoard.y = (_row - 1) * 54
                 clickedBoard.x = (_col - 1) * 54
                 clickedBoard.visible = !clickedBoard.visible
@@ -58,11 +56,6 @@ Rectangle {
                 first_col = _col
             }
         } else if(canMove(first_row,  first_col,  _row,  _col)){
-            if(getID(_row, _col).type === 1) {
-                gameOverMes(isRed)
-                win.play()
-                return
-            }
             moveStone(first_row, first_col, _row, _col)
             if(gameScene.isConnected)
                 xyChanged()
@@ -77,6 +70,11 @@ Rectangle {
 
     function moveStone(row1, col1, row2, col2) {
         if(getID(row2, col2)) {
+            if(getID(row2, col2).type === 1) {
+                gameOverMes(isRed)
+                win.play()
+                return
+            }
             s_cnv.play()
             getID(row2, col2).isExist = false
             getID(row2,col2).row = 0
@@ -87,6 +85,7 @@ Rectangle {
         lastStep.x = (col1 - 1) * 54
         lastStep.visible = true
         isRed = (isRed + 1)  % 2
+        addStepMes()
     }
 
     Stone { id: opposite_jiang; theme: boardtheme; type: 1; isExist: true}

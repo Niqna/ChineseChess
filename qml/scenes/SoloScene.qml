@@ -14,10 +14,12 @@ SceneBase {
 
     id: soloScene
     anchors.fill: parent
+
     BackgroundImage {
         anchors.fill: parent.gameWindowAnchorItem
         source: "../../assets/image/01.png"
     }
+
     Image {
         id: title
         x:110
@@ -98,6 +100,7 @@ SceneBase {
             }
         }
     }
+
     Image {
         id: back
         y:750

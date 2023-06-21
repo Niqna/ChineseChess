@@ -9,16 +9,14 @@ SceneBase {
 
     // signal indicating that the gameScene should be displayed
     signal gamePressed
+
     signal sendMes
-//    signal acceptMes
     signal portSig(var s)
 
     property int row1
     property int col1
     property int row2
     property int col2
-
-//    signal cancelSig()
 
 
     id: createRoomScene
@@ -101,6 +99,7 @@ SceneBase {
         }
 
     }
+
     Image {
         id: back
         x: 0
@@ -112,8 +111,6 @@ SceneBase {
             }
         }
     }
-
-
 
     Server{
         id:server
@@ -145,15 +142,6 @@ SceneBase {
         console.log("2")
         console.log(row1,col1,row2,col2)
         server.xyChangedSlot(row1, col1, row2, col2)
-//        joinRoomScene.acceptMes()
     }
-
-//    onAcceptMes: {
-//        var first_row = server.firstrow
-//        var first_col = server.firstcol
-//        var _row = server.row
-//        var _col = server.col
-//        gameScene.moveStoneMes(first_row, first_col, _row, _col)
-//    }
 }
 
