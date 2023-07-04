@@ -6,13 +6,13 @@
 
 import QtQuick 2.15
 import Felgo 3.0
-import "../common"
+// Setting SCENE
 
 SceneBase {
+    property int theme: 1   //主题  数字1～4分别代表竹林幽亭、娟秀青花、烟波浩渺、花好月圆  默认是竹林幽亭
+
     id: settingScene
     anchors.fill: parent
-
-    property int theme: 1   //主题  数字1～4分别代表竹林幽亭、娟秀青花、烟波浩渺、花好月圆  默认是竹林幽亭
 
     // func：更新主题
     function updateTheme() {
@@ -35,7 +35,7 @@ SceneBase {
     //返回按钮
     Image {
         id: back
-        y: 750
+        y:750
         source: "../../assets/image/back.png"
         TapHandler{
             onTapped: {
@@ -47,9 +47,8 @@ SceneBase {
 
     // 游戏设置标题字样
     Image {
-        id: title
-        x: 110
-        y: 95
+        x:110
+        y:95
         anchors.horizontalCenter: parent.horizontalCenter
         source: "../../assets/image/setting.png"
     }
@@ -57,8 +56,8 @@ SceneBase {
     // 声音字样
     Image {
         id: musicImg
-        x: 10
-        y: 300
+        x:10
+        y:300
         width: 230
         source: "../../assets/image/music.png"
     }
@@ -66,16 +65,16 @@ SceneBase {
     // 棋盘选择字样
     Image {
         id:chessboardImg
-        x: 10
-        y: 400
+        x:10
+        y:400
         source: "../../assets/image/chessboard.png"
     }
 
     //  左箭头，点击切换到上一主题
     Image {
         id: left
-        x: chessboardImg.width - 20
-        y: chessboardImg.y - 10
+        x:chessboardImg.width - 20
+        y:chessboardImg.y-10
         source: "../../assets/image/3-1.png"
         TapHandler{
             onTapped: {
@@ -164,4 +163,5 @@ SceneBase {
             bgm.volume=value
         }
     }
+
 }

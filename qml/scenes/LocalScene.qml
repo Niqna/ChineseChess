@@ -28,8 +28,8 @@ SceneBase {
         id: title
         width: localScene.width/4
         height: 48
-        x: localScene.width / 2 - title.width / 2
-        y: localScene.height / 9
+        x: localScene.width/2 - title.width/2
+        y: localScene.height/9
         color: "white"
         text: '局域网'
         font.pixelSize: 40
@@ -43,13 +43,12 @@ SceneBase {
 
         // 选择作为创建房间的一方
         Image {
-            id: createRoom
             source: "../../assets/image/04.png"
             anchors.horizontalCenter: parent.horizontalCenter
             width: 250; height: 80
             y:110
             Text {
-                x: 60; y: 20
+                x:60; y:20
                 color: "white"
                 text: '创建房间'
                 font.pixelSize: 30
@@ -64,7 +63,6 @@ SceneBase {
 
         // 选择作为加入房间的一方
         Image {
-            id: joinRoom
             source: "../../assets/image/04.png"
             anchors.horizontalCenter: parent.horizontalCenter
             width: 250; height: 80
@@ -85,7 +83,7 @@ SceneBase {
 
         // 返回按钮，点击返回主菜单
         Image {
-            id: back
+            id: local
             source: "../../assets/image/04.png"
             anchors.horizontalCenter: parent.horizontalCenter
             width: 250; height: 80

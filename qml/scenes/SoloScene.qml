@@ -7,7 +7,7 @@
 import QtQuick 2.15
 import Felgo 3.0
 import QtMultimedia 5.15
-import "../common"
+// SOLO SCENE
 
 SceneBase {
 

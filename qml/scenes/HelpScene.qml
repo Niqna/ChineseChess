@@ -7,7 +7,6 @@
 import QtQuick 2.15
 import Felgo 3.0
 import QtQuick.Controls 2.0
-import "../common"
 
 // HELP SCENE
 SceneBase {
@@ -50,7 +49,8 @@ SceneBase {
                     text3.visible=false
                     break
                 }
-                title.source = "../../assets/image/help" + i + ".png"
+
+                title.source="../../assets/image/help"+i+".png"
             }
         }
     }
@@ -93,7 +93,7 @@ SceneBase {
         id: title
         x:110
         y:90
-        source: "../../assets/image/help" + i + ".png"
+        source: "../../assets/image/help1.png"
     }
 
     // 游戏简介界面内容
@@ -133,10 +133,10 @@ SceneBase {
                         <p>棋子共有三十二个，分为红、黑两<br />
                            组，每组共十六个，各分七种，其<br />
                            名称和数目如下：<br />
-                           红棋：帅一个，车、马、炮、相、<br />
-                           仕各两个，兵五个。<br />
-                           黑棋：将一个，车、马、炮、象、<br />
-                           士各两个，卒五个。</p><br />
+                           红棋子：帅一个，车、马、炮、<br />
+                           相、仕各两个，兵五个。<br />
+                           黑棋子：将一个，车、马、炮、<br />
+                           象、士各两个，卒五个。</p><br />
                         <b>帅/将</b>
                         <p>红方为“帅”，黑方为“将”。<br />
                            帅和将是棋中的首脑，是双方竭力<br />
@@ -198,7 +198,8 @@ SceneBase {
         Text {
             font.pixelSize: 25
             text:qsTr("<p>Version:  V 1.0</p>
-                       <p>Author:   </p>")
+                       <p>Author:  秦昊池 傅佳乐 聂安芹</p>
+                       <p>data:  2023.06.21</p>")
 //            wrapMode:Text.WrapAnywhere
         }
     }

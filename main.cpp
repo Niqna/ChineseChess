@@ -21,7 +21,10 @@ int main(int argc, char *argv[])
 //    int qmlRegisterType(const char *uri, int versignMajor,
 //                        int versionMinor, const char *qmlName);
 
+    //c++注册一个服务端对象
     qmlRegisterType<Server>("Server",1,0,"Server");
+
+    //c++注册一个客户端对象
     qmlRegisterType<Connect>("Connect",1,0,"Connect");
 
     felgo.initialize(&engine);

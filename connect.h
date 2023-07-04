@@ -14,7 +14,11 @@ class Connect : public QObject
 public:
 
     explicit Connect(QObject *parent = nullptr);
+    
+    //qml端可调用的向服务端发送棋子将要移动到的位置的方法
     Q_INVOKABLE void xyChangedSlot(int x,int y,int x1,int y1);
+    
+    //客户端断开连接
     Q_INVOKABLE void disConnect();
 
     Q_PROPERTY(int firstrow READ getFirstrow WRITE setFirstrow NOTIFY firstrowChanged)
@@ -35,8 +39,10 @@ public:
     void setCol(int newCol);
 
 public slots:
-
+    //客户端连接到服务端
     void portSlot(QString p,QString i);
+    
+    //连接失败信息提示
     void displayError(QAbstractSocket::SocketError);
 
 signals:
@@ -53,9 +59,13 @@ private:
     quint16 port;
     QString ip;
     QTcpSocket *tcpsocket;
+    //注册的qml的初始行property
     int firstrow;
+    //注册的qml的初始列property
     int firstcol;
+    //注册的qml的要移动到的行property
     int row;
+    //注册的qml的要移动到的列property
     int col;
 
 };

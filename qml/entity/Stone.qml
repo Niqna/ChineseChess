@@ -26,7 +26,6 @@ SpriteSequence {
     width: 54
     height: 54
     enabled: false
-
     Sprite{
         name: "normal"
         source: "../../assets/image/gameImage/" + theme + "-02.png"
@@ -35,6 +34,5 @@ SpriteSequence {
         frameY: 54 * camp
         frameWidth: 54
         frameHeight: 54
-
     }
 }

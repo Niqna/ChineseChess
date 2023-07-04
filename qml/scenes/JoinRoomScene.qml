@@ -4,14 +4,13 @@
 
 import QtQuick 2.15
 import Felgo 3.0
-import "../common"
 import Connect 1.0
+// CREATEROOM SCENE
 
 SceneBase {
 
     // signal indicating that the gameScene should be displayed
     signal sendMes
-
     signal gamePressed
     signal connectSig(var p,var i)
     signal disConnect_Connect
@@ -96,13 +95,17 @@ SceneBase {
         connectSig.connect(connect.portSlot)
     }
 
+    //c++注册的客户端对象
     Connect{
         id:connect
+
         onConnectSuccess: {
             gamePressed()
             gameScene.camp = 1
             gameScene.init()
         }
+
+        //接受成功则移动棋子
         onReceiveOk: {
             row1=connect.firstrow
             col1=connect.firstcol
@@ -111,9 +114,13 @@ SceneBase {
             console.log(row1,col1,row2,col2)
             gameScene.move_connect()
         }
+
+        //发送成功
         onWriteOk: {
             console.log("S write ok")
         }
+
+        //断开连接显示提示断开对话框
         onDisConnectSignal: {
             gameScene.disConnect()
         }
@@ -132,6 +139,7 @@ SceneBase {
         }
     }
 
+    //收到发送信息信号就调用c++对象的棋子位置移动函数
     onSendMes:{
         console.log(row1,col1,row2,col2)
         connect.xyChangedSlot(row1, col1, row2, col2)

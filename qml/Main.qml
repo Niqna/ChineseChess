@@ -5,6 +5,7 @@
 import Felgo 3.0
 import QtQuick 2.0
 import QtMultimedia 5.15
+
 import "scenes"
 
 
@@ -12,6 +13,8 @@ GameWindow {
     id: window
     screenWidth: 486
     screenHeight: 864
+
+//    signal gamePressed()
 
     // menu scene
     MenuScene {
@@ -86,7 +89,6 @@ GameWindow {
         }
     }
 
-    // bgm
     MediaPlayer{
         id:bgm
         source: "../assets/music/bg4.mp3"

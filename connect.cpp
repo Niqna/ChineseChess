@@ -32,11 +32,12 @@ Connect::Connect(QObject *parent)
 
 }
 
-//检测port的输入，将输入的port转为可识别的格式
+//客户端连接到服务端
 void Connect::portSlot(QString p,QString i)
 {
     port = p.toUShort();
     ip=i;
+    //检测port的输入，将输入的port转为可识别的格式
     if(port == 0){
         qDebug()<<"port error!";
     }
@@ -68,6 +69,7 @@ void Connect::portSlot(QString p,QString i)
     tcpsocket->connectToHost(ip,port);
 }
 
+//连接失败信息提示
 void Connect::displayError(QAbstractSocket::SocketError)
 {
     qDebug()<<tcpsocket->errorString();
@@ -125,6 +127,7 @@ void Connect::setFirstrow(int newFirstrow)
     emit firstrowChanged();
 }
 
+//qml端可调用的向服务端发送棋子将要移动到的位置的方法
 void Connect::xyChangedSlot(int x, int y, int x1, int y1)
 {
     QString mes;
@@ -135,6 +138,8 @@ void Connect::xyChangedSlot(int x, int y, int x1, int y1)
     emit writeOk();
 }
 
+
+//客户端断开连接
 void Connect::disConnect()
 {
     tcpsocket->disconnectFromHost();

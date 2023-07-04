@@ -31,6 +31,7 @@ void Server::setIp(const QString &newIp)
     emit ipChanged();
 }
 
+//服务端连接到客户端
 void Server::portSlot(QString s)
 {
     port = s.toUShort();
@@ -68,7 +69,7 @@ void Server::portSlot(QString s)
         });
         qDebug()<<"server start";
     });
-}
+}   
 
 int Server::getCol() const
 {
@@ -122,6 +123,7 @@ void Server::setFirstrow(int newFirstrow)
     emit firstrowChanged();
 }
 
+//qml端可调用的向客户端发送棋子将要移动到的位置的方法
 void Server::xyChangedSlot(int x,int y,int x1,int y1)
 {
     QString mes;
@@ -130,12 +132,13 @@ void Server::xyChangedSlot(int x,int y,int x1,int y1)
     qDebug()<<"11111  "<<mes;
     clientConnection->write(mes.toUtf8());
     emit writeOk();
-}
+}   
 
+//服务端断开连接
 void Server::disConnect()
 {
     clientConnection->disconnectFromHost();
     clientConnection->close();
     clientConnection->deleteLater();
-}
+}   
 

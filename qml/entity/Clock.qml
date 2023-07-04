@@ -1,7 +1,7 @@
 //anthor：2021051615172fujiale
 
 //计时器类
-import QtQuick 2.15
+import QtQuick 2.0
 import Felgo 3.0
 
 //Clock
@@ -11,7 +11,7 @@ Rectangle {
     width: 125
     height: 28
     color: "transparent"
-    property int theme: 1   //数字图片的主题  数字1～4分别代表竹林幽亭，娟秀青花，烟波浩渺，花好月圆
+    property int theme: gameScene.theme   //数字图片的主题  数字1～4分别代表竹林幽亭，娟秀青花，烟波浩渺，花好月圆
     property int secondNum1: 0    //秒的个位数字 每过1秒加1 到10后归零
     property int secondNum2: 0    //秒的十位数字 每过10秒加1 到6后归零
     property int minuteNum1: 0    //分的个位数字 每过60秒加1 到10后归零
@@ -31,7 +31,7 @@ Rectangle {
     }
 
     //停止计时
-    function stop() {
+    function pause() {
         time_run.stop()
     }
 

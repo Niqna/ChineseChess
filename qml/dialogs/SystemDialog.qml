@@ -9,6 +9,8 @@ import "../scenes"
 Item {
 
     signal disConnectSig
+    signal haveShow
+    signal haveHide
 
     id: dialog
     // if the parent is a Scene, we can fill the whole screen with gameWindowAnchorItem
@@ -18,16 +20,20 @@ Item {
     // by default, the dialog is invisible
     visible: false
 
-    // func：显示动画
+    // show function
     function show() {
+        // set the dialog visible to enable it and start show animation
         initSprite()
         dialog.visible = true
         showAnimation.start()
+        haveShow()
     }
 
-    // func：隐藏动画
+    // hide function
     function hide() {
+        // start hide animation, the dialog will be set invisible once the animation has finished
         hideAnimation.start()
+        haveHide()
     }
 
     // 初始化选项状态
@@ -232,9 +238,9 @@ Item {
                         initSprite()
                         setting.jumpTo("true")
                         setting.goalSprite = "true"
+
                     } else {   //如果是已被选中状态，则显示游戏内系统设置界面
                         gameSettingScene.opacity = 1
-                        gameSettingScene.updateTheme()
                     }
                 }
             }
@@ -277,6 +283,7 @@ Item {
                         initSprite()
                         backmemu.jumpTo("true")
                         backmemu.goalSprite = "true"
+
                     } else {   //如果是已被选中状态，则隐藏对话框，返回主菜单
                         dialog.hide()
                         backButtonPressed()
@@ -294,7 +301,6 @@ Item {
         onBackButtonPressed: {
             opacity = 0
         }
-
     }
 
     // 游戏内帮助关于界面
@@ -303,6 +309,7 @@ Item {
         opacity: 0
         theme: settingScene.theme
         onBackButtonPressed: {  //  点击返回按钮后若主题有更改则改变主题，退出此界面
+            updateTheme()
             changeTheme()
             opacity = 0
         }

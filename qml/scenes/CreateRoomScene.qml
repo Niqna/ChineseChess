@@ -4,8 +4,8 @@
 
 import QtQuick 2.15
 import Felgo 3.0
-import "../common"
 import Server 1.0
+// CREATEROOM SCENE
 
 SceneBase {
 
@@ -113,17 +113,18 @@ SceneBase {
         }
     }
 
+    //c++注册的服务端对象
     Server{
         id:server
 
         onConnectSuccess: {
-            waitMessage.visible = false
             gamePressed()
             gameScene.camp = 0
             gameScene.init()
             waitMessage.visible = false
         }
 
+        //接受成功则移动棋子
         onReceiveOk: {
             row1=server.firstrow
             col1=server.firstcol
@@ -133,15 +134,18 @@ SceneBase {
             gameScene.move_server()
         }
 
+        //发送成功
         onWriteOk: {
             console.log("C write ok")
         }
 
+        //断开连接显示提示断开对话框
         onDisConnectSignal: {
             gameScene.disConnect()
         }
     }
 
+    //收到发送信息信号就调用c++对象的棋子位置移动函数
     onSendMes:{
         console.log(row1,col1,row2,col2)
         server.xyChangedSlot(row1, col1, row2, col2)
@@ -150,6 +154,5 @@ SceneBase {
     onDisConnect_server: {
         server.disConnect()
     }
-
 }
 

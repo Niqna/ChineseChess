@@ -5,7 +5,6 @@
 import Felgo 3.0
 import QtQuick 2.15
 import QtMultimedia 5.15
-import "../common"
 
 SceneBase {
     id: menuScene
@@ -86,6 +85,7 @@ SceneBase {
             height: parent.height-110
             source: "../../assets/image/8-3.png"
         }
+
         TapHandler{
             onTapped: {
                 onclicked: helpPressed()

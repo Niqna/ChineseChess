@@ -20,8 +20,12 @@ public:
 
     const QString &getIp() const;
     void setIp(const QString &newIp);
-    Q_INVOKABLE void xyChangedSlot(int x,int y,int x1,int y1);
-    Q_INVOKABLE void disConnect();
+    
+    //qml端可调用的向客户端发送棋子将要移动到的位置的方法
+    Q_INVOKABLE void xyChangedSlot(int x,int y,int x1,int y1);  
+    
+    //服务端断开连接
+    Q_INVOKABLE void disConnect();  
 
     int getFirstrow() const;
     void setFirstrow(int newFirstrow);
@@ -36,7 +40,8 @@ public:
     void setCol(int newCol);
 
 public slots:
-    void portSlot(QString s);
+    //服务端连接到客户端
+    void portSlot(QString s);   
 
 signals:
     void ipChanged();
@@ -52,12 +57,16 @@ signals:
 private:
     QString ip;
     quint16 port;
-    QTcpServer *tcpserver;
+    QTcpServer *tcpserver;  
     QTcpSocket *clientConnection;
-    int firstrow;
-    int firstcol;
-    int row;
-    int col;
+    //注册的qml的初始行property
+    int firstrow; 
+    //注册的qml的初始列property
+    int firstcol;  
+    //注册的qml的要移动到的行property
+    int row; 
+    //注册的qml的要移动到的列property
+    int col;    
 };
 
 #endif // SERVER_H

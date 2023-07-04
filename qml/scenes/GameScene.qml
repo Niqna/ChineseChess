@@ -4,13 +4,11 @@
 
 import QtQuick 2.15
 import Felgo 3.0
-import "../common"
 import "../entity"
 import "../dialogs"
+// GAME SCENE
 
 SceneBase {
-    id: gameScene
-    anchors.fill: parent
 
     signal disConnect
     signal move_connect
@@ -44,6 +42,10 @@ SceneBase {
         clock.start()
     }
 
+    id: gameScene
+
+    anchors.fill: parent
+
     // 背景图片
     BackgroundImage {
         anchors.fill: parent.gameWindowAnchorItem
@@ -71,14 +73,14 @@ SceneBase {
                 createRoomScene.row2 = _row
                 createRoomScene.col2 = _col
                 console.log(createRoomScene.row1,createRoomScene.col1,createRoomScene.row2,createRoomScene.col2)
-                createRoomScene.sendMes()
+                createRoomScene.sendMes()   //触发创建游戏方的发送信息信号
             } else {   // 如果是加入游戏方
                 joinRoomScene.row1 = first_row
                 joinRoomScene.col1 = first_col
                 joinRoomScene.row2 = _row
                 joinRoomScene.col2 = _col
                 console.log(joinRoomScene.row1,joinRoomScene.col1,joinRoomScene.row2,joinRoomScene.col2)
-                joinRoomScene.sendMes()
+                joinRoomScene.sendMes() //触发加入游戏方的发送信息信号
             }
         }
 
@@ -156,7 +158,7 @@ SceneBase {
 
     // 系统选项
     Image {
-        id: system
+        id: help
         x: 135
         y: 700
         width: 65
@@ -181,8 +183,8 @@ SceneBase {
 
     // 系统字样
     SpriteSequence {
-        x: system.x + 3
-        y: system.y + 20
+        x: help.x + 3
+        y: help.y + 20
         width:50
         height:76
         Sprite {
@@ -209,16 +211,36 @@ SceneBase {
         }
     }
 
+    onMove_connect: {
+        console.log(joinRoomScene.row1,joinRoomScene.col1,joinRoomScene.row2,joinRoomScene.col2)
+        board.moveStone(joinRoomScene.row1,joinRoomScene.col1,joinRoomScene.row2,joinRoomScene.col2)
+        console.log("move")
+    }
+
+    onMove_server: {
+        console.log(createRoomScene.row1,createRoomScene.col1,createRoomScene.row2,createRoomScene.col2)
+        board.moveStone(createRoomScene.row1,createRoomScene.col1,createRoomScene.row2,createRoomScene.col2)
+        console.log("move")
+    }
+
     // 实例化系统对话框
     SystemDialog {
         id: systemDialog
-        onDisConnectSig:{
+
+        onDisConnectSig: {
             if(isServer === 0){
                 createRoomScene.disConnect_server()
             }
             else{
                 joinRoomScene.disConnect_Connect()
             }
+        }
+        onHaveShow: {
+            board.enabled = false
+        }
+
+        onHaveHide: {
+            board.enabled = true
         }
     }
 
@@ -253,28 +275,14 @@ SceneBase {
     // 实例化询问是否继续游戏对话框
     GameAgainDialog {
         id: gameAgainDialog
-        onSelectedOk:{  // 选择“是”则初始化游戏界面，重新开局
+
+        onSelectedOk: {  // 选择“是”则初始化游戏界面，重新开局
             gameScene.init()
 
         }
+
         onSelectedCancel: { // 选择“否”则返回主菜单
             backButtonPressed()
         }
-    }
-
-    onMove_connect: {
-        console.log(joinRoomScene.row1,joinRoomScene.col1,joinRoomScene.row2,joinRoomScene.col2)
-        board.moveStone(joinRoomScene.row1,joinRoomScene.col1,joinRoomScene.row2,joinRoomScene.col2)
-        console.log("move")
-    }
-
-    onMove_server: {
-        console.log(createRoomScene.row1,createRoomScene.col1,createRoomScene.row2,createRoomScene.col2)
-        board.moveStone(createRoomScene.row1,createRoomScene.col1,createRoomScene.row2,createRoomScene.col2)
-        console.log("move")
-    }
-
-    onDisConnect: {
-        disconnectDialog.show()
     }
 }

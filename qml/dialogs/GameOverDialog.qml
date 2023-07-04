@@ -29,7 +29,7 @@ Item {
         showAnimation.start()
     }
 
-    // hide function
+    //    // hide function
     function hide() {
         // start hide animation, the dialog will be set invisible once the animation has finished
         hideAnimation.start()
@@ -52,6 +52,7 @@ Item {
 
     //扇子图片背景和某方胜利字样
     Image {
+        //        visible: false
         id: fan
         y: 200
         width: 480
