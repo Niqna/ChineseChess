@@ -1,3 +1,7 @@
+// anthor：2021051615173nieanqin
+
+//主菜单界面
+
 import Felgo 3.0
 import QtQuick 2.15
 import QtMultimedia 5.15
@@ -17,11 +21,13 @@ SceneBase {
 
     anchors.fill: parent
 
+    // 背景图片
     BackgroundImage {
         anchors.fill: parent.gameWindowAnchorItem
         source: "../../assets/image/bg2.png"
     }
 
+    // 单人游戏按钮
     Image {
         id: soloScene
         x: menuScene.width * 3 / 5
@@ -43,6 +49,7 @@ SceneBase {
         }
     }
 
+    // 联机游戏按钮
     Image {
         id: localScene
         x: soloScene.x - soloScene.width/2
@@ -64,6 +71,7 @@ SceneBase {
         }
     }
 
+    // 帮助关于按钮
     Image {
         id: helpScene
         x: soloScene.x
@@ -85,6 +93,7 @@ SceneBase {
         }
     }
 
+    // 系统设置按钮
     Image {
         id: settingScene
         x: localScene.x

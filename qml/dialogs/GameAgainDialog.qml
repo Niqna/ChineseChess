@@ -1,3 +1,9 @@
+//anthor: 2021051615172fujiale
+
+//询问是否继续游戏的对话框
+//若选择是则继续游戏
+//反之，返回主菜单界面
+
 import QtQuick 2.15
 import Felgo 3.0
 

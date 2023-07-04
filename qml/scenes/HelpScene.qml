@@ -1,3 +1,9 @@
+//anthor: 2021051615173nieanqin
+
+//帮助关于界面
+//共有三个界面，分别是游戏简介，行棋规则，关于
+//点击左右箭头可以切换这三个界面
+
 import QtQuick 2.15
 import Felgo 3.0
 import QtQuick.Controls 2.0
@@ -9,12 +15,14 @@ SceneBase {
     property int i: 1
     anchors.fill: parent
 
+    // 背景图片
     BackgroundImage {
         anchors.fill: parent.gameWindowAnchorItem
         id: bg2
         source: "../../assets/image/01.png"
     }
 
+    // 左箭头，点击后切换到上一个界面
     Image {
         id: left
         x: 40
@@ -42,12 +50,12 @@ SceneBase {
                     text3.visible=false
                     break
                 }
-
-                title.source="../../assets/image/help"+i+".png"
+                title.source = "../../assets/image/help" + i + ".png"
             }
         }
     }
 
+    // 右箭头，点击后切换到下一个界面
     Image {
         id: right
         x:390
@@ -79,12 +87,16 @@ SceneBase {
             }
         }
     }
+
+    // 标题
     Image {
         id: title
         x:110
         y:90
-        source: "../../assets/image/help1.png"
+        source: "../../assets/image/help" + i + ".png"
     }
+
+    // 游戏简介界面内容
     GameScrollView{
         id:text1
         x:55
@@ -107,6 +119,7 @@ SceneBase {
         }
     }
 
+    // 行棋规则界面内容
     GameScrollView{
         id:text2
         x:55
@@ -120,10 +133,10 @@ SceneBase {
                         <p>棋子共有三十二个，分为红、黑两<br />
                            组，每组共十六个，各分七种，其<br />
                            名称和数目如下：<br />
-                           红棋子：帅一个，车、马、炮、<br />
-                           相、仕各两个，兵五个。<br />
-                           黑棋子：将一个，车、马、炮、<br />
-                           象、士各两个，卒五个。</p><br />
+                           红棋：帅一个，车、马、炮、相、<br />
+                           仕各两个，兵五个。<br />
+                           黑棋：将一个，车、马、炮、象、<br />
+                           士各两个，卒五个。</p><br />
                         <b>帅/将</b>
                         <p>红方为“帅”，黑方为“将”。<br />
                            帅和将是棋中的首脑，是双方竭力<br />
@@ -174,6 +187,7 @@ SceneBase {
         }
     }
 
+    // 关于界面内容
     GameScrollView{
         id:text3
         x:55
@@ -189,6 +203,7 @@ SceneBase {
         }
     }
 
+    // 返回按钮，点击后返回主界面
     Image {
         id: back
         y:750

@@ -1,3 +1,7 @@
+//anthor：2021051615172fujiale
+
+// 对话框基类
+
 import QtQuick 2.15
 import Felgo 3.0
 

@@ -1,14 +1,17 @@
+// anthor：2021051615173nieanqin
+
+//创建房间的界面
+
 import QtQuick 2.15
 import Felgo 3.0
 import "../common"
 import Server 1.0
 
-// CREATEROOM SCENE
-
 SceneBase {
 
     // signal indicating that the gameScene should be displayed
     signal gamePressed
+
     signal disConnect_server
     signal sendMes
     signal portSig(var s)

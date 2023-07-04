@@ -1,3 +1,10 @@
+//anthor: 2021051615172fujiale
+
+//游戏结束后弹出的对话框
+//若红方将被吃，则黑方胜利，弹出黑方胜利的对话框
+//反之，弹出红方胜利的对话框
+//弹出后点击屏幕会切换到确认是否继续游戏的对话框（GameAgainDialog.qml）
+
 import QtQuick 2.15
 import Felgo 3.0
 
@@ -12,7 +19,8 @@ Item {
     enabled: visible
     // by default, the dialog is invisible
     visible: false
-    property int winCamp: 0
+
+    property int winCamp: 0  //胜利的阵营
 
     // show function
     function show() {
@@ -21,13 +29,13 @@ Item {
         showAnimation.start()
     }
 
-    //    // hide function
+    // hide function
     function hide() {
         // start hide animation, the dialog will be set invisible once the animation has finished
         hideAnimation.start()
     }
 
-    // this component prevents selecting anything behind the dialog, only enabled if it's a modal dialog
+    // 点击屏幕后隐藏此对话框，准备弹出询问是否继续游戏的对话框
     TapHandler {
         onTapped: {
             dialog.visible = false
@@ -42,6 +50,7 @@ Item {
         color: "#000"
     }
 
+    //扇子图片背景和某方胜利字样
     Image {
         id: fan
         y: 200

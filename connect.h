@@ -1,3 +1,6 @@
+//anthor: 2021051615173nieanqin
+//connect.h
+//客户端
 #ifndef CONNECT_H
 #define CONNECT_H
 

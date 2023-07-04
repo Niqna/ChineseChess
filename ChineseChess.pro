@@ -65,19 +65,22 @@ macx {
 
 DISTFILES += \
     qml/common/SceneBase.qml \
-    qml/dialogs/DialogBase.qml \
+    qml/common/DialogBase.qml \
     qml/dialogs/GameAgainDialog.qml \
     qml/dialogs/GameOverDialog.qml \
     qml/dialogs/SystemDialog.qml \
     qml/entity/Board.qml \
     qml/entity/Clock.qml \
     qml/entity/Stone.qml \
-    qml/scenes/GameSceen.qml \
+    qml/scenes/CreateRoomScene.qml \
+    qml/scenes/GameScene.qml \
     qml/scenes/HelpScene.qml \
+    qml/scenes/JoinRoomScene.qml \
     qml/scenes/LocalScene.qml \
     qml/scenes/MenuScene.qml \
     qml/scenes/SettingScene.qml \
-    qml/scenes/SoloScene.qml
+    qml/scenes/SoloScene.qml \
+    qml/Main.qml
 
 HEADERS += \
     connect.h \

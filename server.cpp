@@ -1,3 +1,6 @@
+//anthor: 2021051615173nieanqin
+//server.cpp
+//客户端
 #include "server.h"
 
 Server::Server(QObject *parent)

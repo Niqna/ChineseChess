@@ -1,3 +1,7 @@
+//anthor: 2021051615172fujiale
+
+//系统对话框
+
 import QtQuick 2.15
 import Felgo 3.0
 import "../scenes"
@@ -14,22 +18,20 @@ Item {
     // by default, the dialog is invisible
     visible: false
 
-    // show function
+    // func：显示动画
     function show() {
-        // set the dialog visible to enable it and start show animation
         initSprite()
         dialog.visible = true
         showAnimation.start()
     }
 
-    // hide function
+    // func：隐藏动画
     function hide() {
-        // start hide animation, the dialog will be set invisible once the animation has finished
         hideAnimation.start()
     }
 
+    // 初始化选项状态
     function initSprite() {
-        // start hide animation, the dialog will be set invisible once the animation has finished
         cancel.jumpTo("false")
         cancel.goalSprite = "false"
         restart.jumpTo("false")
@@ -50,12 +52,14 @@ Item {
         color: "#000"
     }
 
+    // 卷轴背景
     Image {
         id: juanzhou
         anchors.horizontalCenter: parent.horizontalCenter
         y: 180
         source: "../../assets/image/1-4.png"
 
+        // 继续游戏选项
         SpriteSequence {
             id: cancel
             x: 70
@@ -63,6 +67,8 @@ Item {
             width: 217
             height: 55
             goalSprite: "false"
+
+            // 未选中状态
             Sprite{
                 name: "false"
                 source: "../../assets/image/gameImage/dialog1.png"
@@ -72,6 +78,8 @@ Item {
                 frameWidth: 217
                 frameHeight: 55
             }
+
+            // 已选中状态
             Sprite{
                 name: "true"
                 source: "../../assets/image/gameImage/dialog2.png"
@@ -81,20 +89,22 @@ Item {
                 frameWidth: 217
                 frameHeight: 55
             }
+
             TapHandler {
                 onTapped: {
-                    if(cancel.goalSprite === "false"){
+                    if(cancel.goalSprite === "false"){  //如果是未选中状态，则改变状态为已选中
                         initSprite()
                         cancel.jumpTo("true")
                         cancel.goalSprite = "true"
 
-                    } else {
+                    } else {   //如果是已被选中状态，则隐藏该对话框
                         hide()
                     }
                 }
             }
         }
 
+        //重新开局选项
         SpriteSequence {
             id: restart
             x: 70
@@ -102,6 +112,8 @@ Item {
             width: 217
             height: 55
             goalSprite: "false"
+
+            // 未选中状态
             Sprite{
                 name: "false"
                 source: "../../assets/image/gameImage/dialog1.png"
@@ -111,6 +123,8 @@ Item {
                 frameWidth: 217
                 frameHeight: 55
             }
+
+            // 已选中状态
             Sprite{
                 name: "true"
                 source: "../../assets/image/gameImage/dialog2.png"
@@ -120,14 +134,15 @@ Item {
                 frameWidth: 217
                 frameHeight: 55
             }
+
             TapHandler {
                 onTapped: {
-                    if(restart.goalSprite === "false"){
+                    if(restart.goalSprite === "false"){  //如果是未选中状态，则改变状态为已选中
                         initSprite()
                         restart.jumpTo("true")
                         restart.goalSprite = "true"
 
-                    } else {
+                    } else {   //如果是已被选中状态，则初始化棋盘重新开局，隐藏该对话框
                         gameScene.init()
                         hide()
                     }
@@ -135,6 +150,7 @@ Item {
             }
         }
 
+        //帮助关于
         SpriteSequence {
             id: help
             x: 70
@@ -142,6 +158,8 @@ Item {
             width: 217
             height: 55
             goalSprite: "false"
+
+            // 未选中状态
             Sprite{
                 name: "false"
                 source: "../../assets/image/gameImage/dialog1.png"
@@ -151,6 +169,8 @@ Item {
                 frameWidth: 217
                 frameHeight: 55
             }
+
+            // 已选中状态
             Sprite{
                 name: "true"
                 source: "../../assets/image/gameImage/dialog2.png"
@@ -160,20 +180,22 @@ Item {
                 frameWidth: 217
                 frameHeight: 55
             }
+
             TapHandler {
                 onTapped: {
-                    if(help.goalSprite === "false"){
+                    if(help.goalSprite === "false"){  //如果是未选中状态，则改变状态为已选中
                         initSprite()
                         help.jumpTo("true")
                         help.goalSprite = "true"
 
-                    } else {
+                    } else {   //如果是已被选中状态，则显示游戏内帮助关于界面
                         gameHelpScene.opacity = 1
                     }
                 }
             }
         }
 
+        //系统设置
         SpriteSequence {
             id: setting
             x: 70
@@ -181,6 +203,8 @@ Item {
             width: 217
             height: 55
             goalSprite: "false"
+
+            // 未选中状态
             Sprite{
                 name: "false"
                 source: "../../assets/image/gameImage/dialog1.png"
@@ -190,6 +214,8 @@ Item {
                 frameWidth: 217
                 frameHeight: 55
             }
+
+            // 已选中状态
             Sprite{
                 name: "true"
                 source: "../../assets/image/gameImage/dialog2.png"
@@ -199,20 +225,22 @@ Item {
                 frameWidth: 217
                 frameHeight: 55
             }
+
             TapHandler {
                 onTapped: {
-                    if(setting.goalSprite === "false"){
+                    if(setting.goalSprite === "false"){  //如果是未选中状态，则改变状态为已选中
                         initSprite()
                         setting.jumpTo("true")
                         setting.goalSprite = "true"
-
-                    } else {
+                    } else {   //如果是已被选中状态，则显示游戏内系统设置界面
                         gameSettingScene.opacity = 1
+                        gameSettingScene.updateTheme()
                     }
                 }
             }
         }
 
+        //返回主菜单
         SpriteSequence {
             id: backmemu
             x: 70
@@ -220,6 +248,8 @@ Item {
             width: 217
             height: 55
             goalSprite: "false"
+
+            // 未选中状态
             Sprite{
                 name: "false"
                 source: "../../assets/image/gameImage/dialog1.png"
@@ -229,6 +259,8 @@ Item {
                 frameWidth: 217
                 frameHeight: 55
             }
+
+            // 已选中状态
             Sprite{
                 name: "true"
                 source: "../../assets/image/gameImage/dialog2.png"
@@ -238,14 +270,14 @@ Item {
                 frameWidth: 217
                 frameHeight: 55
             }
+
             TapHandler {
                 onTapped: {
-                    if(backmemu.goalSprite === "false"){
+                    if(backmemu.goalSprite === "false"){  //如果是未选中状态，则改变状态为已选中
                         initSprite()
                         backmemu.jumpTo("true")
                         backmemu.goalSprite = "true"
-
-                    } else {
+                    } else {   //如果是已被选中状态，则隐藏对话框，返回主菜单
                         dialog.hide()
                         backButtonPressed()
 
@@ -255,6 +287,7 @@ Item {
         }
     }
 
+    // 游戏内帮助关于界面
     HelpScene {
         id: gameHelpScene
         opacity: 0
@@ -264,17 +297,18 @@ Item {
 
     }
 
+    // 游戏内帮助关于界面
     SettingScene {
         id: gameSettingScene
         opacity: 0
         theme: settingScene.theme
-        onBackButtonPressed: {
-            updateTheme()
+        onBackButtonPressed: {  //  点击返回按钮后若主题有更改则改变主题，退出此界面
             changeTheme()
             opacity = 0
         }
     }
 
+    // func：改变主题
     function changeTheme() {
         settingScene.theme = gameSettingScene.theme
         gameScene.theme = gameSettingScene.theme

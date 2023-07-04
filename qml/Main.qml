@@ -1,7 +1,10 @@
+//anthor： 2021051615172fujiale
+
+//Main.qml
+
 import Felgo 3.0
 import QtQuick 2.0
 import QtMultimedia 5.15
-
 import "scenes"
 
 
@@ -83,6 +86,7 @@ GameWindow {
         }
     }
 
+    // bgm
     MediaPlayer{
         id:bgm
         source: "../assets/music/bg4.mp3"

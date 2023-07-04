@@ -1,14 +1,17 @@
+// anthor：2021051615173nieanqin
+
+//加入房间的界面
+
 import QtQuick 2.15
 import Felgo 3.0
 import "../common"
 import Connect 1.0
 
-// CREATEROOM SCENE
-
 SceneBase {
 
     // signal indicating that the gameScene should be displayed
     signal sendMes
+
     signal gamePressed
     signal connectSig(var p,var i)
     signal disConnect_Connect
@@ -116,6 +119,7 @@ SceneBase {
         }
     }
 
+    // 返回按钮
     Image {
         id: back
         x: 0

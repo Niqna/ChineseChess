@@ -1,3 +1,6 @@
+//anthor: 2021051615173nieanqin
+//connect.cpp
+//客户端
 #include "connect.h"
 
 Connect::Connect(QObject *parent)
@@ -11,6 +14,7 @@ Connect::Connect(QObject *parent)
     connect(tcpsocket,&QTcpSocket::readyRead,this,[=](){
         QByteArray data = tcpsocket->readAll();
 
+        //将传入的行数列数等消息整理后发给服务端
         QStringList list = QString(data).split(",");
         firstrow = 10-list[0].toInt()+1;
         firstcol = 9-list[1].toInt()+1;
@@ -28,6 +32,7 @@ Connect::Connect(QObject *parent)
 
 }
 
+//检测port的输入，将输入的port转为可识别的格式
 void Connect::portSlot(QString p,QString i)
 {
     port = p.toUShort();

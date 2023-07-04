@@ -1,3 +1,7 @@
+//anthor：2021051615172fujiale
+
+// 屏幕基类
+
 import Felgo 3.0
 import QtQuick 2.0
 

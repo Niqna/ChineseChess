@@ -1,3 +1,6 @@
+//anthor：2021051615172fujiale
+
+//计时器类
 import QtQuick 2.15
 import Felgo 3.0
 
@@ -8,12 +11,13 @@ Rectangle {
     width: 125
     height: 28
     color: "transparent"
-    property int theme: 1
-    property int secondNum1: 0
-    property int secondNum2: 0
-    property int minuteNum1: 0
-    property int minuteNum2: 0
+    property int theme: 1   //数字图片的主题  数字1～4分别代表竹林幽亭，娟秀青花，烟波浩渺，花好月圆
+    property int secondNum1: 0    //秒的个位数字 每过1秒加1 到10后归零
+    property int secondNum2: 0    //秒的十位数字 每过10秒加1 到6后归零
+    property int minuteNum1: 0    //分的个位数字 每过60秒加1 到10后归零
+    property int minuteNum2: 0    //分的十位数字 每过1分钟加1 到6后归零
 
+    //func：将计时器初始化为00：00
     function init() {
         secondNum1 = 0
         secondNum2 = 0
@@ -21,14 +25,17 @@ Rectangle {
         minuteNum2 = 0
     }
 
+    //func：开始计时
     function start() {
         time_run.start()
     }
 
+    //停止计时
     function stop() {
         time_run.stop()
     }
 
+    //秒的个位图片
     AnimatedSprite {
         id: second1
         width: 25
@@ -41,6 +48,7 @@ Rectangle {
         frameHeight: 28
     }
 
+    //秒的十位图片
     AnimatedSprite {
         id: second2
         width: 25
@@ -53,6 +61,7 @@ Rectangle {
         frameY: 0
     }
 
+    //点:的图片
     AnimatedSprite {
         id: dot
         width: 25
@@ -65,6 +74,7 @@ Rectangle {
         frameY: 0
     }
 
+    //分的个位图片
     AnimatedSprite {
         id: minute1
         width: 25
@@ -76,6 +86,8 @@ Rectangle {
         frameX: minuteNum1 * 25
         frameY: 0
     }
+
+    //分的十位图片
     AnimatedSprite {
         id: minute2
         width: 25
@@ -88,6 +100,7 @@ Rectangle {
         frameY: 0
     }
 
+    //计时器，启动后每过一秒使秒加1
     Timer {
         id: time_run
         interval: 1000
